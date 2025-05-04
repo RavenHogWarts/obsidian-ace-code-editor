@@ -1,0 +1,42 @@
+.ace-edit-code-block-modal {
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+	width: 80vw;
+
+	.code-editor-modal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 16px;
+		border-bottom: 1px solid var(--background-modifier-border);
+
+		.language-indicator {
+			padding: 4px 8px;
+			background: var(--background-modifier-hover);
+			border-radius: 4px;
+			font-size: 12px;
+			color: var(--text-muted);
+		}
+	}
+
+	.code-editor-modal-content {
+		flex: 1;
+		overflow: hidden;
+		padding: 16px;
+
+		.ace-editor-container {
+			height: 100%;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+	}
+
+	.code-editor-modal-footer {
+		display: flex;
+		justify-content: flex-end;
+		gap: 8px;
+		padding: 16px;
+		border-top: 1px solid var(--background-modifier-border);
+	}
+}

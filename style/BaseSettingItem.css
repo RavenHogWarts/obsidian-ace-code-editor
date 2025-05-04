@@ -1,0 +1,77 @@
+.ace-settings-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 1.25rem 0;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+.ace-settings-item.is-collapsible {
+	flex-direction: column;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+
+	.ace-settings-item-info {
+		margin-right: 0;
+		margin-bottom: 0.75rem;
+		width: 100%;
+		min-width: 0;
+	}
+
+	.ace-settings-item-control {
+		width: 100%;
+		min-width: 0;
+	}
+}
+
+.ace-settings-item-info {
+	flex: 1;
+	margin-right: 1.5rem;
+	padding: 0.25rem 0;
+
+	.ace-settings-item-heading {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.ace-settings-item-icon {
+		color: var(--interactive-accent);
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
+
+	.ace-settings-item-name {
+		font-weight: 600;
+		color: var(--text-normal);
+		font-size: 1rem;
+	}
+
+	.ace-settings-item-description {
+		font-size: 0.9rem;
+		color: var(--text-muted);
+		line-height: 1.5;
+	}
+
+	.ace-settings-item-collapse-icon {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--text-muted);
+		transition: color 0.2s ease;
+		margin-left: auto;
+	}
+}
+
+.ace-settings-item-control {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-shrink: 0;
+	gap: 0.5rem;
+
+	.ace-select-wrapper {
+		width: auto;
+	}
+}
