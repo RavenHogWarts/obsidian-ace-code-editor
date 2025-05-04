@@ -1,9 +1,9 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "ace-code-editor",
+	"name": "Ace Code Editor",
 	"version": "1.0.0",
 	"minAppVersion": "1.6.7",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
+	"description": "An enhanced code editor using Ace editor, providing syntax highlighting, code folding, and other advanced editing features.",
 	"author": "RavenHogWarts",
 	"authorUrl": "https://github.com/RavenHogWarts",
 	"fundingUrl": {

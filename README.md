@@ -1,29 +1,27 @@
 English | [中文](./README-zh.md)
 
-# Obsidian Sample Plugin
-This is a sample plugin for Obsidian (https://obsidian.md).
+# ACE CODE EDITOR
 
-This project uses Typescript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+An enhanced code editor using Ace editor, providing syntax highlighting, code folding, and other advanced editing features.
 
-[![GitHub stars](https://img.shields.io/github/stars/RavenHogWarts/obsidian-plugin-starter?style=flat&label=Stars)](https://github.com/RavenHogWarts/obsidian-plugin-starter/stargazers)
-[![Total Downloads](https://img.shields.io/github/downloads/RavenHogWarts/obsidian-plugin-starter/total?style=flat&label=Total%20Downloads)](https://github.com/RavenHogWarts/obsidian-plugin-starter/releases)
-[![GitHub License](https://img.shields.io/github/license/RavenHogWarts/obsidian-plugin-starter?style=flat&label=License)](https://github.com/RavenHogWarts/obsidian-plugin-starter/blob/master/LICENSE)
-[![GitHub Issues](https://img.shields.io/github/issues/RavenHogWarts/obsidian-plugin-starter?style=flat&label=Issues)](https://github.com/RavenHogWarts/obsidian-plugin-starter/issues)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/RavenHogWarts/obsidian-plugin-starter?style=flat&label=Last%20Commit)](https://github.com/RavenHogWarts/obsidian-plugin-starter/commits/master)
+[![GitHub stars](https://img.shields.io/github/stars/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Stars)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/stargazers)
+[![Total Downloads](https://img.shields.io/github/downloads/RavenHogWarts/obsidian-ace-code-editor/total?style=flat&label=Total%20Downloads)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/releases)
+[![GitHub License](https://img.shields.io/github/license/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=License)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/blob/master/LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Issues)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Last%20Commit)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commits/master)
 
 ## Installation
 ### Manual Installation
 
 1. Download the latest release
-2. Copy `main.js`, `styles.css`, and `manifest.json` to your vault's plugins folder: `<vault>/.obsidian/plugins/obsidian-sample-plugin/`
+2. Copy `main.js`, `styles.css`, and `manifest.json` to your vault's plugins folder: `<vault>/.obsidian/plugins/obsidian-ace-code-editor/`
 3. Reload Obsidian
 4. Enable the plugin in Settings → Community Plugins
 
 ### BRAT (Recommended for Beta Users)
 1. Install [BRAT](https://github.com/TfTHacker/obsidian42-brat) plugin
 2. Click "Add Beta plugin" in BRAT settings
-3. Enter `RavenHogWarts/obsidian-sample-plugin`
+3. Enter `RavenHogWarts/obsidian-ace-code-editor`
 4. Enable the plugin
 
 ## Development
@@ -40,36 +38,17 @@ The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definiti
 ## Support
 
 If you encounter any issues or have suggestions:
-- [Open an issue](https://github.com/RavenHogWarts/obsidian-plugin-starter/issues) on GitHub
-- [Join the discussion](https://github.com/RavenHogWarts/obsidian-plugin-starter/discussions) for questions and ideas
+- [Open an issue](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues) on GitHub
+- [Join the discussion](https://github.com/RavenHogWarts/obsidian-ace-code-editor/discussions) for questions and ideas
+- [Check the contributing guidelines](./CONTRIBUTING.md) if you'd like to contribute to the project
 
 If you find this plugin helpful, you can support the development through:
 - WeChat/Alipay: [QR Code](https://s2.loli.net/2024/05/06/lWBj3ObszUXSV2f.png)
 
 ## License
 
-This project is licensed under the xxx LICENSE - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT LICENSE - see the [LICENSE](LICENSE) file for details.
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=RavenHogWarts/obsidian-plugin-starter&type=Timeline)](https://www.star-history.com/#RavenHogWarts/obsidian-plugin-starter&Timeline)
-
-# Files to Modify
-When developing or customizing the plugin, the following files may need to be modified:
-
-## [config.yml](./.github/ISSUE_TEMPLATE/config.yml)
-- URL
-
-## [release.yml](./.github/workflows/release.yml)
-- Plugin name xxx
-
-## [manifest.json](./manifest.json)
-- Author
-- Donation link
-
-## [manifest-beta.json](./manifest-beta.json)
-- Author
-- Donation link
-
-## [package.json](./package.json)
-- Author
+[![Star History Chart](https://api.star-history.com/svg?repos=RavenHogWarts/obsidian-ace-code-editor&type=Timeline)](https://www.star-history.com/#RavenHogWarts/obsidian-ace-code-editor&Timeline)
