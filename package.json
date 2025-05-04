@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "ace-code-editor",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "An enhanced code editor using Ace editor, providing syntax highlighting, code folding, and other advanced editing features.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node scripts/esbuild.config.mjs",
@@ -16,6 +16,8 @@
 		"lint:fix": "eslint . --ext .ts,.tsx --fix"
 	},
 	"keywords": [
+		"Ace Editor",
+		"Code Editor",
 		"Obsidian Plugin"
 	],
 	"author": "RavenHogWarts",
@@ -41,7 +43,13 @@
 		"typescript": "4.7.4"
 	},
 	"dependencies": {
-		"dotenv": "^16.4.7"
+		"@types/ace": "^0.0.52",
+		"ace-builds": "^1.41.0",
+		"dotenv": "^16.4.7",
+		"lucide-react": "^0.507.0",
+		"react": "^19.1.0",
+		"react-ace": "^14.0.1",
+		"react-dom": "^19.1.0"
 	},
 	"config": {
 		"commitizen": {

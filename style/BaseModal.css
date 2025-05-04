@@ -1,0 +1,85 @@
+/* Base Modal Styles */
+.ace-modal {
+	max-width: 90vw;
+	max-height: 90vh;
+	overflow-y: auto;
+	padding: 20px;
+	margin: 0 auto;
+	background-color: var(--background-primary);
+	border-radius: 8px;
+	box-shadow: 0 2px 8px var(--background-modifier-box-shadow);
+	position: relative;
+	border: 1px solid var(--color-accent);
+
+	&.modal-size-large {
+		width: 90vw;
+		height: 90vh;
+	}
+	&.modal-size-medium {
+		width: 60vw;
+		height: 60vh;
+	}
+	&.modal-size-small {
+		width: 35vw;
+		height: 35vh;
+	}
+}
+
+.theme-dark .ace-modal {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.ace-modal-close {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	color: var(--text-muted);
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background-color: var(--background-modifier-hover);
+		color: var(--text-normal);
+	}
+}
+
+.ace-modal-loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100px;
+	color: var(--text-muted);
+}
+
+/* @media */
+@media screen and (max-width: 768px) {
+	.ace-modal {
+		max-width: 95vw;
+		padding: 16px;
+		font-size: 0.9rem;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: thin;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.rht-toolkit-modal {
+		max-width: 100vw;
+		max-height: 100vh;
+		padding: 12px;
+		border-radius: 0; /* 在超窄屏幕上移除圆角 */
+		font-size: 0.85rem;
+
+		/* 在超窄屏幕上隐藏自定义滚动条 */
+		&::-webkit-scrollbar {
+			width: 4px;
+			height: 4px;
+		}
+	}
+}
