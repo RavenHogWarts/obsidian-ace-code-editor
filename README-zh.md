@@ -10,6 +10,14 @@
 [![GitHub Issues](https://img.shields.io/github/issues/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=问题)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=最后提交)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commits/master)
 
+## 功能介绍
+
+- 在 obsidian 中直接进行代码编辑
+![](./assets/code%20view%20leaf.png)
+
+- 管理 css 代码片段
+![](./assets/snippet%20manager.png)
+
 ## 安装
 ### 手动安装
 

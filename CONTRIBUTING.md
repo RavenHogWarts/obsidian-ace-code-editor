@@ -1,10 +1,10 @@
-# Contributing to xxx English Version
+# Contributing to Ace Code Editor English Version
 
-Thank you for your interest in contributing to xxx! This document provides guidelines and instructions for contributing to this project.
+Thank you for your interest in contributing to Ace Code Editor! This document provides guidelines and instructions for contributing to this project.
 
 ## Table of Contents
 
-- [Contributing to xxx English Version](#contributing-to-xxx-english-version)
+- [Contributing to Ace Code Editor English Version](#contributing-to-ace-code-editor-english-version)
   - [Table of Contents](#table-of-contents)
   - [Code of Conduct](#code-of-conduct)
   - [Getting Started](#getting-started)
@@ -40,8 +40,8 @@ By participating in this project, you are expected to uphold our Code of Conduct
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally
    ```bash
-   git clone https://github.com/your-username/xxx.git
-   cd xxx
+   git clone https://github.com/your-username/ace-code-editor.git
+   cd ace-code-editor
    ```
 3. **Install dependencies**
    ```bash
@@ -179,8 +179,8 @@ Feature requests are welcome. Please provide:
 1. **在 GitHub 上 Fork 仓库**
 2. **在本地克隆您的 Fork**
    ```bash
-   git clone https://github.com/your-username/xxx.git
-   cd xxx
+   git clone https://github.com/your-username/ace-code-editor.git
+   cd ace-code-editor
    ```
 3. **安装依赖**
    ```bash

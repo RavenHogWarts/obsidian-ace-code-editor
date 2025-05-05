@@ -10,6 +10,14 @@ An enhanced code editor using Ace editor, providing syntax highlighting, code fo
 [![GitHub Issues](https://img.shields.io/github/issues/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Issues)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Last%20Commit)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commits/master)
 
+## Features
+
+- Edit code directly in Obsidian
+![](./assets/code%20view%20leaf.png)
+
+- Manage CSS snippets
+![](./assets/snippet%20manager.png)
+
 ## Installation
 ### Manual Installation
 
