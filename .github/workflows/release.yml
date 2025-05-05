@@ -150,16 +150,16 @@ jobs:
                     # 添加安装说明
                     if [ "$is_chinese" = true ]; then
                       echo -e "\n## 如何安装\n" >> "$output_file"
-                      echo -e "1. 下载 \`ace-code-editor.zip\` 压缩文件" >> "$output_file"
-                      echo -e "2. 解压到你的 Obsidian 库的插件文件夹内: \`<vault>/.obsidian/plugins/ace-code-editor/\`" >> "$output_file"
+                      echo -e "1. 下载 \`${{ env.PLUGIN_NAME }}.zip\` 压缩文件" >> "$output_file"
+                      echo -e "2. 解压到你的 Obsidian 库的插件文件夹内: \`<vault>/.obsidian/plugins/${{ env.PLUGIN_NAME }}/`" >> "$output_file"
                       echo -e "3. 重启 Obsidian" >> "$output_file"
-                      echo -e "4. 在设置中启用 **Ace Code Editor**" >> "$output_file"
+                      echo -e "4. 在设置中启用 **${{ env.PLUGIN_NAME }}**" >> "$output_file"
                     else
                       echo -e "\n## Installation\n" >> "$output_file"
-                      echo -e "1. Download the files from the Assets section below" >> "$output_file"
-                      echo -e "2. Copy them to your vault's plugins folder: \`<vault>/.obsidian/plugins/ace-code-editor/\`" >> "$output_file"
+                      echo -e "1. Download \`${{ env.PLUGIN_NAME }}.zip\`" >> "$output_file"
+                      echo -e "2. Unzip it to your Obsidian vault's plugins folder: \`<vault>/.obsidian/plugins/${{ env.PLUGIN_NAME }}/`" >> "$output_file"
                       echo -e "3. Reload Obsidian" >> "$output_file"
-                      echo -e "4. Enable **Ace Code Editor** plugin in settings" >> "$output_file"
+                      echo -e "4. Enable **${{ env.PLUGIN_NAME }}** plugin in settings" >> "$output_file"
                     fi
                   }
 
@@ -206,12 +206,6 @@ jobs:
                       **Version:** ${{ github.ref_name }}
 
                       ${{ steps.changelog.outputs.changelog }}
-
-                      ## Installation
-                      1. Download the files from the Assets section below
-                      2. Copy them to your vault's plugins folder: `<vault>/.obsidian/plugins/ace-code-editor/`
-                      3. Reload Obsidian
-                      4. Enable plugin in settings
 
             - name: Upload zip file
               id: upload-zip
