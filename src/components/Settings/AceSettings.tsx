@@ -43,16 +43,18 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 	React.useEffect(() => {
 		async function loadSystemFonts() {
 			try {
-				if ("queryLocalFonts" in window) {
-					const fonts = await window.queryLocalFonts();
-					// 获取唯一的字体族名称
-					const uniqueFontFamilies = [
-						...new Set(fonts.map((font) => font.family)),
-					];
-					setSystemFonts(uniqueFontFamilies);
-				} else {
-					new Notice("您的浏览器不支持系统字体访问功能");
-				}
+				const fonts = await window.queryLocalFonts();
+				// 创建字体族的Map以检查是否已添加
+				const fontFamilies = new Set<string>();
+
+				// 遍历所有字体，将每个唯一的family添加到Set中
+				fonts.forEach((font) => {
+					if (font.family) {
+						fontFamilies.add(font.family);
+					}
+				});
+				// 转换Set为数组
+				setSystemFonts(Array.from(fontFamilies).sort());
 			} catch (error) {
 				console.error("获取系统字体失败:", error);
 				new Notice(
