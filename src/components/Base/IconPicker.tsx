@@ -1,5 +1,12 @@
 import * as React from "react";
-import { App, getIconIds, IconName, setIcon, SuggestModal } from "obsidian";
+import {
+	App,
+	FuzzyMatch,
+	FuzzySuggestModal,
+	getIconIds,
+	IconName,
+	setIcon,
+} from "obsidian";
 
 interface IconPickerProps {
 	app: App;
@@ -38,7 +45,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({
 	);
 };
 
-class IconSelector extends SuggestModal<IconName> {
+class IconSelector extends FuzzySuggestModal<IconName> {
 	private callback: (icon: string) => void;
 
 	constructor(app: App, callback: (icon: string) => void) {
@@ -51,32 +58,22 @@ class IconSelector extends SuggestModal<IconName> {
 		]);
 	}
 
-	getSuggestions(inputStr: string): IconName[] {
-		const iconIds = getIconIds();
-		const iconSuggestions: IconName[] = [];
-		const lowerCaseInputStr = inputStr.toLowerCase();
-
-		iconIds.forEach((id) => {
-			if (id.toLowerCase().includes(lowerCaseInputStr)) {
-				iconSuggestions.push(id.replace("lucide-", ""));
-			}
-		});
-
-		return iconSuggestions;
+	getItems(): IconName[] {
+		return getIconIds().map((id) => id.replace("lucide-", ""));
 	}
 
-	renderSuggestion(icon: IconName, el: HTMLElement) {
-		const suggestionEl = el.createDiv({ cls: "ace-icon-suggestion" });
-		const iconEl = suggestionEl.createDiv({ cls: "ace-icon-display" });
-		setIcon(iconEl, icon);
-		suggestionEl.createSpan({ text: icon });
+	getItemText(icon: IconName): string {
+		return icon;
 	}
 
-	onChooseSuggestion(
-		selectedItem: string,
-		evt: MouseEvent | KeyboardEvent
-	): void {
-		this.callback(selectedItem);
-		this.close();
+	renderSuggestion(item: FuzzyMatch<IconName>, el: HTMLElement) {
+		super.renderSuggestion(item, el);
+		el.addClass("ace-icon-suggestion");
+		setIcon(el, item.item);
+		el.createSpan({ text: item.item });
+	}
+
+	onChooseItem(item: IconName, evt: MouseEvent | KeyboardEvent): void {
+		this.callback(item);
 	}
 }

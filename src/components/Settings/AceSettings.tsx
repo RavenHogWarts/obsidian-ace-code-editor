@@ -15,6 +15,21 @@ import { Select } from "../Base/Select";
 import { IconPicker } from "../Base/IconPicker";
 import { Input } from "../Base/Input";
 import { Toggle } from "../Base/Toggle";
+import { Notice } from "obsidian";
+
+interface FontData {
+	family: string;
+	fullName: string;
+	postscriptName: string;
+	style: string;
+	blob(): Promise<Blob>;
+}
+
+declare global {
+	interface Window {
+		queryLocalFonts: () => Promise<FontData[]>;
+	}
+}
 
 interface AceSettingsProps {
 	plugin: AceCodeEditorPlugin;
@@ -22,6 +37,34 @@ interface AceSettingsProps {
 
 export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 	const { settings, updateSettings } = useSettings(plugin);
+	const [systemFonts, setSystemFonts] = React.useState<string[]>([]);
+
+	// 加载系统字体
+	React.useEffect(() => {
+		async function loadSystemFonts() {
+			try {
+				const fonts = await window.queryLocalFonts();
+				// 创建字体族的Map以检查是否已添加
+				const fontFamilies = new Set<string>();
+
+				// 遍历所有字体，将每个唯一的family添加到Set中
+				fonts.forEach((font) => {
+					if (font.family) {
+						fontFamilies.add(font.family);
+					}
+				});
+				// 转换Set为数组
+				setSystemFonts(Array.from(fontFamilies).sort());
+			} catch (error) {
+				console.error("获取系统字体失败:", error);
+				new Notice(
+					"无法访问系统字体，可能需要授权或使用更现代的浏览器"
+				);
+			}
+		}
+
+		loadSystemFonts();
+	}, []);
 
 	const handleUpdateConfig = async (
 		newSettings: Partial<ICodeEditorConfig>
@@ -72,6 +115,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					onChange={(value) =>
 						handleUpdateConfig({ supportExtensions: value })
 					}
+					placeholder={t("setting.supportExtensions.placeholder")}
 					suggestions={Object.values(languageModeMap).flat()}
 				/>
 			</SettingsItem>
@@ -156,6 +200,18 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					onChange={(value) =>
 						handleUpdateConfig({ fontFamily: value })
 					}
+					suggestions={systemFonts}
+					placeholder={t("setting.fontFamily.placeholder")}
+					renderCustomSuggestion={(font) => (
+						<div
+							className="ace-font-family"
+							style={{
+								fontFamily: font,
+							}}
+						>
+							<span>{font}</span>
+						</div>
+					)}
 				/>
 			</SettingsItem>
 

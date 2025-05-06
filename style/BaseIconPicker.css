@@ -2,21 +2,11 @@
 	display: flex;
 	align-items: center;
 	gap: 12px;
-	border-radius: 4px;
 	transition: background-color 0.2s ease;
 
 	:hover {
 		background-color: var(--background-modifier-hover);
 	}
-}
-
-.ace-icon-display {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 24px;
-	height: 24px;
-	color: var(--text-muted);
 }
 
 .ace-iconPick {
