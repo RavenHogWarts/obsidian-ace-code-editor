@@ -45,4 +45,9 @@
 	border-radius: 8px;
 	padding: 1.5rem;
 	border: 1px solid var(--background-modifier-border);
+
+	.ace-font-family {
+		display: flex;
+		align-items: center;
+	}
 }

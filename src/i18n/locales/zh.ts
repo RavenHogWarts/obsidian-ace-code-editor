@@ -54,8 +54,9 @@ const translations: BaseMessage = {
 		title: "代码编辑器",
 		desc: "基于 Ace-Editor ",
 		supportExtensions: {
-			name: "注册文件扩展名",
+			name: "注册文件类型",
 			desc: "注册后，点击文件将直接在代码编辑器中打开，修改后需重载插件",
+			placeholder: "输入文件扩展名，按下Enter键添加",
 		},
 		snippetsManager: {
 			name: "css片段管理",
@@ -89,6 +90,7 @@ const translations: BaseMessage = {
 		fontFamily: {
 			name: "字体",
 			desc: "代码编辑器使用的字体",
+			placeholder: "选择或输入字体名称",
 		},
 		tabSize: {
 			name: "缩进宽度",

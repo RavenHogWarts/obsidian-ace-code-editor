@@ -69,7 +69,9 @@ export type BaseMessage = {
 	setting: {
 		title: string;
 		desc: string;
-		supportExtensions: IBaseSettingsItem;
+		supportExtensions: SettingsItem<{
+			placeholder: string;
+		}>;
 		snippetsManager: SettingsItem<{
 			location: {
 				Null: string;
@@ -82,7 +84,9 @@ export type BaseMessage = {
 		keyboard: IBaseSettingsItem;
 		lineNumbers: IBaseSettingsItem;
 		fontSize: IBaseSettingsItem;
-		fontFamily: IBaseSettingsItem;
+		fontFamily: SettingsItem<{
+			placeholder: string;
+		}>;
 		tabSize: IBaseSettingsItem;
 	};
 };

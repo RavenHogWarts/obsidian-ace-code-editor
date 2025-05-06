@@ -6,6 +6,7 @@ interface TagInputProps {
 	onChange: (values: string[]) => void;
 	suggestions?: string[];
 	placeholder?: string;
+	renderCustomSuggestion?: (suggestion: string) => React.ReactNode;
 }
 
 export const TagInput: React.FC<TagInputProps> = ({
@@ -13,6 +14,7 @@ export const TagInput: React.FC<TagInputProps> = ({
 	onChange,
 	suggestions = [] as string[],
 	placeholder,
+	renderCustomSuggestion,
 }) => {
 	const [inputValue, setInputValue] = React.useState("");
 	const [showSuggestions, setShowSuggestions] = React.useState(false);
@@ -202,7 +204,9 @@ export const TagInput: React.FC<TagInputProps> = ({
 								}}
 								onMouseEnter={() => setSelectedIndex(index)}
 							>
-								{suggestion}
+								{renderCustomSuggestion
+									? renderCustomSuggestion(suggestion)
+									: suggestion}
 							</div>
 						))}
 					</div>

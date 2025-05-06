@@ -56,6 +56,7 @@ const translations: BaseMessage = {
 		supportExtensions: {
 			name: "註冊檔案副檔名",
 			desc: "註冊後，點擊檔案將直接在程式碼編輯器中開啟，修改後需重載外掛",
+			placeholder: "輸入檔案副檔名，按下Enter鍵新增",
 		},
 		snippetsManager: {
 			name: "css片段管理",
@@ -89,6 +90,7 @@ const translations: BaseMessage = {
 		fontFamily: {
 			name: "字體",
 			desc: "程式碼編輯器使用的字體",
+			placeholder: "選擇或輸入字體名稱",
 		},
 		tabSize: {
 			name: "縮排寬度",

@@ -57,8 +57,9 @@ const translations: BaseMessage = {
 		title: "Code Editor",
 		desc: "Based on Ace-Editor",
 		supportExtensions: {
-			name: "Register File Extensions",
+			name: "Register File Extension",
 			desc: "After registration, clicking files will open directly in the code editor. Reload plugin after changes",
+			placeholder: "Enter file extension, press enter to add",
 		},
 		snippetsManager: {
 			name: "CSS Snippet Management",
@@ -92,6 +93,7 @@ const translations: BaseMessage = {
 		fontFamily: {
 			name: "Font",
 			desc: "Font used by code editor",
+			placeholder: "Select or enter font name",
 		},
 		tabSize: {
 			name: "Indentation Width",
