@@ -1,3 +1,4 @@
+import { getLanguage } from "obsidian";
 import {
 	BaseMessage,
 	SupportedLocales,
@@ -13,7 +14,7 @@ export class I18n {
 
 	private constructor() {
 		// 获取系统语言，默认为英文
-		const lang = window.localStorage.getItem("language") || "en";
+		const lang = getLanguage();
 
 		this.currentLocale = lang;
 		this.flattenTranslations();
