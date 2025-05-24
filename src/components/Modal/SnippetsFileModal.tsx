@@ -123,8 +123,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
 
 	const handleCreateFile = async () => {
 		if (!newFileName.trim()) {
-			console.error(t("notice.file_name_validate"));
-			return;
+			throw new Error(t("notice.file_name_validate"));
 		}
 
 		let fileName = newFileName;
@@ -138,8 +137,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
 			const exists = await adapter.exists(filePath);
 
 			if (exists) {
-				console.error(t("notice.file_already_exists"));
-				return;
+				throw new Error(t("notice.file_already_exists"));
 			}
 
 			await adapter.write(filePath, "/* CSS Snippet */\n");
@@ -153,7 +151,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
 			await openExternalFile(filePath, true);
 			onClose();
 		} catch (error) {
-			console.error(t("notice.create_file_failed", { error }));
+			throw new Error(t("notice.create_file_failed", { error }));
 		}
 	};
 

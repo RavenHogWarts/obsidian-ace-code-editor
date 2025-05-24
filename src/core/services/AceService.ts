@@ -95,7 +95,7 @@ export class AceService {
 				try {
 					URL.revokeObjectURL(url);
 				} catch (e) {
-					console.error("Failed to revoke worker URL", e);
+					throw new Error("Failed to revoke worker URL" + e);
 				}
 			});
 			this.workerUrls.clear();

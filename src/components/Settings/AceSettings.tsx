@@ -56,10 +56,10 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				// 转换Set为数组
 				setSystemFonts(Array.from(fontFamilies).sort());
 			} catch (error) {
-				console.error("获取系统字体失败:", error);
 				new Notice(
 					"无法访问系统字体，可能需要授权或使用更现代的浏览器"
 				);
+				throw new Error("获取系统字体失败:" + error);
 			}
 		}
 

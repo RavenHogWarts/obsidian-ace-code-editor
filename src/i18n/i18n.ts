@@ -51,8 +51,7 @@ export class I18n {
 	public t(key: TranslationKeys, params?: TranslationParams): string {
 		const translation = this.flatTranslations[this.currentLocale][key];
 		if (!translation) {
-			console.warn(`Translation key not found: ${key}`);
-			return key;
+			throw new Error(`Translation key not found: ${key}`);
 		}
 
 		if (!params) {
@@ -70,7 +69,9 @@ export class I18n {
 			this.currentLocale = locale;
 			window.localStorage.setItem("language", locale);
 		} else {
-			console.warn(`Locale not found: ${locale}, falling back to 'en'`);
+			throw new Error(
+				`Locale not found: ${locale}, falling back to 'en'`
+			);
 			this.currentLocale = "en";
 			window.localStorage.setItem("language", "en");
 		}
