@@ -51,8 +51,6 @@ const translations: BaseMessage = {
 		},
 	},
 	setting: {
-		title: "程式碼編輯器",
-		desc: "基於 Ace-Editor ",
 		supportExtensions: {
 			name: "註冊檔案副檔名",
 			desc: "註冊後，點擊檔案將直接在程式碼編輯器中開啟，修改後需重載外掛",

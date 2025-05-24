@@ -39,10 +39,7 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 			<React.StrictMode>
 				<div className="ace-settings-container">
 					<div className="ace-settings-header">
-						<div className="ace-settings-header-left">
-							<h2>{t("setting.title")}</h2>
-							<p>{t("setting.desc")}</p>
-						</div>
+						<div className="ace-settings-header-left"></div>
 						<div className="ace-settings-header-right">
 							<button
 								className="mod-cta"
@@ -68,7 +65,7 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 			await this.app.plugins.enablePluginAndSave("ace-code-editor");
 			new Notice("[ace-code-editor] 插件已重载");
 		} catch (error) {
-			console.error("[ace-code-editor] 插件重载失败", error);
+			throw new Error("[ace-code-editor] 插件重载失败" + error);
 		}
 	}
 }

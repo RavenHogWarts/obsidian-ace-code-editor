@@ -59,13 +59,11 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 
 	const validateFileName = () => {
 		if (!fileName.trim()) {
-			console.error(t("notice.file_name_validate"));
-			return false;
+			throw new Error(t("notice.file_name_validate"));
 		}
 
 		if (isCustomFilename && !fileName.includes(".")) {
-			console.error(t("notice.file_name_with_extension_validate"));
-			return false;
+			throw new Error(t("notice.file_name_with_extension_validate"));
 		}
 
 		return true;
@@ -81,8 +79,7 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 		try {
 			const existingFile = app.vault.getAbstractFileByPath(fullPath);
 			if (existingFile) {
-				console.error(t("notice.file_already_exists"));
-				return;
+				throw new Error(t("notice.file_already_exists"));
 			}
 
 			await app.vault.create(fullPath, "");
@@ -94,7 +91,7 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 
 			onClose();
 		} catch (error) {
-			console.error(t("notice.create_file_failed", { error }));
+			throw new Error(t("notice.create_file_failed", { error }));
 		}
 	};
 

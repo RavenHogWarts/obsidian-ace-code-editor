@@ -51,8 +51,6 @@ const translations: BaseMessage = {
 		},
 	},
 	setting: {
-		title: "代码编辑器",
-		desc: "基于 Ace-Editor ",
 		supportExtensions: {
 			name: "注册文件类型",
 			desc: "注册后，点击文件将直接在代码编辑器中打开，修改后需重载插件",

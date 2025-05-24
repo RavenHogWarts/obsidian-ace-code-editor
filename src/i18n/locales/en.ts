@@ -54,8 +54,6 @@ const translations: BaseMessage = {
 		},
 	},
 	setting: {
-		title: "Code editor",
-		desc: "Based on ace-editor",
 		supportExtensions: {
 			name: "Register file extension",
 			desc: "After registration, clicking files will open directly in the code editor. Reload plugin after changes",

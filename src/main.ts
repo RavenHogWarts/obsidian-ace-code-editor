@@ -58,8 +58,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 			});
 			this.registerFileExtensions();
 		} catch (e) {
-			console.error("Failed to register code editor view", e);
-			return;
+			throw new Error("Failed to register code editor view" + e);
 		}
 	}
 
@@ -142,7 +141,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 				};
 			}
 		} catch (error) {
-			console.error("Failed to validate and merge settings", error);
+			throw new Error("Failed to validate and merge settings" + error);
 		}
 
 		return validatedSettings;
