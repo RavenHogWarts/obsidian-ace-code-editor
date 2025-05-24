@@ -39,10 +39,7 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 			<React.StrictMode>
 				<div className="ace-settings-container">
 					<div className="ace-settings-header">
-						<div className="ace-settings-header-left">
-							<h2>{t("setting.title")}</h2>
-							<p>{t("setting.desc")}</p>
-						</div>
+						<div className="ace-settings-header-left"></div>
 						<div className="ace-settings-header-right">
 							<button
 								className="mod-cta"

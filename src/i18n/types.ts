@@ -67,8 +67,6 @@ export type BaseMessage = {
 		};
 	};
 	setting: {
-		title: string;
-		desc: string;
 		supportExtensions: SettingsItem<{
 			placeholder: string;
 		}>;
