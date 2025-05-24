@@ -13,7 +13,6 @@ if you want to view the source, please visit the github repository of this plugi
 `;
 
 const prod = process.argv[2] === "production";
-const keepConsole = process.argv[3] === "keep-console";
 
 const renamePlugin = () => ({
 	name: "rename-plugin",
@@ -117,7 +116,6 @@ const context = await esbuild.context({
 	treeShaking: true,
 	outfile: "main.js",
 	minify: prod,
-	drop: prod && !keepConsole ? ["console"] : [],
 	loader: {
 		".ttf": "base64",
 	},
