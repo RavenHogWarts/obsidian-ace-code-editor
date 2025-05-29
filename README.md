@@ -4,6 +4,9 @@ English | [中文](./README-zh.md)
 
 An enhanced code editor using Ace editor, providing syntax highlighting, code folding, and other advanced editing features.
 
+> [!Tip]
+> This plugin requires an internet connection to load additional Ace editor resources from CDN for complete syntax highlighting and code completion features. Basic editing functionality will still work offline, but advanced features may be limited.
+
 [![GitHub stars](https://img.shields.io/github/stars/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Stars)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/stargazers)
 [![Total Downloads](https://img.shields.io/github/downloads/RavenHogWarts/obsidian-ace-code-editor/total?style=flat&label=Total%20Downloads)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/releases)
 [![GitHub License](https://img.shields.io/github/license/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=License)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/blob/master/LICENSE)
