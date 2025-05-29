@@ -61,12 +61,7 @@ const translations: BaseMessage = {
 		},
 		snippetsManager: {
 			name: "CSS snippet management",
-			desc: "Display of CSS snippet management button. Reload plugin after changes",
-			location: {
-				Null: "Don't show",
-				Ribbon: "Show in sidebar toolbar",
-				StatusBar: "Show in bottom status bar",
-			},
+			desc: "Whether to display CSS snippet management button in status bar. Reload plugin after changes",
 		},
 		lightTheme: {
 			name: "Light theme",

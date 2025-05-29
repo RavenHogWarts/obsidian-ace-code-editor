@@ -16,7 +16,7 @@ export interface ICodeEditorConfig {
 	fontFamily: string[];
 	tabSize: number;
 	snippetsManager: {
-		location: "Null" | "Ribbon" | "StatusBar";
+		location: boolean;
 		icon: string;
 	};
 }
@@ -31,7 +31,7 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 	fontFamily: ["Consolas", "Courier New", "monospace"],
 	tabSize: 4,
 	snippetsManager: {
-		location: "Null",
+		location: false,
 		icon: "code",
 	},
 };
