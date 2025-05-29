@@ -137,7 +137,9 @@ export async function updateCodeBlock(
 	const file = activeView.file;
 	if (!file) return;
 
-	const content = await app.vault.read(file);
+	const content = await app.vault.process(file, (data) => {
+		return data;
+	});
 	const lines = content.split("\n");
 	const originalStartLine = lines[range.start];
 	const originalEndLine = lines[range.end];
@@ -164,5 +166,7 @@ export async function updateCodeBlock(
 	].join("\n");
 
 	// 保存文件
-	await app.vault.modify(file, newContent);
+	await app.vault.process(file, (data) => {
+		return data.replace(data, newContent);
+	});
 }
