@@ -1,3 +1,17 @@
+## [1.0.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.1...1.0.2) (2025-05-29)
+
+
+### ♻️ Refactor
+
+* Refactored settings interface (#3) ([0dd21cd](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/0dd21cd7ad94198a1f33125f09ba1b8aac8d6338)), closes [#3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/3)
+
+
+### 🐛 Bug Fixes
+
+* Plugin marketplace review (#4) ([989c53b](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/989c53bdd1439df95f76aea8a5b03e64d1a69401)), closes [#4](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/4)
+
+
+
 ## [1.0.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.0...1.0.1) (2025-05-06)
 
 
