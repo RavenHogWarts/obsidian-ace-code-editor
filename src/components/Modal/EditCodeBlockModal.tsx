@@ -53,7 +53,7 @@ const EditCodeBlockModal: React.FC<EditCodeBlockModalProps> = ({ onClose }) => {
 	return (
 		<div className="ace-edit-code-block-modal">
 			<div className="code-editor-modal-header">
-				<h2>Edit Code Block</h2>
+				<h2>{t("modal.editCodeBlock.header")}</h2>
 				<div className="language-indicator">
 					{codeBlock.language || "plain text"}
 				</div>
