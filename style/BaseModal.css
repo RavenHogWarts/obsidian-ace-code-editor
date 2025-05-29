@@ -69,7 +69,7 @@
 }
 
 @media screen and (max-width: 480px) {
-	.rht-toolkit-modal {
+	.ace-modal {
 		max-width: 100vw;
 		max-height: 100vh;
 		padding: 12px;
