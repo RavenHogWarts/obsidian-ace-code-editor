@@ -77,7 +77,7 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 		const fullPath = getFullPath();
 
 		try {
-			const existingFile = app.vault.getAbstractFileByPath(fullPath);
+			const existingFile = app.vault.getFileByPath(fullPath);
 			if (existingFile) {
 				throw new Error(t("notice.file_already_exists"));
 			}
