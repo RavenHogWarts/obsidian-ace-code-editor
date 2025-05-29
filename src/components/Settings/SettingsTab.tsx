@@ -2,7 +2,6 @@ import { App, Notice, PluginSettingTab } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
 import AceCodeEditorPlugin from "@/src/main";
-import { t } from "@/src/i18n/i18n";
 import { AceSettings } from "./AceSettings";
 
 export default class AceCodeEditorSettingTab extends PluginSettingTab {
@@ -38,17 +37,7 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 		this.root?.render(
 			<React.StrictMode>
 				<div className="ace-settings-container">
-					<div className="ace-settings-header">
-						<div className="ace-settings-header-left"></div>
-						<div className="ace-settings-header-right">
-							<button
-								className="mod-cta"
-								onClick={this.reloadPlugin}
-							>
-								{t("command.reload")}
-							</button>
-						</div>
-					</div>
+					<div className="ace-settings-header"></div>
 					<div className="ace-settings-content">
 						<AceSettings plugin={this.plugin} />
 					</div>
