@@ -58,12 +58,7 @@ const translations: BaseMessage = {
 		},
 		snippetsManager: {
 			name: "css片段管理",
-			desc: "css片段管理按钮的显示，修改后需重载插件",
-			location: {
-				Null: "不显示",
-				Ribbon: "侧边工具栏显示",
-				StatusBar: "底部状态栏显示",
-			},
+			desc: "css片段管理按钮是否在底部状态栏显示，修改后需重载插件",
 		},
 		lightTheme: {
 			name: "亮色主题",

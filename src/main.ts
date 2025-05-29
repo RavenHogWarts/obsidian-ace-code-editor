@@ -96,21 +96,15 @@ export default class AceCodeEditorPlugin extends Plugin {
 	}
 
 	private registerRibbonCommands() {
-		if (this.settings.snippetsManager.location === "Null") {
-			return;
-		}
+		this.addRibbonIcon(
+			this.settings.snippetsManager.icon,
+			t("command.open_css_snippet_manager"),
+			async () => {
+				await this.openCssSnippetSelector();
+			}
+		);
 
-		if (this.settings.snippetsManager.location === "Ribbon") {
-			this.addRibbonIcon(
-				this.settings.snippetsManager.icon,
-				t("command.open_css_snippet_manager"),
-				async () => {
-					await this.openCssSnippetSelector();
-				}
-			);
-		}
-
-		if (this.settings.snippetsManager.location === "StatusBar") {
+		if (this.settings.snippetsManager.location) {
 			this.app.workspace.onLayoutReady(() => {
 				setTimeout(() => {
 					this.statusBar = this.addStatusBarItem();

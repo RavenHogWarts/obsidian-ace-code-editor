@@ -70,13 +70,7 @@ export type BaseMessage = {
 		supportExtensions: SettingsItem<{
 			placeholder: string;
 		}>;
-		snippetsManager: SettingsItem<{
-			location: {
-				Null: string;
-				Ribbon: string;
-				StatusBar: string;
-			};
-		}>;
+		snippetsManager: IBaseSettingsItem;
 		lightTheme: IBaseSettingsItem;
 		darkTheme: IBaseSettingsItem;
 		keyboard: IBaseSettingsItem;

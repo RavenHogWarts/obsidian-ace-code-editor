@@ -58,12 +58,7 @@ const translations: BaseMessage = {
 		},
 		snippetsManager: {
 			name: "css片段管理",
-			desc: "css片段管理按鈕的顯示，修改後需重載外掛",
-			location: {
-				Null: "不顯示",
-				Ribbon: "側邊工具欄顯示",
-				StatusBar: "底部狀態欄顯示",
-			},
+			desc: "CSS片段管理按鈕是否在底部狀態列顯示，修改後需重載外掛",
 		},
 		lightTheme: {
 			name: "亮色主題",

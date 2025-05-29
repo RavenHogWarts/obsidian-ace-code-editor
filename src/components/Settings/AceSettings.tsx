@@ -87,21 +87,6 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 		label: keyboard,
 	}));
 
-	const snippetsManagerOptions = [
-		{
-			value: "Null",
-			label: t("setting.snippetsManager.location.Null"),
-		},
-		{
-			value: "Ribbon",
-			label: t("setting.snippetsManager.location.Ribbon"),
-		},
-		{
-			value: "StatusBar",
-			label: t("setting.snippetsManager.location.StatusBar"),
-		},
-	];
-
 	return (
 		<>
 			<SettingsItem
@@ -124,9 +109,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				name={t("setting.snippetsManager.name")}
 				desc={t("setting.snippetsManager.desc")}
 			>
-				<Select
-					options={snippetsManagerOptions}
-					value={settings.snippetsManager.location}
+				<Toggle
+					checked={settings.snippetsManager.location}
 					onChange={(value) =>
 						handleUpdateConfig({
 							snippetsManager: {
