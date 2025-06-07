@@ -1,3 +1,13 @@
+## [1.0.3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.2...1.0.3) (2025-06-07)
+
+
+### ♻️ Refactor
+
+* Optimized Ace editor module loading using esm-resolver ([7e8506d](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/7e8506d54cdf2cd584f545f5695e331e6bf1611f))
+* Enhanced file content processing logic for better code readability ([122b9a8](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/122b9a8d3259eef9daf5a113dfd1133bb015d6ca))
+
+
+
 ## [1.0.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.1...1.0.2) (2025-05-29)
 
 

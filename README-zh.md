@@ -4,9 +4,6 @@
 
 一个基于Ace编辑器增强的代码编辑器，提供语法高亮、代码折叠等高级编辑功能。
 
-> [!Tip]
-> 本插件需要互联网连接以从 CDN 加载额外的 Ace 编辑器资源（JavaScript 文件），以提供完整的语法高亮和代码补全功能。离线状态下基本编辑功能仍然可用，但高级功能可能会受限。
-
 [![GitHub stars](https://img.shields.io/github/stars/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=星标)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/stargazers)
 [![Total Downloads](https://img.shields.io/github/downloads/RavenHogWarts/obsidian-ace-code-editor/total?style=flat&label=总下载量)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/releases)
 [![GitHub License](https://img.shields.io/github/license/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=许可证)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/blob/master/LICENSE)

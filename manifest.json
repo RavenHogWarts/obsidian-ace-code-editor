@@ -1,7 +1,7 @@
 {
 	"id": "ace-code-editor",
 	"name": "Ace Code Editor",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"minAppVersion": "1.8.0",
 	"description": "An enhanced code editor using Ace editor, providing syntax highlighting, code folding, and other advanced editing features.",
 	"author": "RavenHogWarts",
