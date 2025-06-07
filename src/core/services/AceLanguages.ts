@@ -194,7 +194,7 @@
 // import "ace-builds/src-noconflict/mode-zig";
 
 // worker
-import "ace-builds/src-noconflict/worker-base";
+// import "ace-builds/src-noconflict/worker-base";
 // import "ace-builds/src-noconflict/worker-coffee";
 // import "ace-builds/src-noconflict/worker-css";
 // import "ace-builds/src-noconflict/worker-html";
@@ -458,10 +458,6 @@ export async function getLanguageMode(language: string): Promise<string> {
 	for (const [mode, aliases] of Object.entries(languageModeMap)) {
 		// 检查传入的language是否在别名数组中
 		if (aliases.includes(language)) {
-			// await import(`ace-builds/src-noconflict/mode-${mode}`);
-			// if (languageWorkerMap.includes(mode)) {
-			// 	await import(`ace-builds/src-noconflict/worker-${mode}`);
-			// }
 			return mode;
 		}
 	}

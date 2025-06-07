@@ -1,27 +1,26 @@
 import * as ace from "ace-builds";
+import "ace-builds/esm-resolver";
 // 导入扩展
 import "./AceExtensions";
 // 导入语言包
-import "./AceLanguages";
+// import "./AceLanguages";
 // 导入主题
-import "./AceThemes";
+// import "./AceThemes";
 // 导入键盘绑定
-import "ace-builds/src-noconflict/keybinding-emacs";
-import "ace-builds/src-noconflict/keybinding-sublime";
-import "ace-builds/src-noconflict/keybinding-vim";
-import "ace-builds/src-noconflict/keybinding-vscode";
+// import "ace-builds/src-noconflict/keybinding-emacs";
+// import "ace-builds/src-noconflict/keybinding-sublime";
+// import "ace-builds/src-noconflict/keybinding-vim";
+// import "ace-builds/src-noconflict/keybinding-vscode";
 
-import { getLanguageMode, workerBaseUrl } from "./AceLanguages";
+import { getLanguageMode } from "./AceLanguages";
 import { getAceTheme } from "./AceThemes";
 import { ICodeEditorConfig } from "../interfaces/types";
 
 export class AceService {
 	private editor: ace.Ace.Editor | null = null;
-	private workerUrls: Set<string> = new Set();
 
 	constructor() {
-		// 设置基础路径
-		ace.config.set("basePath", workerBaseUrl);
+		// esm-resolver 会自动处理模块路径，无需设置 basePath
 	}
 
 	isEditorInitialized(): boolean {
@@ -91,15 +90,6 @@ export class AceService {
 
 	destroy() {
 		if (this.editor) {
-			this.workerUrls.forEach((url) => {
-				try {
-					URL.revokeObjectURL(url);
-				} catch (e) {
-					throw new Error("Failed to revoke worker URL" + e);
-				}
-			});
-			this.workerUrls.clear();
-
 			this.editor.destroy();
 			this.editor = null;
 		}
