@@ -137,36 +137,33 @@ export async function updateCodeBlock(
 	const file = activeView.file;
 	if (!file) return;
 
-	const content = await app.vault.process(file, (data) => {
-		return data;
-	});
-	const lines = content.split("\n");
-	const originalStartLine = lines[range.start];
-	const originalEndLine = lines[range.end];
-
-	// 提取原始缩进和引用格式
-	const indentMatch = originalStartLine.match(/^(\s*)/);
-	const originalIndent = indentMatch ? indentMatch[1] : "";
-	const isInQuote = originalStartLine.trimStart().startsWith(">");
-	const quoteMatch = isInQuote ? originalStartLine.match(/^[\s>]+\s*/) : null;
-	const quotePrefix = quoteMatch ? quoteMatch[0] : originalIndent;
-
-	// 保持原有的缩进和引用格式
-	const newLines = newCode.split("\n").map((line) => {
-		return line.length > 0 ? quotePrefix + line : line;
-	});
-
-	// 构建新内容
-	const newContent = [
-		...lines.slice(0, range.start),
-		originalStartLine, // 保持原有的开始行
-		...newLines,
-		originalEndLine, // 保持原有的结束行
-		...lines.slice(range.end + 1),
-	].join("\n");
-
-	// 保存文件
+	// 将所有数据处理逻辑包装在process回调函数内部
 	await app.vault.process(file, (data) => {
-		return data.replace(data, newContent);
+		const lines = data.split("\n");
+		const originalStartLine = lines[range.start];
+		const originalEndLine = lines[range.end];
+
+		// 提取原始缩进和引用格式
+		const indentMatch = originalStartLine.match(/^(\s*)/);
+		const originalIndent = indentMatch ? indentMatch[1] : "";
+		const isInQuote = originalStartLine.trimStart().startsWith(">");
+		const quoteMatch = isInQuote ? originalStartLine.match(/^[\s>]+\s*/) : null;
+		const quotePrefix = quoteMatch ? quoteMatch[0] : originalIndent;
+
+		// 保持原有的缩进和引用格式
+		const newLines = newCode.split("\n").map((line) => {
+			return line.length > 0 ? quotePrefix + line : line;
+		});
+
+		// 构建新内容
+		const newContent = [
+			...lines.slice(0, range.start),
+			originalStartLine, // 保持原有的开始行
+			...newLines,
+			originalEndLine, // 保持原有的结束行
+			...lines.slice(range.end + 1),
+		].join("\n");
+
+		return newContent;
 	});
 }
