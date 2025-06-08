@@ -451,9 +451,6 @@ export const languageWorkerMap = [
 	"yaml",
 ];
 
-export const workerBaseUrl =
-	"https://cdn.jsdelivr.net/npm/ace-builds@1.40.1/src-min-noconflict/";
-
 export async function getLanguageMode(language: string): Promise<string> {
 	for (const [mode, aliases] of Object.entries(languageModeMap)) {
 		// 检查传入的language是否在别名数组中
