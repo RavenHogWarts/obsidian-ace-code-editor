@@ -11,25 +11,15 @@
 		border-radius: inherit;
 	}
 
-	.ace-language-label {
+	.ace-embed-language-label {
 		position: absolute;
-		top: 8px;
 		right: 12px;
 		z-index: 10;
-		background: var(--background-modifier-border);
 		color: var(--text-muted);
-		padding: 2px 8px;
-		border-radius: 4px;
-		font-size: 11px;
+		font-size: 0.7rem;
 		font-weight: 500;
 		font-family: var(--font-monospace);
 		pointer-events: none;
-		opacity: 0.8;
-		transition: opacity 0.2s ease;
-		border: 1px solid var(--background-modifier-border-hover);
-
-		&:hover {
-			opacity: 1;
-		}
+		opacity: 0.6;
 	}
 }
