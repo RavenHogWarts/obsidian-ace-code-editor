@@ -23,8 +23,29 @@ const packageJson = JSON.parse(readFileSync("package.json", "utf8"));
 const currentVersion = packageJson.version;
 console.log(`当前版本: ${currentVersion}`);
 
-// 解析版本号
-const [major, minor, patch] = currentVersion.split(".").map(Number);
+// 解析版本号 - 支持beta版本
+function parseVersion(version) {
+	const betaRegex = /^(\d+)\.(\d+)\.(\d+)(?:-beta\.(\d+))?$/;
+	const match = version.match(betaRegex);
+	
+	if (!match) {
+		throw new Error(`无效的版本格式: ${version}`);
+	}
+	
+	return {
+		major: parseInt(match[1], 10),
+		minor: parseInt(match[2], 10),
+		patch: parseInt(match[3], 10),
+		betaNumber: match[4] ? parseInt(match[4], 10) : null,
+		isBeta: !!match[4]
+	};
+}
+
+const versionInfo = parseVersion(currentVersion);
+const { major, minor, patch, betaNumber, isBeta } = versionInfo;
+
+// 构建基础版本号（不包含beta后缀）
+const baseVersion = `${major}.${minor}.${patch}`;
 
 // 显示选项
 console.log("\n请选择版本更新类型:");
@@ -32,11 +53,19 @@ console.log(`1. 主版本 (${major + 1}.0.0)`);
 console.log(`2. 次版本 (${major}.${minor + 1}.0)`);
 console.log(`3. 补丁版本 (${major}.${minor}.${patch + 1})`);
 console.log(`4. 自定义版本`);
-console.log(`5. Beta 版本 (${currentVersion}-beta.1)`);
+
+// Beta版本选项显示逻辑
+if (isBeta) {
+	// 当前是beta版本，显示下一个beta版本
+	console.log(`5. Beta 版本 (${baseVersion}-beta.${betaNumber + 1})`);
+} else {
+	// 当前是正式版本，显示第一个beta版本
+	console.log(`5. Beta 版本 (${baseVersion}-beta.1)`);
+}
 
 rl.question("\n请输入选项 (1-5): ", (answer) => {
 	let newVersion;
-	let isBeta = false;
+	let isNewBeta = false;
 
 	switch (answer) {
 		case "1":
@@ -49,37 +78,34 @@ rl.question("\n请输入选项 (1-5): ", (answer) => {
 			newVersion = `${major}.${minor}.${patch + 1}`;
 			break;
 		case "4":
-			rl.question("请输入自定义版本号 (x.y.z): ", (customVersion) => {
-				isBeta = customVersion.includes("-beta");
-				updateAllFiles(customVersion, isBeta);
+			rl.question("请输入自定义版本号 (x.y.z 或 x.y.z-beta.n): ", (customVersion) => {
+				try {
+					const customVersionInfo = parseVersion(customVersion);
+					isNewBeta = customVersionInfo.isBeta;
+					updateAllFiles(customVersion, isNewBeta);
+				} catch (error) {
+					console.error("版本格式错误:", error.message);
+					process.exit(1);
+				}
 				rl.close();
 			});
 			return;
 		case "5":
-			// 检查当前版本是否已经是 beta
-			if (currentVersion.includes("-beta.")) {
-				const betaRegex = /-beta\.(\d+)$/;
-				const match = currentVersion.match(betaRegex);
-				if (match) {
-					const betaNum = parseInt(match[1], 10);
-					newVersion = currentVersion.replace(
-						betaRegex,
-						`-beta.${betaNum + 1}`
-					);
-				} else {
-					newVersion = `${currentVersion}-beta.1`;
-				}
+			if (isBeta) {
+				// 当前是beta版本，只增加beta数字
+				newVersion = `${baseVersion}-beta.${betaNumber + 1}`;
 			} else {
-				newVersion = `${currentVersion}-beta.1`;
+				// 当前是正式版本，创建第一个beta版本
+				newVersion = `${baseVersion}-beta.1`;
 			}
-			isBeta = true;
+			isNewBeta = true;
 			break;
 		default:
 			console.log("无效选项，使用补丁版本更新");
 			newVersion = `${major}.${minor}.${patch + 1}`;
 	}
 
-	updateAllFiles(newVersion, isBeta);
+	updateAllFiles(newVersion, isNewBeta);
 	rl.close();
 });
 
