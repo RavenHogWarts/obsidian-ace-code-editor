@@ -1,8 +1,15 @@
-import { App, Component, Events, TFile } from "obsidian";
+import { App, Component, Debouncer, Events, TFile } from "obsidian";
 
 declare module "obsidian" {
 	interface App {
+		plugins: Plugins;
+		openWithDefaultApp(path: string): void;
 		embedRegistry: EmbedRegistry;
+		customCSS: CustomCSS;
+	}
+	interface Plugins {
+		disablePluginAndSave(id: string): Promise<void>;
+		enablePluginAndSave(id: string): Promise<void>;
 	}
 }
 
@@ -32,4 +39,10 @@ interface EmbedRegistry extends Events {
 	unregisterExtensions(extensions: string[]): void;
 	isExtensionRegistered(extension: string): boolean;
 	getEmbedCreator(file: TFile): EmbedCreator | null;
+}
+
+interface CustomCSS extends Component {
+	enabledSnippets: Set<string>;
+	requestLoadSnippets: Debouncer<[], void>;
+	setCssEnabledStatus(snippetName: string, enabled: boolean): void;
 }
