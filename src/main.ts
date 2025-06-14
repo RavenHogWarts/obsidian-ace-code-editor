@@ -5,8 +5,10 @@ import {
 	ICodeBlock,
 	ICodeEditorConfig,
 } from "./core/interfaces/types";
+import { EmbedCreator } from "./core/interfaces/obsidian-extend";
 import "@/style/styles";
 import { CodeEditorView } from "./views/CodeEditorView";
+import { CodeEmbedView } from "./views/CodeEmbedView";
 import { BaseModal } from "./components/Modal/BaseModal";
 import { t } from "./i18n/i18n";
 import AceCodeEditorSettingTab from "./components/Settings/SettingsTab";
@@ -21,6 +23,13 @@ export default class AceCodeEditorPlugin extends Plugin {
 		await this.loadSettings();
 
 		this.registerLeafViews();
+
+		this.registerEmbed(
+			this.settings.supportExtensions,
+			(ctx, file, subpath) => {
+				return new CodeEmbedView(this, ctx.containerEl, file, subpath);
+			}
+		);
 
 		this.addSettingTab(new AceCodeEditorSettingTab(this.app, this));
 
@@ -122,6 +131,13 @@ export default class AceCodeEditorPlugin extends Plugin {
 				}, 500);
 			});
 		}
+	}
+
+	private registerEmbed(extensions: string[], embedCreator: EmbedCreator) {
+		this.app.embedRegistry.registerExtensions(extensions, embedCreator);
+		this.register(() => {
+			return this.app.embedRegistry.unregisterExtensions(extensions);
+		});
 	}
 
 	private validateAndMergeSettings(savedData: any): ICodeEditorConfig {

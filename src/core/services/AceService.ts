@@ -95,7 +95,7 @@ export class AceService {
 		}
 	}
 
-	private async getLanguageMode(extension: string): Promise<string> {
+	public async getLanguageMode(extension: string): Promise<string> {
 		const aliasStart = "run-";
 		if (extension.startsWith(aliasStart)) {
 			extension = extension.slice(aliasStart.length);

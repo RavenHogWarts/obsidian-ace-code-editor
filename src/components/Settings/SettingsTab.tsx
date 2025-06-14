@@ -48,9 +48,7 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 
 	private async reloadPlugin() {
 		try {
-			// @ts-ignore
 			await this.app.plugins.disablePluginAndSave("ace-code-editor");
-			// @ts-ignore
 			await this.app.plugins.enablePluginAndSave("ace-code-editor");
 			new Notice("[ace-code-editor] 插件已重载");
 		} catch (error) {

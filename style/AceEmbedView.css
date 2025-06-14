@@ -1,0 +1,25 @@
+.ace-embed-view {
+	position: relative;
+	margin: 0.7rem;
+	border: 1px dashed var(--background-modifier-border-focus);
+	border-radius: 8px;
+
+	.ace-embed-editor {
+		width: 100%;
+		height: 100%;
+		min-height: 200px;
+		border-radius: inherit;
+	}
+
+	.ace-embed-language-label {
+		position: absolute;
+		right: 12px;
+		z-index: 10;
+		color: var(--text-muted);
+		font-size: 0.7rem;
+		font-weight: 500;
+		font-family: var(--font-monospace);
+		pointer-events: none;
+		opacity: 0.6;
+	}
+}
