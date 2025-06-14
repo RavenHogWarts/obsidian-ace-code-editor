@@ -16,7 +16,7 @@ export class I18n {
 		// 获取系统语言，默认为英文
 		const lang = getLanguage();
 
-		this.currentLocale = lang;
+		this.currentLocale = this.translations[lang] ? lang : "en";
 		this.flattenTranslations();
 	}
 

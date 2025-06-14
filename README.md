@@ -1,4 +1,4 @@
-English | [中文](./README-zh.md)
+English | [中文](https://github.com/RavenHogWarts/obsidian-ace-code-editor/blob/master/README-zh.md)
 
 # ACE CODE EDITOR
 
