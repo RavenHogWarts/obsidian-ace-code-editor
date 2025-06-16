@@ -13,10 +13,16 @@
 ## 功能介绍
 
 - 在 obsidian 中直接进行代码编辑
-![](./assets/code%20view%20leaf.png)
+![](./assets/code_view_leaf.png)
 
 - 管理 css 代码片段
-![](./assets/snippet%20manager.png)
+![](./assets/snippet_manager.png)
+
+- 编辑代码块
+![](./assets/code_block_edit.png)
+
+- 代码文件预览
+![](./assets/code_file_preview.png)
 
 ## 安装
 ### 手动安装

@@ -13,10 +13,16 @@ An enhanced code editor using Ace editor, providing syntax highlighting, code fo
 ## Features
 
 - Edit code directly in Obsidian
-![](./assets/code%20view%20leaf.png)
+![](./assets/code_view_leaf.png)
 
 - Manage CSS snippets
-![](./assets/snippet%20manager.png)
+![](./assets/snippet_manager.png)
+
+- Edit code blocks
+![](./assets/code_block_edit.png)
+
+- Code file preview
+![](./assets/code_file_preview.png)
 
 ## Installation
 ### Manual Installation
