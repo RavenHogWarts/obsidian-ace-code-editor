@@ -5,7 +5,7 @@ declare module "obsidian" {
 		plugins: Plugins;
 		openWithDefaultApp(path: string): void;
 		embedRegistry: EmbedRegistry;
-		customCSS: CustomCSS;
+		customCss: CustomCSS;
 	}
 	interface Plugins {
 		disablePluginAndSave(id: string): Promise<void>;
