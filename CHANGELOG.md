@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.1...1.1.2) (2025-06-16)
+
+
+### 🐛 Bug Fixes
+
+* Fixed customCss API interface ([4077cea](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/4077cea6a59d4a03e7f2a396eb8fae3680367d25))
+
+
+
 ## [1.1.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.0...1.1.1) (2025-06-16)
 
 
