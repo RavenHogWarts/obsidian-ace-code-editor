@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.0...1.1.1) (2025-06-16)
+
+
+### ✨ 新功能
+
+* 添加设置页面文档链接和样式调整 ([3d4f642](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/3d4f642531ba4e4a10519155ace3f7abe6da17be))
+
+
+
 # [1.1.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.3...1.1.0) (2025-06-16)
 
 
