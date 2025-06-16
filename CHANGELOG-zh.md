@@ -1,3 +1,18 @@
+## [1.0.3-beta.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.3...1.0.3-beta.1) (2025-06-12)
+
+
+### ♻️ 重构
+
+* 使用 React 重构代码嵌入视图组件 ([03f7ed3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/03f7ed33b0f51683f9faf773524b2acc70d7b199))
+* **AceLanguages:** 移除硬编码的workerBaseUrl常量 ([7bea1be](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/7bea1be8b244fdf772e5f7c24159347af95bcd5d))
+
+
+### ✨ 新功能
+
+* 新增代码嵌入视图支持及扩展注册机制 ([739b837](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/739b837ed0ec356609cb69c8fa43a685e758d18f))
+
+
+
 ## [1.0.3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.2...1.0.3) (2025-06-07)
 
 

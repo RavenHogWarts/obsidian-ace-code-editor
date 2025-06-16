@@ -1,3 +1,18 @@
+## [1.0.3-beta.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.3...1.0.3-beta.1) (2025-06-12)
+
+
+### ♻️ Refactor
+
+* Refactored code embedding view component using React ([03f7ed3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/03f7ed33b0f51683f9faf773524b2acc70d7b199))
+* **AceLanguages:** Removed hardcoded workerBaseUrl constant ([7bea1be](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/7bea1be8b244fdf772e5f7c24159347af95bcd5d))
+
+
+### ✨ Features
+
+* Added code embedding view support and extension registration mechanism ([739b837](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/739b837ed0ec356609cb69c8fa43a685e758d18f))
+
+
+
 ## [1.0.3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.0.2...1.0.3) (2025-06-07)
 
 

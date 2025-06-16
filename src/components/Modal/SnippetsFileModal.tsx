@@ -34,9 +34,6 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
 	const [searchQuery, setSearchQuery] = React.useState("");
 	const newFileInputRef = React.useRef<HTMLInputElement>(null);
 
-	// @ts-ignore
-	const customCss = app.customCss;
-
 	const snippetsFolder = additionalProps?.snippetsFolder as string;
 	const openExternalFile = additionalProps?.openExternalFile as (
 		path: string,
@@ -69,7 +66,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
 					const fileName = file.split("/").pop() || file;
 					const fileNameWithoutExtension = fileName.split(".")[0];
 					const stat = await adapter.stat(file);
-					const isEnabled = customCss.enabledSnippets.has(
+					const isEnabled = app.customCSS.enabledSnippets.has(
 						fileNameWithoutExtension
 					);
 					return {
@@ -92,18 +89,17 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
 
 	const handleToggleSnippet = async (fileName: string, checked: boolean) => {
 		const fileNameWithoutExtension = fileName.split(".")[0];
-		customCss.setCssEnabledStatus(fileNameWithoutExtension, checked);
+		app.customCSS.setCssEnabledStatus(fileNameWithoutExtension, checked);
 
 		requestLoadSnippets();
 	};
 
 	const requestLoadSnippets = async () => {
-		await customCss.requestLoadSnippets();
+		await app.customCSS.requestLoadSnippets();
 		await loadSnippetsFiles();
 	};
 
 	const handleOpenSnippetsFolder = async () => {
-		// @ts-ignore
 		await app.openWithDefaultApp(snippetsFolder);
 	};
 
