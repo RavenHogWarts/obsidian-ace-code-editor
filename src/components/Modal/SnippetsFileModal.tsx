@@ -66,7 +66,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
 					const fileName = file.split("/").pop() || file;
 					const fileNameWithoutExtension = fileName.split(".")[0];
 					const stat = await adapter.stat(file);
-					const isEnabled = app.customCSS.enabledSnippets.has(
+					const isEnabled = app.customCss.enabledSnippets.has(
 						fileNameWithoutExtension
 					);
 					return {
@@ -89,13 +89,13 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
 
 	const handleToggleSnippet = async (fileName: string, checked: boolean) => {
 		const fileNameWithoutExtension = fileName.split(".")[0];
-		app.customCSS.setCssEnabledStatus(fileNameWithoutExtension, checked);
+		app.customCss.setCssEnabledStatus(fileNameWithoutExtension, checked);
 
 		requestLoadSnippets();
 	};
 
 	const requestLoadSnippets = async () => {
-		await app.customCSS.requestLoadSnippets();
+		await app.customCss.requestLoadSnippets();
 		await loadSnippetsFiles();
 	};
 
