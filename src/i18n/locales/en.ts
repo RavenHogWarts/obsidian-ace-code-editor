@@ -54,6 +54,7 @@ const translations: BaseMessage = {
 		},
 	},
 	setting: {
+		desc: "View <a href='https://docs.ravenhogwarts.top/en/obsidian-ace-code-editor/' target='_blank'>wiki documentation</a> to learn more features",
 		supportExtensions: {
 			name: "Register file extension",
 			desc: "After registration, clicking files will open directly in the code editor. Reload plugin after changes",

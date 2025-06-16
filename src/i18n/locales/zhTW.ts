@@ -51,6 +51,7 @@ const translations: BaseMessage = {
 		},
 	},
 	setting: {
+		desc: "查看<a href='https://docs.ravenhogwarts.top/obsidian-ace-code-editor/' target='_blank'>wiki文件</a>了解更多功能",
 		supportExtensions: {
 			name: "註冊檔案副檔名",
 			desc: "註冊後，點擊檔案將直接在程式碼編輯器中開啟，修改後需重載外掛",

@@ -3,6 +3,8 @@ import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
 import AceCodeEditorPlugin from "@/src/main";
 import { AceSettings } from "./AceSettings";
+import parse from "html-react-parser";
+import { t } from "@/src/i18n/i18n";
 
 export default class AceCodeEditorSettingTab extends PluginSettingTab {
 	plugin: AceCodeEditorPlugin;
@@ -37,7 +39,19 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 		this.root?.render(
 			<React.StrictMode>
 				<div className="ace-settings-container">
-					<div className="ace-settings-header"></div>
+					<div className="ace-settings-header">
+						<div className="ace-settings-header-left">
+							<span>{parse(t("setting.desc"))}</span>
+						</div>
+						<div className="ace-settings-header-right">
+							<button
+								className="mod-cta"
+								onClick={this.reloadPlugin}
+							>
+								{t("command.reload")}
+							</button>
+						</div>
+					</div>
 					<div className="ace-settings-content">
 						<AceSettings plugin={this.plugin} />
 					</div>

@@ -7,31 +7,16 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 2.5rem;
-	padding-bottom: 1.5rem;
+	margin-bottom: 1.5rem;
+	padding-bottom: 0.5rem;
 	border-bottom: 1px solid var(--background-modifier-border);
 
 	.ace-settings-header-left {
 		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
 		flex: 1;
-
-		h2 {
-			margin: 0;
-			color: var(--text-normal);
-			font-size: 1.5rem;
-			font-weight: 600;
-		}
-
-		p {
-			margin: 0.5rem 0 0;
-			color: var(--text-muted);
-		}
 	}
 
 	.ace-settings-header-right {
-		padding-top: 1rem;
 		position: relative;
 		display: flex;
 		flex-direction: column;
