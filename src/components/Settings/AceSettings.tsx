@@ -17,20 +17,6 @@ import { Input } from "../Base/Input";
 import { Toggle } from "../Base/Toggle";
 import { Notice, Platform } from "obsidian";
 
-interface FontData {
-	family: string;
-	fullName: string;
-	postscriptName: string;
-	style: string;
-	blob(): Promise<Blob>;
-}
-
-declare global {
-	interface Window {
-		queryLocalFonts: () => Promise<FontData[]>;
-	}
-}
-
 interface AceSettingsProps {
 	plugin: AceCodeEditorPlugin;
 }
