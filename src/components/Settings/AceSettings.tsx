@@ -15,21 +15,7 @@ import { Select } from "../Base/Select";
 import { IconPicker } from "../Base/IconPicker";
 import { Input } from "../Base/Input";
 import { Toggle } from "../Base/Toggle";
-import { Notice } from "obsidian";
-
-interface FontData {
-	family: string;
-	fullName: string;
-	postscriptName: string;
-	style: string;
-	blob(): Promise<Blob>;
-}
-
-declare global {
-	interface Window {
-		queryLocalFonts: () => Promise<FontData[]>;
-	}
-}
+import { Notice, Platform } from "obsidian";
 
 interface AceSettingsProps {
 	plugin: AceCodeEditorPlugin;
@@ -43,28 +29,186 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 	React.useEffect(() => {
 		async function loadSystemFonts() {
 			try {
-				const fonts = await window.queryLocalFonts();
-				// 创建字体族的Map以检查是否已添加
-				const fontFamilies = new Set<string>();
+				let fonts: string[] = [];
 
-				// 遍历所有字体，将每个唯一的family添加到Set中
-				fonts.forEach((font) => {
-					if (font.family) {
-						fontFamilies.add(font.family);
+				// 根据平台选择不同的字体获取策略
+				if (Platform.isDesktopApp) {
+					// 桌面端：尝试使用 Local Font Access API
+					if ("queryLocalFonts" in window) {
+						try {
+							const localFonts = await window.queryLocalFonts();
+							const fontFamilies = new Set<string>();
+
+							localFonts.forEach((font) => {
+								if (font.family) {
+									fontFamilies.add(font.family);
+								}
+							});
+
+							fonts = Array.from(fontFamilies).sort();
+						} catch (error) {
+							console.warn(
+								"Local Font Access API failed:",
+								error
+							);
+							// 降级到预定义字体列表，但只包含可用的
+							fonts = await getAvailableFonts(
+								getDesktopFallbackFonts()
+							);
+						}
+					} else {
+						// 桌面端但不支持 Local Font Access API，检测可用字体
+						fonts = await getAvailableFonts(
+							getDesktopFallbackFonts()
+						);
 					}
-				});
-				// 转换Set为数组
-				setSystemFonts(Array.from(fontFamilies).sort());
+				} else if (Platform.isMobileApp) {
+					// 移动端：检测可用的移动端字体
+					fonts = await getAvailableFonts(getMobileFallbackFonts());
+				} else {
+					// Web端或其他平台：检测可用的通用字体
+					fonts = await getAvailableFonts(getWebFallbackFonts());
+				}
+
+				// 确保至少有基础字体可用
+				if (fonts.length === 0) {
+					fonts = await getAvailableFonts(getBasicFallbackFonts());
+				}
+
+				setSystemFonts(fonts);
 			} catch (error) {
-				new Notice(
-					"无法访问系统字体，可能需要授权或使用更现代的浏览器"
+				new Notice("无法获取系统字体，已加载基础字体列表");
+				console.error("获取系统字体失败:", error);
+				// 使用最基础的字体列表作为最后的降级方案
+				const basicFonts = await getAvailableFonts(
+					getBasicFallbackFonts()
 				);
-				throw new Error("获取系统字体失败:" + error);
+				setSystemFonts(
+					basicFonts.length > 0
+						? basicFonts
+						: ["monospace", "sans-serif"]
+				);
 			}
 		}
 
 		loadSystemFonts();
 	}, []);
+
+	// 异步检测字体可用性并返回可用字体列表
+	async function getAvailableFonts(fontList: string[]): Promise<string[]> {
+		const availableFonts: string[] = [];
+
+		// 批量检测字体可用性
+		for (const font of fontList) {
+			if (await isFontAvailable(font)) {
+				availableFonts.push(font);
+			}
+		}
+
+		return availableFonts.sort();
+	}
+
+	// 获取桌面端常见字体（Windows/macOS/Linux）
+	function getDesktopFallbackFonts(): string[] {
+		return [
+			// 编程字体
+			"Fira Code",
+			"Source Code Pro",
+			"JetBrains Mono",
+			"Cascadia Code",
+			"Monaco",
+			"Menlo",
+			"Consolas",
+			"Courier New",
+			// Windows 字体
+			"Microsoft YaHei",
+			"SimSun",
+			"SimHei",
+			"Arial",
+			"Times New Roman",
+			"Calibri",
+			"Segoe UI",
+			// macOS 字体
+			"PingFang SC",
+			"Helvetica Neue",
+			"San Francisco",
+			"Hiragino Sans GB",
+			// Linux 字体
+			"Noto Sans CJK SC",
+			"WenQuanYi Micro Hei",
+			"Ubuntu",
+			"DejaVu Sans",
+		];
+	}
+
+	// 获取移动端常见字体
+	function getMobileFallbackFonts(): string[] {
+		return [
+			"system-ui",
+			"-apple-system",
+			"BlinkMacSystemFont",
+			"Roboto",
+			"Helvetica Neue",
+			"Arial",
+			"Noto Sans",
+			"sans-serif",
+			"monospace",
+		];
+	}
+
+	// 获取Web端通用字体
+	function getWebFallbackFonts(): string[] {
+		return [
+			"system-ui",
+			"-apple-system",
+			"BlinkMacSystemFont",
+			"Segoe UI",
+			"Roboto",
+			"Helvetica Neue",
+			"Arial",
+			"Noto Sans",
+			"sans-serif",
+			"Consolas",
+			"Monaco",
+			"monospace",
+		];
+	}
+
+	// 获取基础降级字体
+	function getBasicFallbackFonts(): string[] {
+		return ["monospace", "sans-serif", "serif", "Arial", "Courier New"];
+	}
+
+	// 异步检测字体是否可用（优化版本）
+	async function isFontAvailable(fontName: string): Promise<boolean> {
+		return new Promise((resolve) => {
+			try {
+				// 创建测试元素
+				const testElement = document.createElement("div");
+				testElement.style.position = "absolute";
+				testElement.style.visibility = "hidden";
+				testElement.style.fontSize = "12px";
+				testElement.style.fontFamily = "monospace";
+				testElement.textContent = "mmmmmmmmmmlli";
+
+				document.body.appendChild(testElement);
+				const defaultWidth = testElement.offsetWidth;
+
+				// 测试目标字体
+				testElement.style.fontFamily = `"${fontName}", monospace`;
+				const testWidth = testElement.offsetWidth;
+
+				// 清理测试元素
+				document.body.removeChild(testElement);
+
+				// 如果宽度不同，说明字体可用
+				resolve(defaultWidth !== testWidth);
+			} catch (error) {
+				console.warn(`Font detection failed for ${fontName}:`, error);
+				resolve(false);
+			}
+		});
+	}
 
 	const handleUpdateConfig = async (
 		newSettings: Partial<ICodeEditorConfig>
