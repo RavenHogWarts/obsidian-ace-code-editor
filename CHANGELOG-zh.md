@@ -1,3 +1,12 @@
+## [1.1.3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.2...1.1.3) (2025-06-17)
+
+
+### 🐛 修复
+
+* 将 isDesktopOnly 设置为 false 以支持移动端 ([1b8eade](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/1b8eade6477790bd0b186285a46510175ba2d99e))
+
+
+
 ## [1.1.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.1...1.1.2) (2025-06-16)
 
 
