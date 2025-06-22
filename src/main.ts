@@ -24,13 +24,6 @@ export default class AceCodeEditorPlugin extends Plugin {
 
 		this.registerLeafViews();
 
-		this.registerEmbed(
-			this.settings.supportExtensions,
-			(ctx, file, subpath) => {
-				return new CodeEmbedView(this, ctx.containerEl, file, subpath);
-			}
-		);
-
 		this.addSettingTab(new AceCodeEditorSettingTab(this.app, this));
 
 		this.registerEventHandlers();
@@ -60,12 +53,42 @@ export default class AceCodeEditorPlugin extends Plugin {
 		});
 	}
 
+	private validateAndMergeSettings(savedData: any): ICodeEditorConfig {
+		let validatedSettings = structuredClone(DEFAULT_CONFIG);
+
+		try {
+			if (savedData && typeof savedData === "object") {
+				validatedSettings = {
+					...validatedSettings,
+					...savedData,
+				};
+			}
+		} catch (error) {
+			throw new Error("Failed to validate and merge settings" + error);
+		}
+
+		return validatedSettings;
+	}
+
 	private registerLeafViews() {
 		try {
 			this.registerView(CODE_EDITOR_VIEW_TYPE, (leaf) => {
 				return new CodeEditorView(leaf, this.settings);
 			});
+
 			this.registerFileExtensions();
+
+			this.registerEmbed(
+				this.settings.supportExtensions,
+				(ctx, file, subpath) => {
+					return new CodeEmbedView(
+						this,
+						ctx.containerEl,
+						file,
+						subpath
+					);
+				}
+			);
 		} catch (e) {
 			throw new Error("Failed to register code editor view" + e);
 		}
@@ -140,27 +163,16 @@ export default class AceCodeEditorPlugin extends Plugin {
 		});
 	}
 
-	private validateAndMergeSettings(savedData: any): ICodeEditorConfig {
-		let validatedSettings = structuredClone(DEFAULT_CONFIG);
-
-		try {
-			if (savedData && typeof savedData === "object") {
-				validatedSettings = {
-					...validatedSettings,
-					...savedData,
-				};
-			}
-		} catch (error) {
-			throw new Error("Failed to validate and merge settings" + error);
-		}
-
-		return validatedSettings;
-	}
-
 	private registerFileExtensions(): void {
 		const supportedExtensions = this.settings.supportExtensions;
 
-		this.registerExtensions(supportedExtensions, CODE_EDITOR_VIEW_TYPE);
+		supportedExtensions.map((ext) => {
+			try {
+				this.registerExtensions([ext], CODE_EDITOR_VIEW_TYPE);
+			} catch (e) {
+				console.error(`Failed to register extension ${ext}`, e);
+			}
+		});
 	}
 
 	private handleFileMenu(menu: Menu, file: TFile | TFolder): void {
