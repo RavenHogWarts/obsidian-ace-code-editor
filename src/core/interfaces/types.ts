@@ -25,7 +25,7 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 	supportExtensions: ["js"],
 	lightTheme: "chrome",
 	darkTheme: "monokai",
-	keyboard: "vscode",
+	keyboard: "default",
 	lineNumbers: true,
 	fontSize: 14,
 	fontFamily: ["Consolas", "Courier New", "monospace"],
