@@ -1,7 +1,3 @@
-# [1.2.0-beta.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.0...1.2.0-beta.1) (2025-06-22)
-
-
-
 # [1.2.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.3...1.2.0) (2025-06-22)
 
 
