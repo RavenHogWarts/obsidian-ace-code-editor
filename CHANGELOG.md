@@ -1,3 +1,24 @@
+# [1.2.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.3...1.2.0) (2025-06-22)
+
+
+### ♻️ Refactor
+
+* Moved FontData type and global declarations to global interface file ([9a3a04b](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/9a3a04b6aa34d88977553813400b74c37033fee6))
+
+
+### ✨ Features
+
+* Added editor instance retrieval and auto-save functionality for content changes ([b319713](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/b3197135dd5002c3c384bd7c0a92313d48de1e35))
+* Optimized code editor view registration and settings validation logic ([64a9c6e](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/64a9c6e3626ae00c5d6fa18082f1e2581d76ccdc))
+* Optimized system font loading with multi-platform font detection support ([d044492](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/d04449236b08f6ac36268e61cdf5d3d1814aa52f))
+
+
+### 🐛 Bug Fixes
+
+* Fixed Ace editor undo management ([8dbf60a](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/8dbf60ac249aa8bbb4ba60fa105ec9be8652d1a2))
+* Fixed Ace editor keyboard handler configuration logic ([3b8237a](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/3b8237a200aafa1ea7e8593c4db8ca8a2214039e))
+
+
 ## [1.1.3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.2...1.1.3) (2025-06-17)
 
 

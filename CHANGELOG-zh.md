@@ -1,3 +1,25 @@
+# [1.2.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.3...1.2.0) (2025-06-22)
+
+
+### ♻️ 重构
+
+* 将 FontData 类型和全局声明移至全局接口文件 ([9a3a04b](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/9a3a04b6aa34d88977553813400b74c37033fee6))
+
+
+### ✨ 新功能
+
+* 添加编辑器实例获取及内容变化自动保存功能 ([b319713](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/b3197135dd5002c3c384bd7c0a92313d48de1e35))
+* 优化代码编辑器视图注册及设置校验逻辑 ([64a9c6e](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/64a9c6e3626ae00c5d6fa18082f1e2581d76ccdc))
+* 优化系统字体加载，支持多平台字体检测 ([d044492](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/d04449236b08f6ac36268e61cdf5d3d1814aa52f))
+
+
+### 🐛 修复
+
+* 修复 Ace 编辑器撤销管理 ([8dbf60a](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/8dbf60ac249aa8bbb4ba60fa105ec9be8652d1a2))
+* 修复 Ace 编辑器键盘处理器配置逻辑 ([3b8237a](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/3b8237a200aafa1ea7e8593c4db8ca8a2214039e))
+
+
+
 ## [1.1.3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.2...1.1.3) (2025-06-17)
 
 
