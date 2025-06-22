@@ -32,7 +32,8 @@ export class CodeEditorView extends TextFileView {
 			})
 		);
 
-		// this.registerAceKeybindings();
+		// 启用Ace快捷键绑定
+		this.registerAceKeybindings();
 
 		this.registerDomEvent(
 			this.editorElement,
@@ -64,6 +65,11 @@ export class CodeEditorView extends TextFileView {
 				// 触发自动保存
 				this.requestSave();
 			});
+			
+			// 在编辑器完全初始化后重置撤销管理器
+			setTimeout(() => {
+				editor?.getSession().getUndoManager().reset();
+			}, 0);
 		}
 
 		await super.onLoadFile(file);
