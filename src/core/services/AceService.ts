@@ -40,7 +40,13 @@ export class AceService {
 
 		this.editor.setOptions(settings);
 		this.editor.session.setMode(`ace/mode/${languageMode}`);
-		this.editor.setKeyboardHandler(`ace/keyboard/${config.keyboard}`);
+		
+		// 设置键盘处理器
+		if (config.keyboard === "default") {
+			this.editor.setKeyboardHandler(null); // 使用 Ace Editor 默认键盘处理器
+		} else {
+			this.editor.setKeyboardHandler(`ace/keyboard/${config.keyboard}`);
+		}
 
 		this.updateTheme(config.lightTheme, config.darkTheme);
 	}

@@ -110,5 +110,5 @@ export async function getAceTheme(theme: AceLightThemes | AceDarkThemes) {
 	return theme;
 }
 
-export const AceKeyboardList = ["vscode", "sublime", "emacs", "vim"];
+export const AceKeyboardList = ["default", "vscode", "sublime", "emacs", "vim"];
 export type AceKeyboard = (typeof AceKeyboardList)[number];
