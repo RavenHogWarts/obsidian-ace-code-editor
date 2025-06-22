@@ -4,6 +4,7 @@ on:
     push:
         tags:
             - "[0-9]+.[0-9]+.[0-9]+*" # 匹配类似 1.0.0 或 1.0.0-beta.1 的格式
+    workflow_dispatch:
 
 permissions:
     contents: write
@@ -176,14 +177,16 @@ jobs:
 
             - name: Create Release
               id: create_release
-              uses: actions/create-release@v1
+              uses: softprops/action-gh-release@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   tag_name: ${{ github.ref }}
-                  release_name: ${{ github.ref }}
+                  name: ${{ github.ref_name }}
                   draft: false
                   prerelease: ${{ contains(github.ref, 'beta') }}
+                  discussion_category_name: "Announcements"
+                  generate_release_notes: true
                   body: |
                       ${{ contains(github.ref, 'beta') && '🚧 This is a beta release' || '🎉 This is a stable release' }}
 
