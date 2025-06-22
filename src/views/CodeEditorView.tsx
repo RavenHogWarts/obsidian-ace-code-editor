@@ -57,6 +57,15 @@ export class CodeEditorView extends TextFileView {
 		this.aceService.createEditor(this.editorElement);
 		this.aceService.configureEditor(this.config, file?.extension ?? "");
 
+		// 添加内容变化监听
+		if (this.aceService.isEditorInitialized()) {
+			const editor = this.aceService.getEditor();
+			editor?.on("change", () => {
+				// 触发自动保存
+				this.requestSave();
+			});
+		}
+
 		await super.onLoadFile(file);
 	}
 

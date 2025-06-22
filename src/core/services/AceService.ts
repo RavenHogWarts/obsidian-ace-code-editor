@@ -177,4 +177,8 @@ export class AceService {
 			// 使用弹性制表位 useElasticTabstops
 		};
 	}
+
+	getEditor(): ace.Ace.Editor | null {
+		return this.editor;
+	}
 }
