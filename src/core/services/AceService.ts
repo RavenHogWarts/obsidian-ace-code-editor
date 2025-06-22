@@ -73,6 +73,9 @@ export class AceService {
 		} else {
 			this.editor.setValue(content);
 		}
+
+		// 重置撤销管理器以防止初始化时的撤销问题
+		this.editor.getSession().getUndoManager().reset();
 	}
 
 	resize() {
@@ -104,7 +107,10 @@ export class AceService {
 		return await getLanguageMode(extension);
 	}
 
-	private getEditorSettings(languageMode: string, config: ICodeEditorConfig) {
+	private getEditorSettings(
+		languageMode: string,
+		config: ICodeEditorConfig
+	): Partial<ace.Ace.EditorOptions> {
 		return {
 			// -- editor选项 --
 			// 选中样式 selectionStyle: text [line|text]
@@ -113,6 +119,7 @@ export class AceService {
 			// 是否只读 readOnly: false
 			// 光标样式 cursorStyle: ace [ace|slim|smooth|wide]
 			// 合并撤销 mergeUndoDeltas: false [always]
+			mergeUndoDeltas: "always",
 			// 启用行为 behavioursEnabled: true
 			// 启用换行 wrapBehavioursEnabled: true
 			// 启用滚动 autoScrollEditorIntoView: false
