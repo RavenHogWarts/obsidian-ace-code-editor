@@ -71,7 +71,7 @@ const translations: BaseMessage = {
 		},
 		keyboard: {
 			name: "鍵盤",
-			desc: "程式碼編輯器的鍵盤樣式",
+			desc: "程式碼編輯器的鍵盤風格",
 		},
 		lineNumbers: {
 			name: "行號",
