@@ -1,9 +1,9 @@
-import * as React from "react";
-import { useModal } from "./BaseModal";
 import { t } from "@/src/i18n/i18n";
 import { normalizePath, Notice } from "obsidian";
-import { Select } from "../Base/Select";
+import * as React from "react";
 import { Input } from "../Base/Input";
+import { Select } from "../Base/Select";
+import { useModal } from "./BaseModal";
 
 interface CreateCodeFileModalProps {
 	onClose: () => void;

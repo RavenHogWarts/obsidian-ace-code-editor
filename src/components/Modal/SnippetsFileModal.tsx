@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useModal } from "./BaseModal";
+import { t } from "@/src/i18n/i18n";
 import {
 	Code2,
 	FilePlus2,
@@ -10,11 +9,12 @@ import {
 	SquarePen,
 	Trash2,
 } from "lucide-react";
-import { ConfirmDialog } from "../Base/ConfirmDialog";
-import { t } from "@/src/i18n/i18n";
 import { Notice } from "obsidian";
+import * as React from "react";
+import { ConfirmDialog } from "../Base/ConfirmDialog";
 import { Input } from "../Base/Input";
 import { Toggle } from "../Base/Toggle";
+import { useModal } from "./BaseModal";
 
 interface SnippetsFileModalProps {
 	onClose: () => void;

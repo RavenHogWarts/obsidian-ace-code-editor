@@ -1,21 +1,21 @@
-import * as React from "react";
-import AceCodeEditorPlugin from "@/src/main";
 import { useSettings } from "@/src/core/hook/useSettings";
 import { ICodeEditorConfig } from "@/src/core/interfaces/types";
-import { SettingsItem } from "./SettingItem";
-import { t } from "@/src/i18n/i18n";
+import { languageModeMap } from "@/src/core/services/AceLanguages";
 import {
 	AceDarkThemesList,
 	AceKeyboardList,
+	AceLightThemesList,
 } from "@/src/core/services/AceThemes";
-import { AceLightThemesList } from "@/src/core/services/AceThemes";
-import { TagInput } from "../Base/TagInput";
-import { languageModeMap } from "@/src/core/services/AceLanguages";
-import { Select } from "../Base/Select";
+import { t } from "@/src/i18n/i18n";
+import AceCodeEditorPlugin from "@/src/main";
+import { Notice, Platform } from "obsidian";
+import * as React from "react";
 import { IconPicker } from "../Base/IconPicker";
 import { Input } from "../Base/Input";
+import { Select } from "../Base/Select";
+import { TagInput } from "../Base/TagInput";
 import { Toggle } from "../Base/Toggle";
-import { Notice, Platform } from "obsidian";
+import { SettingsItem } from "./SettingItem";
 
 interface FontData {
 	family: string;

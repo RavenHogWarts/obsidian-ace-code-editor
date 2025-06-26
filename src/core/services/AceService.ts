@@ -12,9 +12,9 @@ import "./AceExtensions";
 // import "ace-builds/src-noconflict/keybinding-vim";
 // import "ace-builds/src-noconflict/keybinding-vscode";
 
+import { ICodeEditorConfig } from "../interfaces/types";
 import { getLanguageMode } from "./AceLanguages";
 import { getAceTheme } from "./AceThemes";
-import { ICodeEditorConfig } from "../interfaces/types";
 
 export class AceService {
 	private editor: ace.Ace.Editor | null = null;
@@ -40,7 +40,7 @@ export class AceService {
 
 		this.editor.setOptions(settings);
 		this.editor.session.setMode(`ace/mode/${languageMode}`);
-		
+
 		// 设置键盘处理器
 		if (config.keyboard === "default") {
 			this.editor.setKeyboardHandler(null); // 使用 Ace Editor 默认键盘处理器

@@ -1,9 +1,9 @@
+import { ICodeEditorConfig } from "@/src/core/interfaces/types";
+import { AceService } from "@/src/core/services/AceService";
+import { t } from "@/src/i18n/i18n";
+import { Ace } from "ace-builds";
 import * as React from "react";
 import { useModal } from "./BaseModal";
-import { Ace } from "ace-builds";
-import { AceService } from "@/src/core/services/AceService";
-import { ICodeEditorConfig } from "@/src/core/interfaces/types";
-import { t } from "@/src/i18n/i18n";
 
 interface EditCodeBlockModalProps {
 	onClose: () => void;

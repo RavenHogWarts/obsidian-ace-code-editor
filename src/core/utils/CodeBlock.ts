@@ -147,7 +147,9 @@ export async function updateCodeBlock(
 		const indentMatch = originalStartLine.match(/^(\s*)/);
 		const originalIndent = indentMatch ? indentMatch[1] : "";
 		const isInQuote = originalStartLine.trimStart().startsWith(">");
-		const quoteMatch = isInQuote ? originalStartLine.match(/^[\s>]+\s*/) : null;
+		const quoteMatch = isInQuote
+			? originalStartLine.match(/^[\s>]+\s*/)
+			: null;
 		const quotePrefix = quoteMatch ? quoteMatch[0] : originalIndent;
 
 		// 保持原有的缩进和引用格式

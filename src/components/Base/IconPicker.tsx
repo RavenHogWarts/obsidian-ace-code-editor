@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
 	App,
 	FuzzyMatch,
@@ -7,6 +6,7 @@ import {
 	IconName,
 	setIcon,
 } from "obsidian";
+import * as React from "react";
 
 interface IconPickerProps {
 	app: App;
