@@ -1,5 +1,5 @@
-import * as React from "react";
 import AceCodeEditorPlugin from "@/src/main";
+import * as React from "react";
 import { ICodeEditorConfig } from "../interfaces/types";
 
 export const SettingsBus = {

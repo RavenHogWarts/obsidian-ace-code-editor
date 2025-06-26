@@ -1,10 +1,10 @@
+import { t } from "@/src/i18n/i18n";
+import AceCodeEditorPlugin from "@/src/main";
+import parse from "html-react-parser";
 import { App, Notice, PluginSettingTab } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
-import AceCodeEditorPlugin from "@/src/main";
 import { AceSettings } from "./AceSettings";
-import parse from "html-react-parser";
-import { t } from "@/src/i18n/i18n";
 
 export default class AceCodeEditorSettingTab extends PluginSettingTab {
 	plugin: AceCodeEditorPlugin;

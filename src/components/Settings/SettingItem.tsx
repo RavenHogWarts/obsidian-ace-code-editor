@@ -1,5 +1,5 @@
-import * as React from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import * as React from "react";
 
 interface SettingsItemProps {
 	name: string;

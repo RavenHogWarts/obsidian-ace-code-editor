@@ -65,7 +65,7 @@ export class CodeEditorView extends TextFileView {
 				// 触发自动保存
 				this.requestSave();
 			});
-			
+
 			// 在编辑器完全初始化后重置撤销管理器
 			setTimeout(() => {
 				editor?.getSession().getUndoManager().reset();

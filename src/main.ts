@@ -1,19 +1,19 @@
+import "@/style/styles";
 import { Editor, Menu, Plugin, setIcon, TFile, TFolder } from "obsidian";
+import { BaseModal } from "./components/Modal/BaseModal";
+import AceCodeEditorSettingTab from "./components/Settings/SettingsTab";
+import { SettingsBus } from "./core/hook/useSettings";
+import { EmbedCreator } from "./core/interfaces/obsidian-extend";
 import {
 	CODE_EDITOR_VIEW_TYPE,
 	DEFAULT_CONFIG,
 	ICodeBlock,
 	ICodeEditorConfig,
 } from "./core/interfaces/types";
-import { EmbedCreator } from "./core/interfaces/obsidian-extend";
-import "@/style/styles";
+import { getCodeBlockAtCursor, updateCodeBlock } from "./core/utils/CodeBlock";
+import { t } from "./i18n/i18n";
 import { CodeEditorView } from "./views/CodeEditorView";
 import { CodeEmbedView } from "./views/CodeEmbedView";
-import { BaseModal } from "./components/Modal/BaseModal";
-import { t } from "./i18n/i18n";
-import AceCodeEditorSettingTab from "./components/Settings/SettingsTab";
-import { SettingsBus } from "./core/hook/useSettings";
-import { getCodeBlockAtCursor, updateCodeBlock } from "./core/utils/CodeBlock";
 
 export default class AceCodeEditorPlugin extends Plugin {
 	settings: ICodeEditorConfig;

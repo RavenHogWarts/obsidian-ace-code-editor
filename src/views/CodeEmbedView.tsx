@@ -1,12 +1,12 @@
+import { Ace } from "ace-builds";
+import { TFile } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
-import { TFile } from "obsidian";
-import AceCodeEditorPlugin from "../main";
 import { AcePluginComponent } from "../core/interfaces/component";
 import { Embed } from "../core/interfaces/obsidian-extend";
-import { Ace } from "ace-builds";
-import { AceService } from "../core/services/AceService";
 import { getLanguageMode } from "../core/services/AceLanguages";
+import { AceService } from "../core/services/AceService";
+import AceCodeEditorPlugin from "../main";
 
 interface CodeEmbedContainerProps {
 	plugin: AceCodeEditorPlugin;
