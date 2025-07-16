@@ -22,19 +22,25 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 	const aceServiceRef = React.useRef<AceService | null>(null);
 	const [lang, setLang] = React.useState<string>();
 
-	React.useEffect(async () => {
-		await plugin.app.vault.process(file, (data) => {
-			aceServiceRef.current = new AceService();
-			aceEditorRef.current = aceServiceRef.current.createEditor(
-				editorRef.current
-			);
-			aceServiceRef.current.configureEditor(
-				plugin.settings,
-				file.extension
-			);
-			aceServiceRef.current.setValue(data);
-			setLang(getLanguageMode(file.extension));
-		});
+	React.useEffect(() => {
+		const initializeEditor = async () => {
+			if (editorRef.current) {
+				const data = await plugin.app.vault.read(file);
+				aceServiceRef.current = new AceService();
+				aceEditorRef.current = aceServiceRef.current.createEditor(
+					editorRef.current
+				);
+				aceServiceRef.current.configureEditor(
+					plugin.settings,
+					file.extension
+				);
+				aceServiceRef.current.setValue(data);
+				const languageMode = await getLanguageMode(file.extension);
+				setLang(languageMode);
+			}
+		};
+
+		initializeEditor();
 
 		return () => {
 			if (aceServiceRef.current) {
@@ -81,7 +87,7 @@ export class CodeEmbedView extends AcePluginComponent implements Embed {
 		if (this.root) {
 			this.root.render(
 				React.createElement(CodeEmbedContainer, {
-					plugin: this,
+					plugin: this.plugin,
 					file: this.file,
 				})
 			);
