@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.0...1.2.1) (2025-07-16)
+
+
+### ✨ 新功能
+
+* 新增设置视图并优化代码嵌入初始化逻辑 (#20) ([c049ad6](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/c049ad60f9ac017646733a2c03e1d184e4b05fd8)), closes [#20](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/20)
+
+
+
 # [1.2.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.1.3...1.2.0) (2025-06-22)
 
 
