@@ -227,7 +227,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 	const handleUpdateConfig = async (
 		newSettings: Partial<ICodeEditorConfig>
 	) => {
-		await updateSettings(newSettings);
+		await updateSettings({ ...settings, ...newSettings });
 	};
 
 	const lightThemeOptions = AceLightThemesList.map((theme) => ({
@@ -300,7 +300,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					options={lightThemeOptions}
 					value={settings.lightTheme}
 					onChange={(value) =>
-						handleUpdateConfig({ lightTheme: value })
+						handleUpdateConfig({ lightTheme: value as string })
 					}
 				/>
 			</SettingsItem>
@@ -313,7 +313,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					options={darkThemeOptions}
 					value={settings.darkTheme}
 					onChange={(value) =>
-						handleUpdateConfig({ darkTheme: value })
+						handleUpdateConfig({ darkTheme: value as string })
 					}
 				/>
 			</SettingsItem>
@@ -326,7 +326,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					options={keyboardOptions}
 					value={settings.keyboard}
 					onChange={(value) =>
-						handleUpdateConfig({ keyboard: value })
+						handleUpdateConfig({ keyboard: value as string })
 					}
 				/>
 			</SettingsItem>

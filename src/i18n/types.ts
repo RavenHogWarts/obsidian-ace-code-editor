@@ -37,6 +37,7 @@ export type BaseMessage = {
 		open_in_code_editor: string;
 		edit_code_block: string;
 		open_css_snippet_manager: string;
+		open_settings_view: string;
 	};
 	modal: {
 		createCodeFile: {

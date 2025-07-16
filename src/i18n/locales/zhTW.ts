@@ -13,6 +13,7 @@ const translations: BaseMessage = {
 		open_in_code_editor: "在程式碼編輯器中開啟",
 		edit_code_block: "編輯程式碼區塊",
 		open_css_snippet_manager: "開啟CSS程式碼片段管理器",
+		open_settings_view: "開啟設定視圖",
 	},
 	notice: {
 		file_name_validate: "檔案名稱不能為空",

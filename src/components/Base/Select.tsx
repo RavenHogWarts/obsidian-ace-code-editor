@@ -2,13 +2,13 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import * as React from "react";
 
 export interface SelectOption {
-	value: any;
+	value: unknown;
 	label: string;
 }
 
 interface SelectProps {
-	value: any;
-	onChange: (value: any) => void;
+	value: unknown;
+	onChange: (value: unknown) => void;
 	options: SelectOption[];
 	placeholder?: string;
 	className?: string;
@@ -118,7 +118,7 @@ export const Select: React.FC<SelectProps> = ({
 
 							return (
 								<div
-									key={option.value}
+									key={String(option.value)}
 									ref={
 										isSelected
 											? selectedOptionRef

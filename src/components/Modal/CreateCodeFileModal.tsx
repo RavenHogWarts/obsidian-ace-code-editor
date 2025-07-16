@@ -108,7 +108,9 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 						value={fileExtension}
 						options={FILE_EXTENSIONS}
 						onChange={handleFileExtensionChange}
-						title={t("modal.createCodeFile.file_type_placeholder")}
+						placeholder={t(
+							"modal.createCodeFile.file_type_placeholder"
+						)}
 					/>
 				</div>
 
@@ -142,7 +144,7 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 
 				<div className="code-editor-modal-option">
 					<label className="checkbox-label">
-						<Input
+						<input
 							type="checkbox"
 							checked={openAfterCreate}
 							onChange={(e) =>

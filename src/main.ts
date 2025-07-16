@@ -14,6 +14,7 @@ import { getCodeBlockAtCursor, updateCodeBlock } from "./core/utils/CodeBlock";
 import { t } from "./i18n/i18n";
 import { CodeEditorView } from "./views/CodeEditorView";
 import { CodeEmbedView } from "./views/CodeEmbedView";
+import { SETTINGS_VIEW_TYPE, SettingsView } from "./views/SettingsView";
 
 export default class AceCodeEditorPlugin extends Plugin {
 	settings: ICodeEditorConfig;
@@ -53,7 +54,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		});
 	}
 
-	private validateAndMergeSettings(savedData: any): ICodeEditorConfig {
+	private validateAndMergeSettings(savedData: unknown): ICodeEditorConfig {
 		let validatedSettings = structuredClone(DEFAULT_CONFIG);
 
 		try {
@@ -74,6 +75,10 @@ export default class AceCodeEditorPlugin extends Plugin {
 		try {
 			this.registerView(CODE_EDITOR_VIEW_TYPE, (leaf) => {
 				return new CodeEditorView(leaf, this.settings);
+			});
+
+			this.registerView(SETTINGS_VIEW_TYPE, (leaf) => {
+				return new SettingsView(leaf, this);
 			});
 
 			this.registerFileExtensions();
@@ -123,6 +128,14 @@ export default class AceCodeEditorPlugin extends Plugin {
 			name: t("command.open_css_snippet_manager"),
 			callback: async () => {
 				await this.openCssSnippetSelector();
+			},
+		});
+
+		this.addCommand({
+			id: "openSettingsView",
+			name: t("command.open_settings_view"),
+			callback: async () => {
+				await this.openPluginView(SETTINGS_VIEW_TYPE);
 			},
 		});
 	}
@@ -323,5 +336,24 @@ export default class AceCodeEditorPlugin extends Plugin {
 			...newSettings,
 		};
 		await this.saveSettings();
+	}
+
+	public async openPluginView(viewType: string) {
+		// 检查是否已经有打开的视图
+		const existingLeaves = this.app.workspace.getLeavesOfType(viewType);
+
+		if (existingLeaves.length > 0) {
+			// 如果存在，则激活第一个视图
+			this.app.workspace.revealLeaf(existingLeaves[0]);
+		} else {
+			// 如果不存在，则创建新的视图
+			const leaf = this.app.workspace.getLeaf("tab");
+			await leaf.setViewState({
+				type: viewType,
+				active: true,
+			});
+
+			this.app.workspace.revealLeaf(leaf);
+		}
 	}
 }

@@ -1,7 +1,8 @@
+import { ObsidianUtils } from "@/src/core/utils/ObsidianUtils";
 import { t } from "@/src/i18n/i18n";
 import AceCodeEditorPlugin from "@/src/main";
 import parse from "html-react-parser";
-import { App, Notice, PluginSettingTab } from "obsidian";
+import { App, PluginSettingTab } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
 import { AceSettings } from "./AceSettings";
@@ -13,7 +14,6 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 	constructor(app: App, plugin: AceCodeEditorPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
-		this.reloadPlugin = this.reloadPlugin.bind(this);
 	}
 
 	display() {
@@ -46,7 +46,9 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 						<div className="ace-settings-header-right">
 							<button
 								className="mod-cta"
-								onClick={this.reloadPlugin}
+								onClick={() =>
+									ObsidianUtils.reloadPlugin(this.app)
+								}
 							>
 								{t("command.reload")}
 							</button>
@@ -58,15 +60,5 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 				</div>
 			</React.StrictMode>
 		);
-	}
-
-	private async reloadPlugin() {
-		try {
-			await this.app.plugins.disablePluginAndSave("ace-code-editor");
-			await this.app.plugins.enablePluginAndSave("ace-code-editor");
-			new Notice("[ace-code-editor] 插件已重载");
-		} catch (error) {
-			throw new Error("[ace-code-editor] 插件重载失败" + error);
-		}
 	}
 }
