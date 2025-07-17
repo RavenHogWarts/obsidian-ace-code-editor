@@ -1,6 +1,7 @@
 import "@/style/styles";
 import { Editor, Menu, Plugin, setIcon, TFile, TFolder } from "obsidian";
 import { BaseModal } from "./components/Modal/BaseModal";
+import { QuickConfigModal } from "./components/Modal/QuickConfigModal";
 import AceCodeEditorSettingTab from "./components/Settings/SettingsTab";
 import { SettingsBus } from "./core/hook/useSettings";
 import { EmbedCreator } from "./core/interfaces/obsidian-extend";
@@ -136,6 +137,14 @@ export default class AceCodeEditorPlugin extends Plugin {
 			name: t("command.open_settings_view"),
 			callback: async () => {
 				await this.openPluginView(SETTINGS_VIEW_TYPE);
+			},
+		});
+
+		this.addCommand({
+			id: "quickConfig",
+			name: t("command.quick_config"),
+			callback: async () => {
+				await this.openQuickConfig();
 			},
 		});
 	}
@@ -324,6 +333,15 @@ export default class AceCodeEditorPlugin extends Plugin {
 			type: CODE_EDITOR_VIEW_TYPE,
 		});
 		this.app.workspace.setActiveLeaf(leaf);
+	}
+
+	async openQuickConfig(): Promise<void> {
+		const modal = new QuickConfigModal(
+			this.app,
+			this.settings,
+			(newSettings) => this.updateSettings(newSettings)
+		);
+		modal.open();
 	}
 
 	public getSettings() {

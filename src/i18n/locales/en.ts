@@ -14,6 +14,7 @@ const translations: BaseMessage = {
 		edit_code_block: "Edit code block",
 		open_css_snippet_manager: "Open CSS snippet manager",
 		open_settings_view: "Open settings view",
+		quick_config: "Quick configuration",
 	},
 	notice: {
 		file_name_validate: "File name cannot be empty",
