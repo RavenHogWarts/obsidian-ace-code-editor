@@ -38,6 +38,7 @@ export type BaseMessage = {
 		edit_code_block: string;
 		open_css_snippet_manager: string;
 		open_settings_view: string;
+		quick_config: string;
 	};
 	modal: {
 		createCodeFile: {
@@ -111,4 +112,4 @@ type JoinPath<T extends string[]> = T extends []
 export type TranslationKeys = JoinPath<PathsToStringProps<BaseMessage>>;
 
 // 参数类型定义
-export type TranslationParams = Record<string, any> | any[];
+export type TranslationParams = Record<string, unknown> | unknown[];
