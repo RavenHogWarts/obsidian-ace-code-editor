@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.1...1.2.2) (2025-07-17)
+
+
+### ✨ 新功能
+
+* 新增快速配置模态框及相关模糊搜索组件 (#21) ([320f959](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/320f959f77a869fbb804abdb2636c59b496c74f6)), closes [#21](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/21)
+
+
+
 ## [1.2.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.0...1.2.1) (2025-07-16)
 
 
