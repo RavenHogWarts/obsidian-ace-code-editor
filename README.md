@@ -6,6 +6,7 @@ An enhanced code editor using Ace editor, providing syntax highlighting, code fo
 
 [![GitHub stars](https://img.shields.io/github/stars/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Stars)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/stargazers)
 [![Total Downloads](https://img.shields.io/github/downloads/RavenHogWarts/obsidian-ace-code-editor/total?style=flat&label=Total%20Downloads)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/releases)
+[![Latest Downloads](https://img.shields.io/github/downloads/RavenHogWarts/obsidian-ace-code-editor/latest/total?style=flat&label=Latest%20Downloads)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/releases/latest)
 [![GitHub License](https://img.shields.io/github/license/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=License)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/blob/master/LICENSE)
 [![GitHub Issues](https://img.shields.io/github/issues/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Issues)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/RavenHogWarts/obsidian-ace-code-editor?style=flat&label=Last%20Commit)](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commits/master)
