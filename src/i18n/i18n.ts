@@ -69,11 +69,11 @@ export class I18n {
 			this.currentLocale = locale;
 			window.localStorage.setItem("language", locale);
 		} else {
+			this.currentLocale = "en";
+			window.localStorage.setItem("language", "en");
 			throw new Error(
 				`Locale not found: ${locale}, falling back to 'en'`
 			);
-			this.currentLocale = "en";
-			window.localStorage.setItem("language", "en");
 		}
 	}
 
