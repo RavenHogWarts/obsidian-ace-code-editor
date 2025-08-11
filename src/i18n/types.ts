@@ -69,6 +69,13 @@ export type BaseMessage = {
 		};
 	};
 	setting: {
+		tabs: {
+			renderer: string;
+			session: string;
+			editor: string;
+			extend: string;
+			about: string;
+		};
 		desc: string;
 		supportExtensions: SettingsItem<{
 			placeholder: string;
@@ -77,12 +84,18 @@ export type BaseMessage = {
 		lightTheme: IBaseSettingsItem;
 		darkTheme: IBaseSettingsItem;
 		keyboard: IBaseSettingsItem;
-		lineNumbers: IBaseSettingsItem;
+		showLineNumbers: IBaseSettingsItem;
 		fontSize: IBaseSettingsItem;
 		fontFamily: SettingsItem<{
 			placeholder: string;
 		}>;
 		tabSize: IBaseSettingsItem;
+		showPrintMargin: IBaseSettingsItem;
+		showInvisibles: IBaseSettingsItem;
+		displayIndentGuides: IBaseSettingsItem;
+		showFoldWidgets: IBaseSettingsItem;
+		highlightActiveLine: IBaseSettingsItem;
+		highlightSelectedWord: IBaseSettingsItem;
 	};
 };
 

@@ -53,6 +53,13 @@ const translations: BaseMessage = {
 		},
 	},
 	setting: {
+		tabs: {
+			renderer: "渲染",
+			session: "会话",
+			editor: "编辑",
+			extend: "扩展",
+			about: "关于",
+		},
 		desc: "查看<a href='https://docs.ravenhogwarts.top/obsidian-ace-code-editor/' target='_blank'>wiki文档</a>了解更多功能",
 		supportExtensions: {
 			name: "注册文件类型",
@@ -75,7 +82,7 @@ const translations: BaseMessage = {
 			name: "键盘",
 			desc: "代码编辑器的键盘风格",
 		},
-		lineNumbers: {
+		showLineNumbers: {
 			name: "行号",
 			desc: "显示行号",
 		},
@@ -91,6 +98,30 @@ const translations: BaseMessage = {
 		tabSize: {
 			name: "缩进宽度",
 			desc: "tab键的宽度",
+		},
+		showPrintMargin: {
+			name: "打印边距",
+			desc: "显示代码编辑器中的竖线",
+		},
+		showInvisibles: {
+			name: "不可见字符",
+			desc: "在代码编辑器中显示不可见字符",
+		},
+		displayIndentGuides: {
+			name: "缩进参考线",
+			desc: "在代码编辑器中显示缩进参考线",
+		},
+		showFoldWidgets: {
+			name: "折叠部件",
+			desc: "在代码编辑器中显示折叠部件",
+		},
+		highlightActiveLine: {
+			name: "当前行高亮",
+			desc: "在代码编辑器中高亮当前行",
+		},
+		highlightSelectedWord: {
+			name: "选中文本高亮",
+			desc: "在代码编辑器中高亮选中的文本",
 		},
 	},
 };

@@ -11,7 +11,7 @@ export interface ICodeEditorConfig {
 	lightTheme: AceLightThemes;
 	darkTheme: AceDarkThemes;
 	keyboard: AceKeyboard;
-	lineNumbers: boolean;
+	showLineNumbers: boolean;
 	fontSize: number;
 	fontFamily: string[];
 	tabSize: number;
@@ -19,6 +19,12 @@ export interface ICodeEditorConfig {
 		location: boolean;
 		icon: string;
 	};
+	showPrintMargin: boolean;
+	showInvisibles: boolean;
+	displayIndentGuides: boolean;
+	showFoldWidgets: boolean;
+	highlightActiveLine: boolean;
+	highlightSelectedWord: boolean;
 }
 
 export const DEFAULT_CONFIG: ICodeEditorConfig = {
@@ -26,7 +32,7 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 	lightTheme: "chrome",
 	darkTheme: "monokai",
 	keyboard: "default",
-	lineNumbers: true,
+	showLineNumbers: true,
 	fontSize: 14,
 	fontFamily: ["Consolas", "Courier New", "monospace"],
 	tabSize: 4,
@@ -34,6 +40,12 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 		location: false,
 		icon: "code",
 	},
+	showPrintMargin: true,
+	showInvisibles: false,
+	displayIndentGuides: true,
+	showFoldWidgets: true,
+	highlightActiveLine: true,
+	highlightSelectedWord: true,
 };
 
 export interface ICodeBlock {

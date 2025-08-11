@@ -121,7 +121,9 @@ export class AceService {
 			// -- editor选项 --
 			// 选中样式 selectionStyle: text [line|text]
 			// 高亮当前行 highlightActiveLine: true
+			highlightActiveLine: config.highlightActiveLine,
 			// 高亮选中文本 highlightSelectedWord: true
+			highlightSelectedWord: config.highlightSelectedWord,
 			// 是否只读 readOnly: false
 			// 光标样式 cursorStyle: ace [ace|slim|smooth|wide]
 			// 合并撤销 mergeUndoDeltas: false [always]
@@ -139,15 +141,19 @@ export class AceService {
 			// 高亮边线 highlightGutterLine: true
 			// 滚动动画 animatedScroll: false
 			// 显示不可见字符 showInvisibles: false
+			showInvisibles: config.showInvisibles,
 			// 显示打印边距 showPrintMargin: true
+			showPrintMargin: config.showPrintMargin,
 			// 设置页边距 printMarginColumn: 80
 			// 显示并设置页边距 printMargin: false
 			// 淡入折叠部件 fadeFoldWidgets: false
 			// 显示折叠部件 showFoldWidgets: true
+			showFoldWidgets: config.showFoldWidgets,
 			// 显示行号
-			showLineNumbers: config.lineNumbers,
+			showLineNumbers: config.showLineNumbers,
 			// 显示行号区域 showGutter: true
 			// 显示参考线 displayIndentGuides: true
+			displayIndentGuides: config.displayIndentGuides,
 			// 设置字号
 			fontSize: config.fontSize,
 			// 设置字体

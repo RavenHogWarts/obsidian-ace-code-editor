@@ -53,6 +53,13 @@ const translations: BaseMessage = {
 		},
 	},
 	setting: {
+		tabs: {
+			renderer: "渲染",
+			session: "會話",
+			editor: "編輯",
+			extend: "擴展",
+			about: "關於",
+		},
 		desc: "查看<a href='https://docs.ravenhogwarts.top/obsidian-ace-code-editor/' target='_blank'>wiki文件</a>了解更多功能",
 		supportExtensions: {
 			name: "註冊檔案副檔名",
@@ -75,7 +82,7 @@ const translations: BaseMessage = {
 			name: "鍵盤",
 			desc: "程式碼編輯器的鍵盤風格",
 		},
-		lineNumbers: {
+		showLineNumbers: {
 			name: "行號",
 			desc: "顯示行號",
 		},
@@ -91,6 +98,30 @@ const translations: BaseMessage = {
 		tabSize: {
 			name: "縮排寬度",
 			desc: "tab鍵的寬度",
+		},
+		showPrintMargin: {
+			name: "顯示列印邊界",
+			desc: "程式碼編輯器中的直線",
+		},
+		showInvisibles: {
+			name: "顯示不可見字符",
+			desc: "在程式碼編輯器中顯示不可見字符",
+		},
+		displayIndentGuides: {
+			name: "顯示縮排指導線",
+			desc: "在程式碼編輯器中顯示縮排指導線",
+		},
+		showFoldWidgets: {
+			name: "顯示折疊小工具",
+			desc: "在程式碼編輯器中顯示折疊小工具",
+		},
+		highlightActiveLine: {
+			name: "高亮當前行",
+			desc: "在程式碼編輯器中高亮當前行",
+		},
+		highlightSelectedWord: {
+			name: "高亮選中文本",
+			desc: "在程式碼編輯器中高亮選中的單詞",
 		},
 	},
 };

@@ -248,7 +248,33 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 	}));
 
 	const EditorSettings = () => {
-		return <></>;
+		return (
+			<>
+				<SettingsItem
+					name={t("setting.highlightActiveLine.name")}
+					desc={t("setting.highlightActiveLine.desc")}
+				>
+					<Toggle
+						checked={settings.highlightActiveLine}
+						onChange={(value) =>
+							handleUpdateConfig({ highlightActiveLine: value })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.highlightSelectedWord.name")}
+					desc={t("setting.highlightSelectedWord.desc")}
+				>
+					<Toggle
+						checked={settings.highlightSelectedWord}
+						onChange={(value) =>
+							handleUpdateConfig({ highlightSelectedWord: value })
+						}
+					/>
+				</SettingsItem>
+			</>
+		);
 	};
 
 	const RendererSettings = () => {
@@ -320,13 +346,73 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.lineNumbers.name")}
-					desc={t("setting.lineNumbers.desc")}
+					name={t("setting.showLineNumbers.name")}
+					desc={t("setting.showLineNumbers.desc")}
 				>
 					<Toggle
-						checked={settings.lineNumbers}
+						checked={settings.showLineNumbers}
 						onChange={(value) =>
-							handleUpdateConfig({ lineNumbers: value })
+							handleUpdateConfig({ showLineNumbers: value })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.showPrintMargin.name")}
+					desc={t("setting.showPrintMargin.desc")}
+				>
+					<Toggle
+						checked={settings.showPrintMargin}
+						onChange={(value) =>
+							handleUpdateConfig({ showPrintMargin: value })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.showInvisibles.name")}
+					desc={t("setting.showInvisibles.desc")}
+				>
+					<Toggle
+						checked={settings.showInvisibles}
+						onChange={(value) =>
+							handleUpdateConfig({ showInvisibles: value })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.displayIndentGuides.name")}
+					desc={t("setting.displayIndentGuides.desc")}
+				>
+					<Toggle
+						checked={settings.displayIndentGuides}
+						onChange={(value) =>
+							handleUpdateConfig({ displayIndentGuides: value })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.showFoldWidgets.name")}
+					desc={t("setting.showFoldWidgets.desc")}
+				>
+					<Toggle
+						checked={settings.showFoldWidgets}
+						onChange={(value) =>
+							handleUpdateConfig({ showFoldWidgets: value })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.showPrintMargin.name")}
+					desc={t("setting.showPrintMargin.desc")}
+				>
+					<Toggle
+						checked={settings.showPrintMargin}
+						onChange={(value) =>
+							handleUpdateConfig({ showPrintMargin: value })
 						}
 					/>
 				</SettingsItem>
@@ -432,29 +518,28 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 
 	const settingsTabNavItems: TabNavItem[] = [
 		{
-			id: "editor",
-			title: "editor",
-			content: <EditorSettings />,
-			disabled: true,
-		},
-		{
 			id: "renderer",
-			title: "renderer",
+			title: t("setting.tabs.renderer"),
 			content: <RendererSettings />,
 		},
 		{
 			id: "session",
-			title: "session",
+			title: t("setting.tabs.session"),
 			content: <SessionSettings />,
 		},
 		{
+			id: "editor",
+			title: t("setting.tabs.editor"),
+			content: <EditorSettings />,
+		},
+		{
 			id: "extend",
-			title: "extend",
+			title: t("setting.tabs.extend"),
 			content: <ExtendSettings />,
 		},
 		{
 			id: "about",
-			title: "about",
+			title: t("setting.tabs.about"),
 			content: <AboutSettings />,
 		},
 	];
