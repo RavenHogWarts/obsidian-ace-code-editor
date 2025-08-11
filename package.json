@@ -48,6 +48,7 @@
 		"dotenv": "^16.5.0",
 		"html-react-parser": "^5.2.5",
 		"lucide-react": "^0.523.0",
+		"radix-ui": "^1.4.2",
 		"react": "^19.1.0",
 		"react-ace": "^14.0.1",
 		"react-dom": "^19.1.0"
