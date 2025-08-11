@@ -5,6 +5,7 @@ export interface TabNavItem {
 	id: string;
 	title: string;
 	content: React.ReactNode;
+	disabled?: boolean;
 }
 
 interface TabNavProps {
@@ -22,34 +23,35 @@ export const TabNav: React.FC<TabNavProps> = ({
 	onChange,
 	className,
 }) => {
-	const defaultTab = defaultValue || tabs[0]?.id;
+	const enabledTabs = tabs.filter((tab) => !tab.disabled);
+	const defaultTab = defaultValue || enabledTabs[0]?.id;
 
 	return (
 		<Tabs.Root
-			className={`ace-TabGroup ${className}`}
+			className={`ace--TabGroup ${className}`}
 			defaultValue={defaultTab}
 			data-orientation={orientation}
 			onValueChange={onChange}
 		>
-			<Tabs.List className="ace-TabList" data-orientation={orientation}>
+			<Tabs.List className="ace--TabList" data-orientation={orientation}>
 				{orientation === "vertical" && (
-					<div className="ace-TabResizeBar"></div>
+					<div className="ace--TabResizeBar"></div>
 				)}
-				{tabs.map((tab) => (
+				{enabledTabs.map((tab) => (
 					<Tabs.Trigger
-						className="ace-Tab"
+						className="ace--Tab"
 						key={tab.id}
 						value={tab.id}
 					>
-						<span className="ace-TabTitle">{tab.title}</span>
+						<span className="ace--TabTitle">{tab.title}</span>
 					</Tabs.Trigger>
 				))}
 			</Tabs.List>
 
-			<div className="ace-TabPanels">
-				{tabs.map((tab) => (
+			<div className="ace--TabPanels">
+				{enabledTabs.map((tab) => (
 					<Tabs.Content
-						className="ace-TabPanel"
+						className="ace--TabPanel"
 						key={tab.id}
 						value={tab.id}
 					>

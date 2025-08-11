@@ -8,11 +8,13 @@ import {
 } from "@/src/core/services/AceThemes";
 import { t } from "@/src/i18n/i18n";
 import AceCodeEditorPlugin from "@/src/main";
+import parse from "html-react-parser";
 import { Notice, Platform } from "obsidian";
 import * as React from "react";
 import { IconPicker } from "../Base/IconPicker";
 import { Input } from "../Base/Input";
 import { Select } from "../Base/Select";
+import { TabNav, TabNavItem } from "../Base/TabNav";
 import { TagInput } from "../Base/TagInput";
 import { Toggle } from "../Base/Toggle";
 import { SettingsItem } from "./SettingItem";
@@ -245,155 +247,223 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 		label: keyboard,
 	}));
 
+	const EditorSettings = () => {
+		return <></>;
+	};
+
+	const RendererSettings = () => {
+		return (
+			<>
+				<SettingsItem
+					name={t("setting.lightTheme.name")}
+					desc={t("setting.lightTheme.desc")}
+				>
+					<Select
+						options={lightThemeOptions}
+						value={settings.lightTheme}
+						onChange={(value) =>
+							handleUpdateConfig({ lightTheme: value as string })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.darkTheme.name")}
+					desc={t("setting.darkTheme.desc")}
+				>
+					<Select
+						options={darkThemeOptions}
+						value={settings.darkTheme}
+						onChange={(value) =>
+							handleUpdateConfig({ darkTheme: value as string })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.fontFamily.name")}
+					desc={t("setting.fontFamily.desc")}
+					collapsible={true}
+					defaultCollapsed={false}
+				>
+					<TagInput
+						values={settings.fontFamily}
+						onChange={(value) =>
+							handleUpdateConfig({ fontFamily: value })
+						}
+						suggestions={systemFonts}
+						placeholder={t("setting.fontFamily.placeholder")}
+						renderCustomSuggestion={(font) => (
+							<div
+								className="ace-font-family"
+								style={{
+									fontFamily: font,
+								}}
+							>
+								<span>{font}</span>
+							</div>
+						)}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.fontSize.name")}
+					desc={t("setting.fontSize.desc")}
+				>
+					<Input
+						type="number"
+						value={settings.fontSize}
+						onChange={(value) =>
+							handleUpdateConfig({ fontSize: Number(value) })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.lineNumbers.name")}
+					desc={t("setting.lineNumbers.desc")}
+				>
+					<Toggle
+						checked={settings.lineNumbers}
+						onChange={(value) =>
+							handleUpdateConfig({ lineNumbers: value })
+						}
+					/>
+				</SettingsItem>
+			</>
+		);
+	};
+
+	const SessionSettings = () => {
+		return (
+			<>
+				<SettingsItem
+					name={t("setting.supportExtensions.name")}
+					desc={t("setting.supportExtensions.desc")}
+					collapsible={true}
+					defaultCollapsed={false}
+				>
+					<TagInput
+						values={settings.supportExtensions}
+						onChange={(value) =>
+							handleUpdateConfig({ supportExtensions: value })
+						}
+						placeholder={t("setting.supportExtensions.placeholder")}
+						suggestions={Object.values(languageModeMap).flat()}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.keyboard.name")}
+					desc={t("setting.keyboard.desc")}
+				>
+					<Select
+						options={keyboardOptions}
+						value={settings.keyboard}
+						onChange={(value) =>
+							handleUpdateConfig({ keyboard: value as string })
+						}
+					/>
+				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.tabSize.name")}
+					desc={t("setting.tabSize.desc")}
+				>
+					<Input
+						type="number"
+						value={settings.tabSize}
+						onChange={(value) =>
+							handleUpdateConfig({ tabSize: Number(value) })
+						}
+					/>
+				</SettingsItem>
+			</>
+		);
+	};
+
+	const ExtendSettings = () => {
+		return (
+			<>
+				<SettingsItem
+					name={t("setting.snippetsManager.name")}
+					desc={t("setting.snippetsManager.desc")}
+				>
+					<Toggle
+						checked={settings.snippetsManager.location}
+						onChange={(value) =>
+							handleUpdateConfig({
+								snippetsManager: {
+									...settings.snippetsManager,
+									location: value,
+								},
+							})
+						}
+					/>
+					<IconPicker
+						app={plugin.app}
+						value={settings.snippetsManager.icon}
+						onChange={(value) =>
+							handleUpdateConfig({
+								snippetsManager: {
+									...settings.snippetsManager,
+									icon: value,
+								},
+							})
+						}
+					/>
+				</SettingsItem>
+			</>
+		);
+	};
+
+	const AboutSettings = () => {
+		return (
+			<>
+				<SettingsItem
+					name={"wiki"}
+					desc={"更多使用帮助和文档请访问wiki页面"}
+				>
+					<span>{parse(t("setting.desc"))}</span>
+				</SettingsItem>
+			</>
+		);
+	};
+
+	const settingsTabNavItems: TabNavItem[] = [
+		{
+			id: "editor",
+			title: "editor",
+			content: <EditorSettings />,
+			disabled: true,
+		},
+		{
+			id: "renderer",
+			title: "renderer",
+			content: <RendererSettings />,
+		},
+		{
+			id: "session",
+			title: "session",
+			content: <SessionSettings />,
+		},
+		{
+			id: "extend",
+			title: "extend",
+			content: <ExtendSettings />,
+		},
+		{
+			id: "about",
+			title: "about",
+			content: <AboutSettings />,
+		},
+	];
+
 	return (
-		<>
-			<SettingsItem
-				name={t("setting.supportExtensions.name")}
-				desc={t("setting.supportExtensions.desc")}
-				collapsible={true}
-				defaultCollapsed={false}
-			>
-				<TagInput
-					values={settings.supportExtensions}
-					onChange={(value) =>
-						handleUpdateConfig({ supportExtensions: value })
-					}
-					placeholder={t("setting.supportExtensions.placeholder")}
-					suggestions={Object.values(languageModeMap).flat()}
-				/>
-			</SettingsItem>
-
-			<SettingsItem
-				name={t("setting.snippetsManager.name")}
-				desc={t("setting.snippetsManager.desc")}
-			>
-				<Toggle
-					checked={settings.snippetsManager.location}
-					onChange={(value) =>
-						handleUpdateConfig({
-							snippetsManager: {
-								...settings.snippetsManager,
-								location: value,
-							},
-						})
-					}
-				/>
-				<IconPicker
-					app={plugin.app}
-					value={settings.snippetsManager.icon}
-					onChange={(value) =>
-						handleUpdateConfig({
-							snippetsManager: {
-								...settings.snippetsManager,
-								icon: value,
-							},
-						})
-					}
-				/>
-			</SettingsItem>
-
-			<SettingsItem
-				name={t("setting.lightTheme.name")}
-				desc={t("setting.lightTheme.desc")}
-			>
-				<Select
-					options={lightThemeOptions}
-					value={settings.lightTheme}
-					onChange={(value) =>
-						handleUpdateConfig({ lightTheme: value as string })
-					}
-				/>
-			</SettingsItem>
-
-			<SettingsItem
-				name={t("setting.darkTheme.name")}
-				desc={t("setting.darkTheme.desc")}
-			>
-				<Select
-					options={darkThemeOptions}
-					value={settings.darkTheme}
-					onChange={(value) =>
-						handleUpdateConfig({ darkTheme: value as string })
-					}
-				/>
-			</SettingsItem>
-
-			<SettingsItem
-				name={t("setting.keyboard.name")}
-				desc={t("setting.keyboard.desc")}
-			>
-				<Select
-					options={keyboardOptions}
-					value={settings.keyboard}
-					onChange={(value) =>
-						handleUpdateConfig({ keyboard: value as string })
-					}
-				/>
-			</SettingsItem>
-
-			<SettingsItem
-				name={t("setting.fontFamily.name")}
-				desc={t("setting.fontFamily.desc")}
-				collapsible={true}
-				defaultCollapsed={false}
-			>
-				<TagInput
-					values={settings.fontFamily}
-					onChange={(value) =>
-						handleUpdateConfig({ fontFamily: value })
-					}
-					suggestions={systemFonts}
-					placeholder={t("setting.fontFamily.placeholder")}
-					renderCustomSuggestion={(font) => (
-						<div
-							className="ace-font-family"
-							style={{
-								fontFamily: font,
-							}}
-						>
-							<span>{font}</span>
-						</div>
-					)}
-				/>
-			</SettingsItem>
-
-			<SettingsItem
-				name={t("setting.fontSize.name")}
-				desc={t("setting.fontSize.desc")}
-			>
-				<Input
-					type="number"
-					value={settings.fontSize}
-					onChange={(value) =>
-						handleUpdateConfig({ fontSize: Number(value) })
-					}
-				/>
-			</SettingsItem>
-
-			<SettingsItem
-				name={t("setting.tabSize.name")}
-				desc={t("setting.tabSize.desc")}
-			>
-				<Input
-					type="number"
-					value={settings.tabSize}
-					onChange={(value) =>
-						handleUpdateConfig({ tabSize: Number(value) })
-					}
-				/>
-			</SettingsItem>
-
-			<SettingsItem
-				name={t("setting.lineNumbers.name")}
-				desc={t("setting.lineNumbers.desc")}
-			>
-				<Toggle
-					checked={settings.lineNumbers}
-					onChange={(value) =>
-						handleUpdateConfig({ lineNumbers: value })
-					}
-				/>
-			</SettingsItem>
-		</>
+		<TabNav
+			tabs={settingsTabNavItems}
+			defaultValue="renderer"
+			className="ace-settings-container"
+		/>
 	);
 };
