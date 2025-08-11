@@ -194,4 +194,30 @@ export class AceService {
 	getEditor(): ace.Ace.Editor | null {
 		return this.editor;
 	}
+
+	// 字体大小控制方法
+	setFontSize(fontSize: number): void {
+		if (!this.editor) return;
+		this.editor.setOption("fontSize", fontSize);
+	}
+
+	getFontSize(): number {
+		if (!this.editor) return 14;
+		const fontSize = this.editor.getOption("fontSize");
+		return typeof fontSize === "number" ? fontSize : 14;
+	}
+
+	increaseFontSize(step: number = 1): number {
+		const currentSize = this.getFontSize();
+		const newSize = Math.min(currentSize + step, 48); // 最大字体大小限制为48
+		this.setFontSize(newSize);
+		return newSize;
+	}
+
+	decreaseFontSize(step: number = 1): number {
+		const currentSize = this.getFontSize();
+		const newSize = Math.max(currentSize - step, 8); // 最小字体大小限制为8
+		this.setFontSize(newSize);
+		return newSize;
+	}
 }

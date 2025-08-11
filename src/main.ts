@@ -75,7 +75,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 	private registerLeafViews() {
 		try {
 			this.registerView(CODE_EDITOR_VIEW_TYPE, (leaf) => {
-				return new CodeEditorView(leaf, this.settings);
+				return new CodeEditorView(leaf, this);
 			});
 
 			this.registerView(SETTINGS_VIEW_TYPE, (leaf) => {
@@ -320,7 +320,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		const content = await adapter.read(filePath);
 
 		const leaf = this.app.workspace.getLeaf(newTab);
-		const view = new CodeEditorView(leaf, this.settings);
+		const view = new CodeEditorView(leaf, this);
 		view.file = file;
 
 		await view.onOpen();
