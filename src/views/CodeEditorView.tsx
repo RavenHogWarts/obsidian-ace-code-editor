@@ -4,16 +4,19 @@ import {
 	ICodeEditorConfig,
 } from "../core/interfaces/types";
 import { AceService } from "../core/services/AceService";
+import type AceCodeEditorPlugin from "../main";
 
 export class CodeEditorView extends TextFileView {
 	private aceService: AceService;
+	private config: ICodeEditorConfig;
 	editorScope: Scope;
 	editorElement: HTMLElement;
 
-	constructor(leaf: WorkspaceLeaf, private config: ICodeEditorConfig) {
+	constructor(leaf: WorkspaceLeaf, private plugin: AceCodeEditorPlugin) {
 		super(leaf);
 		this.aceService = new AceService();
 		this.editorScope = new Scope();
+		this.config = plugin.getSettings();
 	}
 
 	/*
@@ -51,6 +54,19 @@ export class CodeEditorView extends TextFileView {
 				this.app.keymap.popScope(this.editorScope);
 			},
 			true
+		);
+
+		// 注册滚轮事件用于字体大小调整
+		this.registerDomEvent(
+			this.editorElement,
+			"wheel",
+			(event: WheelEvent) => {
+				if (event.ctrlKey || event.metaKey) {
+					event.preventDefault();
+					this.handleFontSizeChange(event.deltaY);
+				}
+			},
+			{ passive: false }
 		);
 	}
 
@@ -127,5 +143,21 @@ export class CodeEditorView extends TextFileView {
 				`ace/keyboard/${this.config.keyboard}`
 			);
 		}
+	}
+
+	private handleFontSizeChange(deltaY: number) {
+		// deltaY > 0 表示向下滚动，减小字体
+		// deltaY < 0 表示向上滚动，增大字体
+		let newFontSize: number;
+
+		if (deltaY > 0) {
+			newFontSize = this.aceService.decreaseFontSize(1);
+		} else {
+			newFontSize = this.aceService.increaseFontSize(1);
+		}
+
+		// 更新配置并保存到插件设置
+		this.config.fontSize = newFontSize;
+		this.plugin.updateSettings({ fontSize: newFontSize });
 	}
 }
