@@ -1,3 +1,28 @@
+## [1.2.3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.2...1.2.3) (2025-08-12)
+
+
+### ✨ Features
+
+* 增加配置项，优化设置界面布局 (#28) ([a5c58f9](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/a5c58f9eece8cca1897f5cdfd13640a5e9fa5cf8)), closes [#28](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/28)
+* **editor:** 支持通过滚轮与接口调整编辑器字体大小 (#27) ([68dd5fd](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/68dd5fdfc68158167b8fad1e3f9dc18bbee9ae2e)), closes [#27](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/27)
+
+
+### 🐛 Bug Fixes
+
+* **i18n:** 修正语言设置逻辑，确保默认语言为英文 (#24) ([cb31f32](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/cb31f32af9b9cf246246994382dd69bd253c9954)), closes [#24](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/24)
+
+
+### 📝 Documentation
+
+* 添加最新版下载量徽章显示下载统计信息 (#22) ([556365f](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/556365f40f948357b24e40541ae9ea0511cbf8ef)), closes [#22](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/22)
+
+
+### 🔧 CI
+
+* 更新贡献和发版流程 (#29) ([358da40](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/358da40a8d034a2f6f31f80656ffa6bc9571f69f)), closes [#29](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/29)
+
+
+
 ## [1.2.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.1...1.2.2) (2025-07-17)
 
 
