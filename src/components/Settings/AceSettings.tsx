@@ -404,18 +404,6 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 						}
 					/>
 				</SettingsItem>
-
-				<SettingsItem
-					name={t("setting.showPrintMargin.name")}
-					desc={t("setting.showPrintMargin.desc")}
-				>
-					<Toggle
-						checked={settings.showPrintMargin}
-						onChange={(value) =>
-							handleUpdateConfig({ showPrintMargin: value })
-						}
-					/>
-				</SettingsItem>
 			</>
 		);
 	};
