@@ -3,7 +3,7 @@ import * as React from "react";
 
 interface SettingsItemProps {
 	name: string;
-	desc?: string;
+	desc?: string | React.ReactNode;
 	icon?: React.ReactNode;
 	children?: React.ReactNode;
 	collapsible?: boolean;

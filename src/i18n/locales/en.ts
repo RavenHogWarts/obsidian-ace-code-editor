@@ -56,6 +56,13 @@ const translations: BaseMessage = {
 		},
 	},
 	setting: {
+		tabs: {
+			renderer: "Renderer",
+			session: "Session",
+			editor: "Editor",
+			extend: "Extend",
+			about: "About",
+		},
 		desc: "View <a href='https://docs.ravenhogwarts.top/en/obsidian-ace-code-editor/' target='_blank'>wiki documentation</a> to learn more features",
 		supportExtensions: {
 			name: "Register file extension",
@@ -78,7 +85,7 @@ const translations: BaseMessage = {
 			name: "Keyboard",
 			desc: "Keyboard style for code editor",
 		},
-		lineNumbers: {
+		showLineNumbers: {
 			name: "Line numbers",
 			desc: "Show line numbers",
 		},
@@ -94,6 +101,30 @@ const translations: BaseMessage = {
 		tabSize: {
 			name: "Indentation width",
 			desc: "Width of tab key",
+		},
+		showPrintMargin: {
+			name: "Show print margin",
+			desc: "Vertical line in code editor",
+		},
+		showInvisibles: {
+			name: "Show invisibles",
+			desc: "Display invisible characters in code editor",
+		},
+		displayIndentGuides: {
+			name: "Display indent guides",
+			desc: "Show indent guides in code editor",
+		},
+		showFoldWidgets: {
+			name: "Show fold widgets",
+			desc: "Display fold widgets in code editor",
+		},
+		highlightActiveLine: {
+			name: "Highlight active line",
+			desc: "Highlight the current line in code editor",
+		},
+		highlightSelectedWord: {
+			name: "Highlight selected word",
+			desc: "Highlight the selected word in code editor",
 		},
 	},
 };
