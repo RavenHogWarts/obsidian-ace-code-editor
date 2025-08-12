@@ -130,14 +130,20 @@ button.ace--Tab:focus-visible {
 	padding: var(--size-4-3);
 	border-radius: 0 0 var(--radius-m) var(--radius-m);
 	background-color: var(--background-primary);
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	width: 100%;
+	/* 确保有固定的最大高度，以便内部滚动生效 */
+	max-height: calc(100vh - 200px);
+	min-height: 400px;
 }
 
 .ace--TabGroup[data-orientation="vertical"] .ace--TabPanels {
 	margin-top: 0;
 	border-radius: 0 var(--radius-m) var(--radius-m) 0;
 	height: 100%;
+	/* 对于垂直布局，使用更精确的高度控制 */
+	max-height: calc(100vh - 150px);
 }
 
 /* Individual Tab Panel */
@@ -209,6 +215,10 @@ button.ace--Tab:focus-visible {
 
 	.ace--TabGroup[data-orientation="vertical"] .ace--TabPanels {
 		border-radius: 0 0 var(--radius-m) var(--radius-m);
+		/* 移动端也要保持内部滚动 */
+		max-height: calc(100vh - 200px);
+		overflow-y: auto;
+		overflow-x: hidden;
 	}
 
 	.ace--Tab .ace--TabTitle {
