@@ -496,10 +496,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 			<>
 				<SettingsItem
 					name={"wiki"}
-					desc={"更多使用帮助和文档请访问wiki页面"}
-				>
-					<span>{parse(t("setting.desc"))}</span>
-				</SettingsItem>
+					desc={parse(t("setting.desc"))}
+				></SettingsItem>
 			</>
 		);
 	};
