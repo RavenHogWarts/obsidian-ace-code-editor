@@ -1,8 +1,8 @@
 import { t } from "@/src/i18n/i18n";
 import { normalizePath, Notice } from "obsidian";
 import * as React from "react";
-import { Input } from "../Base/Input";
-import { Select } from "../Base/Select";
+import { Input } from "../components/Base/Input";
+import { Select } from "../components/Base/Select";
 import { useModal } from "./BaseModal";
 
 interface CreateCodeFileModalProps {

@@ -11,9 +11,9 @@ import {
 } from "lucide-react";
 import { Notice } from "obsidian";
 import * as React from "react";
-import { ConfirmDialog } from "../Base/ConfirmDialog";
-import { Input } from "../Base/Input";
-import { Toggle } from "../Base/Toggle";
+import { ConfirmDialog } from "../components/Base/ConfirmDialog";
+import { Input } from "../components/Base/Input";
+import { Toggle } from "../components/Base/Toggle";
 import { useModal } from "./BaseModal";
 
 interface SnippetsFileModalProps {
