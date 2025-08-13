@@ -2,7 +2,7 @@ import {
 	AceDarkThemes,
 	AceKeyboard,
 	AceLightThemes,
-} from "../services/AceThemes";
+} from "../../service/AceThemes";
 
 export const CODE_EDITOR_VIEW_TYPE = "ace-code-editor";
 

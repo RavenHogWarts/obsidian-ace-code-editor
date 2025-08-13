@@ -5,14 +5,14 @@ import { TabNav, TabNavItem } from "@/src/component/tab-nav/TabNav";
 import { TagInput } from "@/src/component/tag-input/TagInput";
 import { Toggle } from "@/src/component/toggle/Toggle";
 import { ICodeEditorConfig } from "@/src/core/interfaces/types";
-import { languageModeMap } from "@/src/core/services/AceLanguages";
+import { t } from "@/src/i18n/i18n";
+import AceCodeEditorPlugin from "@/src/main";
+import { languageModeMap } from "@/src/service/AceLanguages";
 import {
 	AceDarkThemesList,
 	AceKeyboardList,
 	AceLightThemesList,
-} from "@/src/core/services/AceThemes";
-import { t } from "@/src/i18n/i18n";
-import AceCodeEditorPlugin from "@/src/main";
+} from "@/src/service/AceThemes";
 import parse from "html-react-parser";
 import { Notice, Platform } from "obsidian";
 import * as React from "react";

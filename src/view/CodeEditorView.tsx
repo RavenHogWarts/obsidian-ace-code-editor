@@ -3,8 +3,8 @@ import {
 	CODE_EDITOR_VIEW_TYPE,
 	ICodeEditorConfig,
 } from "../core/interfaces/types";
-import { AceService } from "../core/services/AceService";
 import type AceCodeEditorPlugin from "../main";
+import { AceService } from "../service/AceService";
 
 export class CodeEditorView extends TextFileView {
 	public aceService: AceService;
