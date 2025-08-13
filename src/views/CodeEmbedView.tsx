@@ -40,12 +40,22 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 					file.extension
 				);
 
+				let contentLines: number;
 				// 如果有行范围，使用行范围显示，否则显示全部内容
 				if (range) {
 					aceServiceRef.current.setValueWithLineRange(data, range);
+					contentLines = range.endLine - range.startLine + 1;
 				} else {
 					aceServiceRef.current.setValue(data);
+					contentLines = data.split("\n").length;
 				}
+
+				// 设置编辑器高度
+				const editorHeight = Math.min(
+					contentLines * (plugin.settings.fontSize + 4) + 20,
+					500 // 最小高度500px
+				);
+				editorRef.current.style.height = `${editorHeight}px`;
 
 				const languageMode = await getLanguageMode(file.extension);
 				setLang(languageMode);
