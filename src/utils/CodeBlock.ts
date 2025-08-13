@@ -1,6 +1,6 @@
 import { App, Editor, EditorPosition, MarkdownView } from "obsidian";
-import { ICodeBlock } from "../core/interfaces/types";
 import { getLanguageMode } from "../service/AceLanguages";
+import { ICodeBlock } from "../type/types";
 
 export async function getCodeBlockAtCursor(
 	editor: Editor,

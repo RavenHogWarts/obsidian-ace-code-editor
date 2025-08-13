@@ -1,6 +1,6 @@
 import AceCodeEditorPlugin from "@/src/main";
 import * as React from "react";
-import { ICodeEditorConfig } from "../core/interfaces/types";
+import { ICodeEditorConfig } from "../type/types";
 
 export const SettingsBus = {
 	listeners: new Set<() => void>(),

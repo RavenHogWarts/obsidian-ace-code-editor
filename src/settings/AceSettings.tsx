@@ -4,7 +4,6 @@ import { Select } from "@/src/component/select/Select";
 import { TabNav, TabNavItem } from "@/src/component/tab-nav/TabNav";
 import { TagInput } from "@/src/component/tag-input/TagInput";
 import { Toggle } from "@/src/component/toggle/Toggle";
-import { ICodeEditorConfig } from "@/src/core/interfaces/types";
 import { t } from "@/src/i18n/i18n";
 import AceCodeEditorPlugin from "@/src/main";
 import { languageModeMap } from "@/src/service/AceLanguages";
@@ -13,6 +12,7 @@ import {
 	AceKeyboardList,
 	AceLightThemesList,
 } from "@/src/service/AceThemes";
+import { ICodeEditorConfig } from "@/src/type/types";
 import parse from "html-react-parser";
 import { Notice, Platform } from "obsidian";
 import * as React from "react";

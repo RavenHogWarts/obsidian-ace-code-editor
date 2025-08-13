@@ -1,17 +1,17 @@
 import "@/style/styles";
 import { Editor, Menu, Plugin, setIcon, TFile, TFolder } from "obsidian";
-import { EmbedCreator } from "./core/interfaces/obsidian-extend";
-import {
-	CODE_EDITOR_VIEW_TYPE,
-	DEFAULT_CONFIG,
-	ICodeBlock,
-	ICodeEditorConfig,
-} from "./core/interfaces/types";
 import { SettingsBus } from "./hooks/useSettings";
 import { t } from "./i18n/i18n";
 import { BaseModal } from "./model/BaseModal";
 import { QuickConfigModal } from "./model/QuickConfigModal";
 import AceCodeEditorSettingTab from "./settings/SettingsTab";
+import { EmbedCreator } from "./type/obsidian-extend";
+import {
+	CODE_EDITOR_VIEW_TYPE,
+	DEFAULT_CONFIG,
+	ICodeBlock,
+	ICodeEditorConfig,
+} from "./type/types";
 import { getCodeBlockAtCursor, updateCodeBlock } from "./utils/CodeBlock";
 import { CodeEditorView } from "./view/CodeEditorView";
 import { CodeEmbedView } from "./view/CodeEmbedView";

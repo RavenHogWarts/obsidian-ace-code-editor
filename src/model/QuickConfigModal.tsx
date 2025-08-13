@@ -1,10 +1,10 @@
-import { ICodeEditorConfig } from "@/src/core/interfaces/types";
 import { t } from "@/src/i18n/i18n";
 import {
 	AceDarkThemesList,
 	AceKeyboardList,
 	AceLightThemesList,
 } from "@/src/service/AceThemes";
+import { ICodeEditorConfig } from "@/src/type/types";
 import { App } from "obsidian";
 import {
 	ConfigOption,

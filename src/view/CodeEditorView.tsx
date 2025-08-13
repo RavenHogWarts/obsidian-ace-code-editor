@@ -1,11 +1,8 @@
 import { IconName, Scope, TextFileView, TFile, WorkspaceLeaf } from "obsidian";
-import {
-	CODE_EDITOR_VIEW_TYPE,
-	ICodeEditorConfig,
-} from "../core/interfaces/types";
+import { CODE_EDITOR_VIEW_TYPE, ICodeEditorConfig } from "../core/type/types";
 import type AceCodeEditorPlugin from "../main";
 import { AceService } from "../service/AceService";
-
+../type/types
 export class CodeEditorView extends TextFileView {
 	public aceService: AceService;
 	private config: ICodeEditorConfig;
