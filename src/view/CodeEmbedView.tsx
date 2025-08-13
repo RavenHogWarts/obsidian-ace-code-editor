@@ -1,16 +1,16 @@
+import { useSettings } from "@/src/hooks/useSettings";
+import AceCodeEditorPlugin from "@/src/main";
+import { getLanguageMode } from "@/src/service/AceLanguages";
+import { AceService } from "@/src/service/AceService";
+import { AcePluginComponent } from "@/src/type/component";
+import { Embed } from "@/src/type/obsidian-extend";
+import { LineRange } from "@/src/type/types";
+import { parseLinkWithRange } from "@/src/utils/LineRange";
 import { Ace } from "ace-builds";
 import { Maximize2 } from "lucide-react";
 import { TFile } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
-import { AcePluginComponent } from "../core/type/component";
-import { Embed } from "../core/type/obsidian-extend";
-import { LineRange } from "../core/type/types";
-import { useSettings } from "../hooks/useSettings";
-import AceCodeEditorPlugin from "../main";
-import { getLanguageMode } from "../service/AceLanguages";
-import { AceService } from "../service/AceService";
-import { parseLinkWithRange } from "../utils/LineRange";
 
 interface CodeEmbedContainerProps {
 	plugin: AceCodeEditorPlugin;

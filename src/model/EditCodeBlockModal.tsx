@@ -1,6 +1,6 @@
-import { ICodeEditorConfig } from "@/src/core/interfaces/types";
 import { t } from "@/src/i18n/i18n";
 import { AceService } from "@/src/service/AceService";
+import { ICodeEditorConfig } from "@/src/type/types";
 import { Ace } from "ace-builds";
 import * as React from "react";
 import { useModal } from "./BaseModal";
