@@ -242,9 +242,6 @@ export class AceService {
 
 		// 设置起始行号
 		this.editor.session.setOption("firstLineNumber", range.startLine);
-
-		// 设置为只读模式（可选）
-		this.editor.setReadOnly(true);
 	}
 
 	/**

@@ -38,6 +38,7 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 				aceEditorRef.current = aceServiceRef.current.createEditor(
 					editorRef.current
 				);
+				aceEditorRef.current.setReadOnly(true); // 设置为只读模式
 				aceServiceRef.current.configureEditor(settings, file.extension);
 
 				let contentLines: number;
