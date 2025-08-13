@@ -12,7 +12,7 @@ interface IBaseModalProps {
 	sizeClass?: string;
 }
 
-interface ModalContextType {
+export interface ModalContextType {
 	app: App;
 	plugin: AceCodeEditorPlugin;
 	additionalProps?: Record<string, any>;
@@ -83,12 +83,3 @@ export class BaseModal extends Modal {
 		this.containerEl.empty();
 	}
 }
-
-// Custom hook to access modal context
-export const useModal = (): ModalContextType => {
-	const context = React.useContext(ModalContext);
-	if (!context) {
-		throw new Error("useModal must be used within a ModalContext.Provider");
-	}
-	return context;
-};

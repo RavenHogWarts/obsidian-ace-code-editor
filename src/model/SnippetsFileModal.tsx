@@ -1,6 +1,7 @@
 import { ConfirmDialog } from "@/src/component/confirm-dialog/ConfirmDialog";
 import { Input } from "@/src/component/input/Input";
 import { Toggle } from "@/src/component/toggle/Toggle";
+import { useModal } from "@/src/hooks/useModal";
 import { t } from "@/src/i18n/i18n";
 import {
 	Code2,
@@ -14,7 +15,6 @@ import {
 } from "lucide-react";
 import { Notice } from "obsidian";
 import * as React from "react";
-import { useModal } from "./BaseModal";
 
 interface SnippetsFileModalProps {
 	onClose: () => void;
