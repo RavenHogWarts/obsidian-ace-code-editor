@@ -461,6 +461,21 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 						}
 					/>
 				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.embedMaxHeight.name")}
+					desc={t("setting.embedMaxHeight.desc")}
+				>
+					<Input
+						type="number"
+						value={settings.embedMaxHeight}
+						onChange={(value) =>
+							handleUpdateConfig({
+								embedMaxHeight: Number(value),
+							})
+						}
+					/>
+				</SettingsItem>
 			</>
 		);
 	};

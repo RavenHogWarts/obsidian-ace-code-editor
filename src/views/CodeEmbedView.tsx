@@ -3,6 +3,7 @@ import { Maximize2 } from "lucide-react";
 import { TFile } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
+import { useSettings } from "../core/hook/useSettings";
 import { AcePluginComponent } from "../core/interfaces/component";
 import { Embed } from "../core/interfaces/obsidian-extend";
 import { LineRange } from "../core/interfaces/types";
@@ -27,6 +28,8 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 	const aceServiceRef = React.useRef<AceService | null>(null);
 	const [lang, setLang] = React.useState<string>();
 
+	const { settings } = useSettings(plugin);
+
 	React.useEffect(() => {
 		const initializeEditor = async () => {
 			if (editorRef.current) {
@@ -35,10 +38,7 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 				aceEditorRef.current = aceServiceRef.current.createEditor(
 					editorRef.current
 				);
-				aceServiceRef.current.configureEditor(
-					plugin.settings,
-					file.extension
-				);
+				aceServiceRef.current.configureEditor(settings, file.extension);
 
 				let contentLines: number;
 				// 如果有行范围，使用行范围显示，否则显示全部内容
@@ -52,8 +52,8 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 
 				// 设置编辑器高度
 				const editorHeight = Math.min(
-					contentLines * (plugin.settings.fontSize + 4) + 20,
-					500 // 最小高度500px
+					contentLines * (settings.fontSize + 4) + 20,
+					settings.embedMaxHeight
 				);
 				editorRef.current.style.height = `${editorHeight}px`;
 

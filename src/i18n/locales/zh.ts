@@ -115,6 +115,10 @@ const translations: BaseMessage = {
 			name: "折叠部件",
 			desc: "在代码编辑器中显示折叠部件",
 		},
+		embedMaxHeight: {
+			name: "嵌入代码块最大高度",
+			desc: "嵌入代码块的最大高度(单位px)，超过该高度将出现滚动条",
+		},
 	},
 };
 

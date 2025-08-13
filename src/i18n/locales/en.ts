@@ -118,6 +118,10 @@ const translations: BaseMessage = {
 			name: "Show fold widgets",
 			desc: "Display fold widgets in code editor",
 		},
+		embedMaxHeight: {
+			name: "Embed code block max height",
+			desc: "Maximum height of embedded code blocks (in px). A scrollbar will appear if this height is exceeded",
+		},
 	},
 };
 

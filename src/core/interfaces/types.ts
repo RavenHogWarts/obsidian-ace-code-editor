@@ -23,6 +23,7 @@ export interface ICodeEditorConfig {
 	showInvisibles: boolean;
 	displayIndentGuides: boolean;
 	showFoldWidgets: boolean;
+	embedMaxHeight: number;
 }
 
 export const DEFAULT_CONFIG: ICodeEditorConfig = {
@@ -42,6 +43,7 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 	showInvisibles: false,
 	displayIndentGuides: true,
 	showFoldWidgets: true,
+	embedMaxHeight: 500,
 };
 
 export interface ICodeBlock {

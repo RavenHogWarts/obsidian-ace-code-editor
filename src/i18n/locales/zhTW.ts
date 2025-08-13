@@ -115,6 +115,10 @@ const translations: BaseMessage = {
 			name: "顯示折疊小工具",
 			desc: "在程式碼編輯器中顯示折疊小工具",
 		},
+		embedMaxHeight: {
+			name: "嵌入程式碼區塊最大高度",
+			desc: "嵌入程式碼區塊的最大高度(單位px)，超過該高度將出現滾動條",
+		},
 	},
 };
 

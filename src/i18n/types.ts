@@ -94,6 +94,7 @@ export type BaseMessage = {
 		showInvisibles: IBaseSettingsItem;
 		displayIndentGuides: IBaseSettingsItem;
 		showFoldWidgets: IBaseSettingsItem;
+		embedMaxHeight: IBaseSettingsItem;
 	};
 };
 
