@@ -1,3 +1,17 @@
+# [1.3.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.3...1.3.0) (2025-08-13)
+
+
+### ♻️ Refactor
+
+* 对设置页面进行优化 (#34) ([ed5ea9f](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/ed5ea9f1488ec38c6d1d1704687874f983544d73)), closes [#34](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/34)
+
+
+### ✨ Features
+
+* 为双链添加引用代码块行号功能 (#33) ([450fd8d](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/450fd8dd7afdb609f3b20ae2059bc35bd7b6bb4e)), closes [#33](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/33) [#L10](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/L10) [#L10-L20](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/L10-L20) [file.js#L10-L20](https://github.com/file.js/issues/L10-L20) [#L10](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/L10) [#L10-L20](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/L10-L20)
+
+
+
 ## [1.2.3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.2...1.2.3) (2025-08-12)
 
 
