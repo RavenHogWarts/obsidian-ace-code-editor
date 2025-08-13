@@ -1,4 +1,5 @@
 import { Ace } from "ace-builds";
+import { Maximize2 } from "lucide-react";
 import { TFile } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
@@ -73,10 +74,57 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 		return lang;
 	}, [lang, range]);
 
+	const handleOpenInNewTab = React.useCallback(async () => {
+		// 使用 Obsidian API 在新标签页打开文件
+		const leaf = plugin.app.workspace.getLeaf("tab");
+		await leaf.openFile(file);
+
+		// 如果有行范围，跳转到指定行
+		if (range) {
+			// 等待一小段时间确保编辑器已完全加载
+			setTimeout(() => {
+				const view = leaf.view;
+				// 检查是否是代码编辑器视图（ACE编辑器）
+				if (view && "aceService" in view && view.aceService) {
+					const aceService = view.aceService as AceService;
+
+					// 使用改进的 AceService 方法
+					if (range.startLine === range.endLine) {
+						// 单行：跳转到指定行并居中显示
+						aceService.gotoLine(range.startLine, 0, true, true);
+					} else {
+						// 多行：跳转到起始行并选中整个范围
+						aceService.gotoLine(range.startLine, 0, true, false);
+						aceService.selectLineRange(
+							range.startLine,
+							range.endLine
+						);
+						aceService.scrollCursorIntoView(true);
+					}
+				}
+			}, 100); // 100ms 延迟确保编辑器已加载
+		}
+	}, [plugin.app, file, range]);
+
 	return (
 		<>
-			<div className="ace-embed-language-label">{displayLabel}</div>
-			<div ref={editorRef} className="ace-embed-editor"></div>
+			<div className="ace-embed-header">
+				<div className="ace-embed-title">{file.name}</div>
+				<div className="ace-embed-header-right">
+					<div className="ace-embed-language-label">
+						{displayLabel}
+					</div>
+					<div
+						className="ace-embed-link"
+						onClick={handleOpenInNewTab}
+					>
+						<Maximize2 size={16} />
+					</div>
+				</div>
+			</div>
+			<div className="ace-embed-content">
+				<div ref={editorRef} className="ace-embed-editor"></div>
+			</div>
 		</>
 	);
 };
