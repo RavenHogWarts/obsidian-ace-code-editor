@@ -3,13 +3,13 @@ import { Maximize2 } from "lucide-react";
 import { TFile } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
-import { useSettings } from "../core/hook/useSettings";
 import { AcePluginComponent } from "../core/interfaces/component";
 import { Embed } from "../core/interfaces/obsidian-extend";
 import { LineRange } from "../core/interfaces/types";
 import { getLanguageMode } from "../core/services/AceLanguages";
 import { AceService } from "../core/services/AceService";
 import { parseLinkWithRange } from "../core/utils/LineRange";
+import { useSettings } from "../hooks/useSettings";
 import AceCodeEditorPlugin from "../main";
 
 interface CodeEmbedContainerProps {
