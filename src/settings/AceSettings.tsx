@@ -1,9 +1,9 @@
-import { IconPicker } from "@/src/components/Base/IconPicker";
-import { Input } from "@/src/components/Base/Input";
-import { Select } from "@/src/components/Base/Select";
-import { TabNav, TabNavItem } from "@/src/components/Base/TabNav";
-import { TagInput } from "@/src/components/Base/TagInput";
-import { Toggle } from "@/src/components/Base/Toggle";
+import { IconPicker } from "@/src/component/icon-picker/IconPicker";
+import { Input } from "@/src/component/input/Input";
+import { Select } from "@/src/component/select/Select";
+import { TabNav, TabNavItem } from "@/src/component/tab-nav/TabNav";
+import { TagInput } from "@/src/component/tag-input/TagInput";
+import { Toggle } from "@/src/component/toggle/Toggle";
 import { ICodeEditorConfig } from "@/src/core/interfaces/types";
 import { languageModeMap } from "@/src/core/services/AceLanguages";
 import {

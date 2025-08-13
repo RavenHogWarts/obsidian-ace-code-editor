@@ -1,7 +1,7 @@
 import { IconName, ItemView, WorkspaceLeaf } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
-import { AceSettings } from "../components/Settings/AceSettings";
+import { AceSettings } from "../component/Settings/AceSettings";
 import AceCodeEditorPlugin from "../main";
 
 export const SETTINGS_VIEW_TYPE = "ace-code-editor-settings";
