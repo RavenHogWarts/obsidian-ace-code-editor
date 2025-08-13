@@ -59,3 +59,8 @@ export interface ICodeBlock {
 	};
 	indent?: number;
 }
+
+export interface LineRange {
+	startLine: number;
+	endLine: number;
+}
