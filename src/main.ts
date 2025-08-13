@@ -1,21 +1,21 @@
 import "@/style/styles";
 import { Editor, Menu, Plugin, setIcon, TFile, TFolder } from "obsidian";
-import { BaseModal } from "./components/Modal/BaseModal";
-import { QuickConfigModal } from "./components/Modal/QuickConfigModal";
-import AceCodeEditorSettingTab from "./components/Settings/SettingsTab";
-import { SettingsBus } from "./core/hook/useSettings";
-import { EmbedCreator } from "./core/interfaces/obsidian-extend";
+import { SettingsBus } from "./hooks/useSettings";
+import { t } from "./i18n/i18n";
+import { BaseModal } from "./model/BaseModal";
+import { QuickConfigModal } from "./model/QuickConfigModal";
+import AceCodeEditorSettingTab from "./settings/SettingsTab";
+import { EmbedCreator } from "./type/obsidian-extend";
 import {
 	CODE_EDITOR_VIEW_TYPE,
 	DEFAULT_CONFIG,
 	ICodeBlock,
 	ICodeEditorConfig,
-} from "./core/interfaces/types";
-import { getCodeBlockAtCursor, updateCodeBlock } from "./core/utils/CodeBlock";
-import { t } from "./i18n/i18n";
-import { CodeEditorView } from "./views/CodeEditorView";
-import { CodeEmbedView } from "./views/CodeEmbedView";
-import { SETTINGS_VIEW_TYPE, SettingsView } from "./views/SettingsView";
+} from "./type/types";
+import { getCodeBlockAtCursor, updateCodeBlock } from "./utils/CodeBlock";
+import { CodeEditorView } from "./view/CodeEditorView";
+import { CodeEmbedView } from "./view/CodeEmbedView";
+import { SETTINGS_VIEW_TYPE, SettingsView } from "./view/SettingsView";
 
 export default class AceCodeEditorPlugin extends Plugin {
 	settings: ICodeEditorConfig;
@@ -299,7 +299,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		new BaseModal(
 			this.app,
 			this,
-			() => import("./components/Modal/CreateCodeFileModal"),
+			() => import("./model/CreateCodeFileModal"),
 			{
 				folderPath,
 				openInCodeEditor: (path: string, newTab: boolean) =>
@@ -315,7 +315,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		new BaseModal(
 			this.app,
 			this,
-			() => import("./components/Modal/SnippetsFileModal"),
+			() => import("./model/SnippetsFileModal"),
 			{
 				snippetsFolder,
 				openExternalFile: (filePath: string, newTab: boolean) =>
@@ -329,7 +329,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		new BaseModal(
 			this.app,
 			this,
-			() => import("./components/Modal/EditCodeBlockModal"),
+			() => import("./model/EditCodeBlockModal"),
 			{
 				codeBlock,
 				config: this.settings,
