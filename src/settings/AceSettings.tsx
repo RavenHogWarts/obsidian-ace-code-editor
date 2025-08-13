@@ -1,3 +1,9 @@
+import { IconPicker } from "@/src/components/Base/IconPicker";
+import { Input } from "@/src/components/Base/Input";
+import { Select } from "@/src/components/Base/Select";
+import { TabNav, TabNavItem } from "@/src/components/Base/TabNav";
+import { TagInput } from "@/src/components/Base/TagInput";
+import { Toggle } from "@/src/components/Base/Toggle";
 import { ICodeEditorConfig } from "@/src/core/interfaces/types";
 import { languageModeMap } from "@/src/core/services/AceLanguages";
 import {
@@ -10,12 +16,6 @@ import AceCodeEditorPlugin from "@/src/main";
 import parse from "html-react-parser";
 import { Notice, Platform } from "obsidian";
 import * as React from "react";
-import { IconPicker } from "../Base/IconPicker";
-import { Input } from "../Base/Input";
-import { Select } from "../Base/Select";
-import { TabNav, TabNavItem } from "../Base/TabNav";
-import { TagInput } from "../Base/TagInput";
-import { Toggle } from "../Base/Toggle";
 import { SettingsItem } from "./SettingItem";
 
 interface FontData {
@@ -231,29 +231,42 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 		});
 	}
 
-	const handleUpdateConfig = React.useCallback(async (
-		newSettings: Partial<ICodeEditorConfig>
-	) => {
-		const updatedSettings = { ...settingsValue, ...newSettings };
-		setSettingsValue(updatedSettings);
-		// 直接调用plugin.updateSettings，避免useEffect带来的副作用
-		await plugin.updateSettings(newSettings);
-	}, [settingsValue, plugin]);
+	const handleUpdateConfig = React.useCallback(
+		async (newSettings: Partial<ICodeEditorConfig>) => {
+			const updatedSettings = { ...settingsValue, ...newSettings };
+			setSettingsValue(updatedSettings);
+			// 直接调用plugin.updateSettings，避免useEffect带来的副作用
+			await plugin.updateSettings(newSettings);
+		},
+		[settingsValue, plugin]
+	);
 
-	const lightThemeOptions = React.useMemo(() => AceLightThemesList.map((theme) => ({
-		value: theme,
-		label: theme,
-	})), []);
+	const lightThemeOptions = React.useMemo(
+		() =>
+			AceLightThemesList.map((theme) => ({
+				value: theme,
+				label: theme,
+			})),
+		[]
+	);
 
-	const darkThemeOptions = React.useMemo(() => AceDarkThemesList.map((theme) => ({
-		value: theme,
-		label: theme,
-	})), []);
+	const darkThemeOptions = React.useMemo(
+		() =>
+			AceDarkThemesList.map((theme) => ({
+				value: theme,
+				label: theme,
+			})),
+		[]
+	);
 
-	const keyboardOptions = React.useMemo(() => AceKeyboardList.map((keyboard) => ({
-		value: keyboard,
-		label: keyboard,
-	})), []);
+	const keyboardOptions = React.useMemo(
+		() =>
+			AceKeyboardList.map((keyboard) => ({
+				value: keyboard,
+				label: keyboard,
+			})),
+		[]
+	);
 
 	const EditorSettings = React.useMemo(() => {
 		return <></>;
@@ -499,34 +512,43 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 		);
 	}, []);
 
-	const settingsTabNavItems: TabNavItem[] = React.useMemo(() => [
-		{
-			id: "renderer",
-			title: t("setting.tabs.renderer"),
-			content: RendererSettings,
-		},
-		{
-			id: "session",
-			title: t("setting.tabs.session"),
-			content: SessionSettings,
-		},
-		{
-			id: "editor",
-			title: t("setting.tabs.editor"),
-			content: EditorSettings,
-			disabled: true,
-		},
-		{
-			id: "extend",
-			title: t("setting.tabs.extend"),
-			content: ExtendSettings,
-		},
-		{
-			id: "about",
-			title: t("setting.tabs.about"),
-			content: AboutSettings,
-		},
-	], [RendererSettings, SessionSettings, EditorSettings, ExtendSettings, AboutSettings]);
+	const settingsTabNavItems: TabNavItem[] = React.useMemo(
+		() => [
+			{
+				id: "renderer",
+				title: t("setting.tabs.renderer"),
+				content: RendererSettings,
+			},
+			{
+				id: "session",
+				title: t("setting.tabs.session"),
+				content: SessionSettings,
+			},
+			{
+				id: "editor",
+				title: t("setting.tabs.editor"),
+				content: EditorSettings,
+				disabled: true,
+			},
+			{
+				id: "extend",
+				title: t("setting.tabs.extend"),
+				content: ExtendSettings,
+			},
+			{
+				id: "about",
+				title: t("setting.tabs.about"),
+				content: AboutSettings,
+			},
+		],
+		[
+			RendererSettings,
+			SessionSettings,
+			EditorSettings,
+			ExtendSettings,
+			AboutSettings,
+		]
+	);
 
 	return (
 		<TabNav
