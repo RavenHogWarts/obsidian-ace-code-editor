@@ -23,8 +23,6 @@ export interface ICodeEditorConfig {
 	showInvisibles: boolean;
 	displayIndentGuides: boolean;
 	showFoldWidgets: boolean;
-	highlightActiveLine: boolean;
-	highlightSelectedWord: boolean;
 }
 
 export const DEFAULT_CONFIG: ICodeEditorConfig = {
@@ -44,8 +42,6 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 	showInvisibles: false,
 	displayIndentGuides: true,
 	showFoldWidgets: true,
-	highlightActiveLine: true,
-	highlightSelectedWord: true,
 };
 
 export interface ICodeBlock {

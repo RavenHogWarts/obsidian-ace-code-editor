@@ -118,14 +118,6 @@ const translations: BaseMessage = {
 			name: "Show fold widgets",
 			desc: "Display fold widgets in code editor",
 		},
-		highlightActiveLine: {
-			name: "Highlight active line",
-			desc: "Highlight the current line in code editor",
-		},
-		highlightSelectedWord: {
-			name: "Highlight selected word",
-			desc: "Highlight the selected word in code editor",
-		},
 	},
 };
 

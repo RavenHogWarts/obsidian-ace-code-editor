@@ -115,14 +115,6 @@ const translations: BaseMessage = {
 			name: "顯示折疊小工具",
 			desc: "在程式碼編輯器中顯示折疊小工具",
 		},
-		highlightActiveLine: {
-			name: "高亮當前行",
-			desc: "在程式碼編輯器中高亮當前行",
-		},
-		highlightSelectedWord: {
-			name: "高亮選中文本",
-			desc: "在程式碼編輯器中高亮選中的單詞",
-		},
 	},
 };
 

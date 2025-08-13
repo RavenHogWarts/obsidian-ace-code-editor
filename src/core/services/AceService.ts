@@ -122,9 +122,7 @@ export class AceService {
 			// -- editor选项 --
 			// 选中样式 selectionStyle: text [line|text]
 			// 高亮当前行 highlightActiveLine: true
-			highlightActiveLine: config.highlightActiveLine,
 			// 高亮选中文本 highlightSelectedWord: true
-			highlightSelectedWord: config.highlightSelectedWord,
 			// 是否只读 readOnly: false
 			// 光标样式 cursorStyle: ace [ace|slim|smooth|wide]
 			// 合并撤销 mergeUndoDeltas: false [always]
