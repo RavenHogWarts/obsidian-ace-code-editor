@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import * as React from "react";
+import "./Select.css";
 
 export interface SelectOption {
 	value: unknown;

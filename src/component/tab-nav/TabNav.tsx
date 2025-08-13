@@ -1,5 +1,6 @@
 import { Tabs } from "radix-ui";
 import * as React from "react";
+import "./TabNav.css";
 
 export interface TabNavItem {
 	id: string;

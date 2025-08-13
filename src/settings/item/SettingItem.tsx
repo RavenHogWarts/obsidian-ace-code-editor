@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronRight } from "lucide-react";
 import * as React from "react";
+import "./SettingItem.css";
 
 interface SettingsItemProps {
 	name: string;

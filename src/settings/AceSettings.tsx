@@ -16,7 +16,7 @@ import { ICodeEditorConfig } from "@/src/type/types";
 import parse from "html-react-parser";
 import { Notice, Platform } from "obsidian";
 import * as React from "react";
-import { SettingsItem } from "./SettingItem";
+import { SettingsItem } from "./item/SettingItem";
 
 interface FontData {
 	family: string;

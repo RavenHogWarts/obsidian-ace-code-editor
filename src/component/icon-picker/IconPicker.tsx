@@ -7,6 +7,7 @@ import {
 	setIcon,
 } from "obsidian";
 import * as React from "react";
+import "./IconPicker.css";
 
 interface IconPickerProps {
 	app: App;

@@ -3,6 +3,7 @@ import AceCodeEditorPlugin from "@/src/main";
 import { Modal } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
+import "./ConfirmDialog.css";
 
 interface ConfirmDialogViewProps {
 	title: string;
