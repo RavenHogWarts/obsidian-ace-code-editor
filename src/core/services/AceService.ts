@@ -12,7 +12,8 @@ import "./AceExtensions";
 // import "ace-builds/src-noconflict/keybinding-vim";
 // import "ace-builds/src-noconflict/keybinding-vscode";
 
-import { ICodeEditorConfig } from "../interfaces/types";
+import { ICodeEditorConfig, LineRange } from "../interfaces/types";
+import { extractLineRange } from "../utils/LineRange";
 import { getLanguageMode } from "./AceLanguages";
 import { getAceTheme } from "./AceThemes";
 
@@ -225,5 +226,35 @@ export class AceService {
 		const newSize = Math.max(currentSize - step, 8); // 最小字体大小限制为8
 		this.setFontSize(newSize);
 		return newSize;
+	}
+
+	/**
+	 * 设置显示特定行范围的内容
+	 * @param content 完整文件内容
+	 * @param range 要显示的行范围
+	 */
+	setValueWithLineRange(content: string, range: LineRange): void {
+		if (!this.editor) return;
+
+		// 提取指定行范围的内容
+		const rangeContent = extractLineRange(content, range);
+
+		// 设置内容
+		this.setValue(rangeContent);
+
+		// 设置起始行号
+		this.editor.session.setOption("firstLineNumber", range.startLine);
+
+		// 设置为只读模式（可选）
+		this.editor.setReadOnly(true);
+	}
+
+	/**
+	 * 设置起始行号
+	 * @param lineNumber 起始行号
+	 */
+	setFirstLineNumber(lineNumber: number): void {
+		if (!this.editor) return;
+		this.editor.session.setOption("firstLineNumber", lineNumber);
 	}
 }
