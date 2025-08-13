@@ -231,35 +231,35 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 		});
 	}
 
-	const handleUpdateConfig = async (
+	const handleUpdateConfig = React.useCallback(async (
 		newSettings: Partial<ICodeEditorConfig>
 	) => {
 		const updatedSettings = { ...settingsValue, ...newSettings };
 		setSettingsValue(updatedSettings);
 		// 直接调用plugin.updateSettings，避免useEffect带来的副作用
 		await plugin.updateSettings(newSettings);
-	};
+	}, [settingsValue, plugin]);
 
-	const lightThemeOptions = AceLightThemesList.map((theme) => ({
+	const lightThemeOptions = React.useMemo(() => AceLightThemesList.map((theme) => ({
 		value: theme,
 		label: theme,
-	}));
+	})), []);
 
-	const darkThemeOptions = AceDarkThemesList.map((theme) => ({
+	const darkThemeOptions = React.useMemo(() => AceDarkThemesList.map((theme) => ({
 		value: theme,
 		label: theme,
-	}));
+	})), []);
 
-	const keyboardOptions = AceKeyboardList.map((keyboard) => ({
+	const keyboardOptions = React.useMemo(() => AceKeyboardList.map((keyboard) => ({
 		value: keyboard,
 		label: keyboard,
-	}));
+	})), []);
 
-	const EditorSettings = () => {
+	const EditorSettings = React.useMemo(() => {
 		return <></>;
-	};
+	}, []);
 
-	const RendererSettings = () => {
+	const RendererSettings = React.useMemo(() => {
 		return (
 			<>
 				<SettingsItem
@@ -388,9 +388,9 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				</SettingsItem>
 			</>
 		);
-	};
+	}, [settingsValue, systemFonts, handleUpdateConfig]);
 
-	const SessionSettings = () => {
+	const SessionSettings = React.useMemo(() => {
 		return (
 			<>
 				<SettingsItem
@@ -436,9 +436,9 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				</SettingsItem>
 			</>
 		);
-	};
+	}, [settingsValue, handleUpdateConfig]);
 
-	const ExtendSettings = () => {
+	const ExtendSettings = React.useMemo(() => {
 		return (
 			<>
 				<SettingsItem
@@ -486,9 +486,9 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				</SettingsItem>
 			</>
 		);
-	};
+	}, [settingsValue, handleUpdateConfig, plugin.app]);
 
-	const AboutSettings = () => {
+	const AboutSettings = React.useMemo(() => {
 		return (
 			<>
 				<SettingsItem
@@ -497,36 +497,36 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				></SettingsItem>
 			</>
 		);
-	};
+	}, []);
 
-	const settingsTabNavItems: TabNavItem[] = [
+	const settingsTabNavItems: TabNavItem[] = React.useMemo(() => [
 		{
 			id: "renderer",
 			title: t("setting.tabs.renderer"),
-			content: <RendererSettings />,
+			content: RendererSettings,
 		},
 		{
 			id: "session",
 			title: t("setting.tabs.session"),
-			content: <SessionSettings />,
+			content: SessionSettings,
 		},
 		{
 			id: "editor",
 			title: t("setting.tabs.editor"),
-			content: <EditorSettings />,
+			content: EditorSettings,
 			disabled: true,
 		},
 		{
 			id: "extend",
 			title: t("setting.tabs.extend"),
-			content: <ExtendSettings />,
+			content: ExtendSettings,
 		},
 		{
 			id: "about",
 			title: t("setting.tabs.about"),
-			content: <AboutSettings />,
+			content: AboutSettings,
 		},
-	];
+	], [RendererSettings, SessionSettings, EditorSettings, ExtendSettings, AboutSettings]);
 
 	return (
 		<TabNav
