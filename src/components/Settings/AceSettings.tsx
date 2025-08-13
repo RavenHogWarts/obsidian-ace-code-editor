@@ -1,4 +1,3 @@
-import { useSettings } from "@/src/core/hook/useSettings";
 import { ICodeEditorConfig } from "@/src/core/interfaces/types";
 import { languageModeMap } from "@/src/core/services/AceLanguages";
 import {
@@ -38,7 +37,13 @@ interface AceSettingsProps {
 }
 
 export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
-	const { settings, updateSettings } = useSettings(plugin);
+	const [settingsValue, setSettingsValue] = React.useState(plugin.settings);
+
+	// 监听外部settings变化，同步到本地状态
+	React.useEffect(() => {
+		setSettingsValue(plugin.settings);
+	}, [plugin.settings]);
+
 	const [systemFonts, setSystemFonts] = React.useState<string[]>([]);
 
 	// 加载系统字体
@@ -229,7 +234,10 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 	const handleUpdateConfig = async (
 		newSettings: Partial<ICodeEditorConfig>
 	) => {
-		await updateSettings({ ...settings, ...newSettings });
+		const updatedSettings = { ...settingsValue, ...newSettings };
+		setSettingsValue(updatedSettings);
+		// 直接调用plugin.updateSettings，避免useEffect带来的副作用
+		await plugin.updateSettings(newSettings);
 	};
 
 	const lightThemeOptions = AceLightThemesList.map((theme) => ({
@@ -260,7 +268,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Select
 						options={lightThemeOptions}
-						value={settings.lightTheme}
+						value={settingsValue.lightTheme}
 						onChange={(value) =>
 							handleUpdateConfig({ lightTheme: value as string })
 						}
@@ -273,7 +281,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Select
 						options={darkThemeOptions}
-						value={settings.darkTheme}
+						value={settingsValue.darkTheme}
 						onChange={(value) =>
 							handleUpdateConfig({ darkTheme: value as string })
 						}
@@ -287,7 +295,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					defaultCollapsed={false}
 				>
 					<TagInput
-						values={settings.fontFamily}
+						values={settingsValue.fontFamily}
 						onChange={(value) =>
 							handleUpdateConfig({ fontFamily: value })
 						}
@@ -312,7 +320,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Input
 						type="number"
-						value={settings.fontSize}
+						value={settingsValue.fontSize}
 						onChange={(value) =>
 							handleUpdateConfig({ fontSize: Number(value) })
 						}
@@ -324,7 +332,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.showLineNumbers.desc")}
 				>
 					<Toggle
-						checked={settings.showLineNumbers}
+						checked={settingsValue.showLineNumbers}
 						onChange={(value) =>
 							handleUpdateConfig({ showLineNumbers: value })
 						}
@@ -336,7 +344,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.showPrintMargin.desc")}
 				>
 					<Toggle
-						checked={settings.showPrintMargin}
+						checked={settingsValue.showPrintMargin}
 						onChange={(value) =>
 							handleUpdateConfig({ showPrintMargin: value })
 						}
@@ -348,7 +356,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.showInvisibles.desc")}
 				>
 					<Toggle
-						checked={settings.showInvisibles}
+						checked={settingsValue.showInvisibles}
 						onChange={(value) =>
 							handleUpdateConfig({ showInvisibles: value })
 						}
@@ -360,7 +368,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.displayIndentGuides.desc")}
 				>
 					<Toggle
-						checked={settings.displayIndentGuides}
+						checked={settingsValue.displayIndentGuides}
 						onChange={(value) =>
 							handleUpdateConfig({ displayIndentGuides: value })
 						}
@@ -372,7 +380,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.showFoldWidgets.desc")}
 				>
 					<Toggle
-						checked={settings.showFoldWidgets}
+						checked={settingsValue.showFoldWidgets}
 						onChange={(value) =>
 							handleUpdateConfig({ showFoldWidgets: value })
 						}
@@ -392,7 +400,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					defaultCollapsed={false}
 				>
 					<TagInput
-						values={settings.supportExtensions}
+						values={settingsValue.supportExtensions}
 						onChange={(value) =>
 							handleUpdateConfig({ supportExtensions: value })
 						}
@@ -407,7 +415,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Select
 						options={keyboardOptions}
-						value={settings.keyboard}
+						value={settingsValue.keyboard}
 						onChange={(value) =>
 							handleUpdateConfig({ keyboard: value as string })
 						}
@@ -420,7 +428,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Input
 						type="number"
-						value={settings.tabSize}
+						value={settingsValue.tabSize}
 						onChange={(value) =>
 							handleUpdateConfig({ tabSize: Number(value) })
 						}
@@ -438,11 +446,11 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.snippetsManager.desc")}
 				>
 					<Toggle
-						checked={settings.snippetsManager.location}
+						checked={settingsValue.snippetsManager.location}
 						onChange={(value) =>
 							handleUpdateConfig({
 								snippetsManager: {
-									...settings.snippetsManager,
+									...settingsValue.snippetsManager,
 									location: value,
 								},
 							})
@@ -450,11 +458,11 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					/>
 					<IconPicker
 						app={plugin.app}
-						value={settings.snippetsManager.icon}
+						value={settingsValue.snippetsManager.icon}
 						onChange={(value) =>
 							handleUpdateConfig({
 								snippetsManager: {
-									...settings.snippetsManager,
+									...settingsValue.snippetsManager,
 									icon: value,
 								},
 							})
@@ -468,7 +476,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Input
 						type="number"
-						value={settings.embedMaxHeight}
+						value={settingsValue.embedMaxHeight}
 						onChange={(value) =>
 							handleUpdateConfig({
 								embedMaxHeight: Number(value),
