@@ -23,3 +23,23 @@
 		opacity: 0.6;
 	}
 }
+
+/* 行范围嵌入容器样式 */
+.ace-embed-container {
+	display: block;
+	margin: 1rem 0;
+}
+
+/* 行范围嵌入视图的特殊样式 */
+.ace-embed-view.line-range {
+	border-color: var(--color-accent);
+	border-style: solid;
+
+	.ace-embed-language-label {
+		background: var(--background-primary);
+		padding: 2px 6px;
+		border-radius: 4px;
+		color: var(--color-accent);
+		opacity: 0.8;
+	}
+}
