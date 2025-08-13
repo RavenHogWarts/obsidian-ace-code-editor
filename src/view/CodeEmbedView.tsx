@@ -6,11 +6,11 @@ import { createRoot, Root } from "react-dom/client";
 import { AcePluginComponent } from "../core/interfaces/component";
 import { Embed } from "../core/interfaces/obsidian-extend";
 import { LineRange } from "../core/interfaces/types";
-import { parseLinkWithRange } from "../core/utils/LineRange";
 import { useSettings } from "../hooks/useSettings";
 import AceCodeEditorPlugin from "../main";
 import { getLanguageMode } from "../service/AceLanguages";
 import { AceService } from "../service/AceService";
+import { parseLinkWithRange } from "../utils/LineRange";
 
 interface CodeEmbedContainerProps {
 	plugin: AceCodeEditorPlugin;
