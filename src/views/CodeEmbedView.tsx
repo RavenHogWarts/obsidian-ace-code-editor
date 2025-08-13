@@ -38,6 +38,7 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 				aceEditorRef.current = aceServiceRef.current.createEditor(
 					editorRef.current
 				);
+				aceEditorRef.current.setReadOnly(true); // 设置为只读模式
 				aceServiceRef.current.configureEditor(settings, file.extension);
 
 				let contentLines: number;
@@ -98,19 +99,9 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 				if (view && "aceService" in view && view.aceService) {
 					const aceService = view.aceService as AceService;
 
-					// 使用改进的 AceService 方法
-					if (range.startLine === range.endLine) {
-						// 单行：跳转到指定行并居中显示
-						aceService.gotoLine(range.startLine, 0, true, true);
-					} else {
-						// 多行：跳转到起始行并选中整个范围
-						aceService.gotoLine(range.startLine, 0, true, false);
-						aceService.selectLineRange(
-							range.startLine,
-							range.endLine
-						);
-						aceService.scrollCursorIntoView(true);
-					}
+					aceService.gotoLine(range.startLine, 0, true, false);
+					aceService.selectLineRange(range.startLine, range.endLine);
+					aceService.scrollCursorIntoView(true);
 				}
 			}, 100); // 100ms 延迟确保编辑器已加载
 		}
