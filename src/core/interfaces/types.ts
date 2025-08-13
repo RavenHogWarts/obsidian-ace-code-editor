@@ -23,8 +23,7 @@ export interface ICodeEditorConfig {
 	showInvisibles: boolean;
 	displayIndentGuides: boolean;
 	showFoldWidgets: boolean;
-	highlightActiveLine: boolean;
-	highlightSelectedWord: boolean;
+	embedMaxHeight: number;
 }
 
 export const DEFAULT_CONFIG: ICodeEditorConfig = {
@@ -44,8 +43,7 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 	showInvisibles: false,
 	displayIndentGuides: true,
 	showFoldWidgets: true,
-	highlightActiveLine: true,
-	highlightSelectedWord: true,
+	embedMaxHeight: 500,
 };
 
 export interface ICodeBlock {
@@ -58,4 +56,9 @@ export interface ICodeBlock {
 		calloutStartLine?: number;
 	};
 	indent?: number;
+}
+
+export interface LineRange {
+	startLine: number;
+	endLine: number;
 }

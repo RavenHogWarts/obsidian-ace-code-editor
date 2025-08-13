@@ -248,33 +248,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 	}));
 
 	const EditorSettings = () => {
-		return (
-			<>
-				<SettingsItem
-					name={t("setting.highlightActiveLine.name")}
-					desc={t("setting.highlightActiveLine.desc")}
-				>
-					<Toggle
-						checked={settings.highlightActiveLine}
-						onChange={(value) =>
-							handleUpdateConfig({ highlightActiveLine: value })
-						}
-					/>
-				</SettingsItem>
-
-				<SettingsItem
-					name={t("setting.highlightSelectedWord.name")}
-					desc={t("setting.highlightSelectedWord.desc")}
-				>
-					<Toggle
-						checked={settings.highlightSelectedWord}
-						onChange={(value) =>
-							handleUpdateConfig({ highlightSelectedWord: value })
-						}
-					/>
-				</SettingsItem>
-			</>
-		);
+		return <></>;
 	};
 
 	const RendererSettings = () => {
@@ -487,6 +461,21 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 						}
 					/>
 				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.embedMaxHeight.name")}
+					desc={t("setting.embedMaxHeight.desc")}
+				>
+					<Input
+						type="number"
+						value={settings.embedMaxHeight}
+						onChange={(value) =>
+							handleUpdateConfig({
+								embedMaxHeight: Number(value),
+							})
+						}
+					/>
+				</SettingsItem>
 			</>
 		);
 	};
@@ -517,6 +506,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 			id: "editor",
 			title: t("setting.tabs.editor"),
 			content: <EditorSettings />,
+			disabled: true,
 		},
 		{
 			id: "extend",

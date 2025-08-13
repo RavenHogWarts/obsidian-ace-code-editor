@@ -94,8 +94,7 @@ export type BaseMessage = {
 		showInvisibles: IBaseSettingsItem;
 		displayIndentGuides: IBaseSettingsItem;
 		showFoldWidgets: IBaseSettingsItem;
-		highlightActiveLine: IBaseSettingsItem;
-		highlightSelectedWord: IBaseSettingsItem;
+		embedMaxHeight: IBaseSettingsItem;
 	};
 };
 

@@ -12,7 +12,8 @@ import "./AceExtensions";
 // import "ace-builds/src-noconflict/keybinding-vim";
 // import "ace-builds/src-noconflict/keybinding-vscode";
 
-import { ICodeEditorConfig } from "../interfaces/types";
+import { ICodeEditorConfig, LineRange } from "../interfaces/types";
+import { extractLineRange } from "../utils/LineRange";
 import { getLanguageMode } from "./AceLanguages";
 import { getAceTheme } from "./AceThemes";
 
@@ -121,9 +122,7 @@ export class AceService {
 			// -- editor选项 --
 			// 选中样式 selectionStyle: text [line|text]
 			// 高亮当前行 highlightActiveLine: true
-			highlightActiveLine: config.highlightActiveLine,
 			// 高亮选中文本 highlightSelectedWord: true
-			highlightSelectedWord: config.highlightSelectedWord,
 			// 是否只读 readOnly: false
 			// 光标样式 cursorStyle: ace [ace|slim|smooth|wide]
 			// 合并撤销 mergeUndoDeltas: false [always]
@@ -225,5 +224,126 @@ export class AceService {
 		const newSize = Math.max(currentSize - step, 8); // 最小字体大小限制为8
 		this.setFontSize(newSize);
 		return newSize;
+	}
+
+	/**
+	 * 设置显示特定行范围的内容
+	 * @param content 完整文件内容
+	 * @param range 要显示的行范围
+	 */
+	setValueWithLineRange(content: string, range: LineRange): void {
+		if (!this.editor) return;
+
+		// 提取指定行范围的内容
+		const rangeContent = extractLineRange(content, range);
+
+		// 设置内容
+		this.setValue(rangeContent);
+
+		// 设置起始行号
+		this.editor.session.setOption("firstLineNumber", range.startLine);
+
+		// 设置为只读模式（可选）
+		this.editor.setReadOnly(true);
+	}
+
+	/**
+	 * 设置起始行号
+	 * @param lineNumber 起始行号
+	 */
+	setFirstLineNumber(lineNumber: number): void {
+		if (!this.editor) return;
+		this.editor.session.setOption("firstLineNumber", lineNumber);
+	}
+
+	/**
+	 * 跳转到指定行并可选择是否居中显示
+	 * @param lineNumber 行号（1-based）
+	 * @param column 列号，默认为0
+	 * @param animate 是否动画滚动
+	 * @param center 是否居中显示
+	 */
+	gotoLine(
+		lineNumber: number,
+		column: number = 0,
+		animate: boolean = false,
+		center: boolean = true
+	): void {
+		if (!this.editor) return;
+
+		// 使用 ACE Editor 的 gotoLine 方法
+		this.editor.gotoLine(lineNumber, column, animate);
+
+		// 如果需要居中显示
+		if (center) {
+			this.editor.centerSelection();
+		}
+	}
+
+	/**
+	 * 滚动到指定行
+	 * @param lineNumber 行号（1-based）
+	 * @param center 是否居中显示
+	 * @param animate 是否动画滚动
+	 */
+	scrollToLine(
+		lineNumber: number,
+		center: boolean = true,
+		animate: boolean = false
+	): void {
+		if (!this.editor) return;
+		this.editor.scrollToLine(lineNumber - 1, center, animate);
+	}
+
+	/**
+	 * 选中指定行范围
+	 * @param startLine 开始行号（1-based）
+	 * @param endLine 结束行号（1-based）
+	 * @param startColumn 开始列号，默认为0
+	 * @param endColumn 结束列号，默认为行末
+	 */
+	selectLineRange(
+		startLine: number,
+		endLine: number,
+		startColumn: number = 0,
+		endColumn?: number
+	): void {
+		if (!this.editor) return;
+
+		// 如果没有指定结束列号，使用行的长度
+		if (endColumn === undefined) {
+			const line = this.editor.session.getLine(endLine - 1);
+			endColumn = line ? line.length : 0;
+		}
+
+		// 设置选择范围（ACE使用0-based索引）
+		this.editor.selection.setRange({
+			start: { row: startLine - 1, column: startColumn },
+			end: { row: endLine - 1, column: endColumn },
+		});
+	}
+
+	/**
+	 * 移动光标到指定位置
+	 * @param line 行号（1-based）
+	 * @param column 列号
+	 */
+	moveCursorTo(line: number, column: number = 0): void {
+		if (!this.editor) return;
+		// ACE Editor 使用 0-based 索引
+		this.editor.moveCursorTo(line - 1, column);
+	}
+
+	/**
+	 * 滚动光标到可见区域
+	 * @param center 是否居中显示
+	 */
+	scrollCursorIntoView(center: boolean = false): void {
+		if (!this.editor) return;
+		if (center) {
+			this.editor.centerSelection();
+		} else {
+			this.editor.renderer.scrollCursorIntoView();
+		}
 	}
 }

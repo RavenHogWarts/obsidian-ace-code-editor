@@ -7,7 +7,7 @@ import { AceService } from "../core/services/AceService";
 import type AceCodeEditorPlugin from "../main";
 
 export class CodeEditorView extends TextFileView {
-	private aceService: AceService;
+	public aceService: AceService;
 	private config: ICodeEditorConfig;
 	editorScope: Scope;
 	editorElement: HTMLElement;

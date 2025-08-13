@@ -118,13 +118,9 @@ const translations: BaseMessage = {
 			name: "Show fold widgets",
 			desc: "Display fold widgets in code editor",
 		},
-		highlightActiveLine: {
-			name: "Highlight active line",
-			desc: "Highlight the current line in code editor",
-		},
-		highlightSelectedWord: {
-			name: "Highlight selected word",
-			desc: "Highlight the selected word in code editor",
+		embedMaxHeight: {
+			name: "Embed code block max height",
+			desc: "Maximum height of embedded code blocks (in px). A scrollbar will appear if this height is exceeded",
 		},
 	},
 };

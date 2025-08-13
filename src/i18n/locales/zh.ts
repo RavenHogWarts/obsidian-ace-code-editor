@@ -115,13 +115,9 @@ const translations: BaseMessage = {
 			name: "折叠部件",
 			desc: "在代码编辑器中显示折叠部件",
 		},
-		highlightActiveLine: {
-			name: "当前行高亮",
-			desc: "在代码编辑器中高亮当前行",
-		},
-		highlightSelectedWord: {
-			name: "选中文本高亮",
-			desc: "在代码编辑器中高亮选中的文本",
+		embedMaxHeight: {
+			name: "嵌入代码块最大高度",
+			desc: "嵌入代码块的最大高度(单位px)，超过该高度将出现滚动条",
 		},
 	},
 };

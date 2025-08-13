@@ -25,6 +25,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		await this.loadSettings();
 
 		this.registerLeafViews();
+		this.registerMarkdownProcessor();
 
 		this.addSettingTab(new AceCodeEditorSettingTab(this.app, this));
 
@@ -98,6 +99,57 @@ export default class AceCodeEditorPlugin extends Plugin {
 		} catch (e) {
 			throw new Error("Failed to register code editor view" + e);
 		}
+	}
+
+	private registerMarkdownProcessor() {
+		// 注册markdown后处理器，用于处理带行范围的双链
+		this.registerMarkdownPostProcessor((element, context) => {
+			// 查找所有的内部链接
+			const links = element.querySelectorAll("a.internal-link");
+
+			links.forEach((link: HTMLAnchorElement) => {
+				const href = link.getAttribute("href");
+				if (!href) return;
+
+				// 检查是否包含行范围语法 (#L10 或 #L10-L20)
+				const lineRangeMatch = href.match(/#L\d+(-L\d+)?$/i);
+				if (!lineRangeMatch) return;
+
+				// 获取文件路径（去掉行范围部分）
+				const filePath = href.replace(/#L\d+(-L\d+)?$/i, "");
+
+				// 检查文件是否为支持的扩展名
+				const extension = filePath.split(".").pop()?.toLowerCase();
+				if (
+					!extension ||
+					!this.settings.supportExtensions.includes(extension)
+				) {
+					return;
+				}
+
+				// 获取对应的文件
+				const file = this.app.vault.getAbstractFileByPath(filePath);
+				if (!(file instanceof TFile)) return;
+
+				// 创建嵌入视图来替换链接
+				const embedContainer = createDiv();
+				embedContainer.addClass("ace-embed-container");
+
+				// 创建CodeEmbedView
+				const embedView = new CodeEmbedView(
+					this,
+					embedContainer,
+					file,
+					lineRangeMatch[0] // 传递行范围字符串作为subpath
+				);
+
+				// 替换原链接
+				link.replaceWith(embedContainer);
+
+				// 加载嵌入视图
+				embedView.onload();
+			});
+		});
 	}
 
 	private registerEventHandlers() {
