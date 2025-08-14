@@ -1,6 +1,7 @@
 import type AceCodeEditorPlugin from "@/src/main";
 import { AceService } from "@/src/service/AceService";
 import { CODE_EDITOR_VIEW_TYPE, ICodeEditorConfig } from "@/src/type/types";
+import { ObsidianUtils } from "@/src/utils/ObsidianUtils";
 import { IconName, Scope, TextFileView, TFile, WorkspaceLeaf } from "obsidian";
 
 export class CodeEditorView extends TextFileView {
@@ -32,39 +33,8 @@ export class CodeEditorView extends TextFileView {
 			})
 		);
 
-		// 启用Ace快捷键绑定
 		this.registerAceKeybindings();
-
-		this.registerDomEvent(
-			this.editorElement,
-			"focus",
-			() => {
-				this.app.keymap.pushScope(this.editorScope);
-			},
-			true
-		);
-
-		this.registerDomEvent(
-			this.editorElement,
-			"blur",
-			() => {
-				this.app.keymap.popScope(this.editorScope);
-			},
-			true
-		);
-
-		// 注册滚轮事件用于字体大小调整
-		this.registerDomEvent(
-			this.editorElement,
-			"wheel",
-			(event: WheelEvent) => {
-				if (event.ctrlKey || event.metaKey) {
-					event.preventDefault();
-					this.handleFontSizeChange(event.deltaY);
-				}
-			},
-			{ passive: false }
-		);
+		this.registerDomEvents();
 	}
 
 	async onLoadFile(file: TFile) {
@@ -140,6 +110,47 @@ export class CodeEditorView extends TextFileView {
 				`ace/keyboard/${this.config.keyboard}`
 			);
 		}
+
+		// 注册快捷键：Alt+P 打开命令面板
+		this.editorScope.register(["Alt"], "p", (event: KeyboardEvent) => {
+			event.preventDefault();
+			event.stopPropagation();
+			ObsidianUtils.runCommandById(this.app, "command-palette:open");
+			return false;
+		});
+	}
+
+	private registerDomEvents() {
+		this.registerDomEvent(
+			this.editorElement,
+			"focus",
+			() => {
+				this.app.keymap.pushScope(this.editorScope);
+			},
+			true
+		);
+
+		this.registerDomEvent(
+			this.editorElement,
+			"blur",
+			() => {
+				this.app.keymap.popScope(this.editorScope);
+			},
+			true
+		);
+
+		// 注册滚轮事件用于字体大小调整
+		this.registerDomEvent(
+			this.editorElement,
+			"wheel",
+			(event: WheelEvent) => {
+				if (event.ctrlKey || event.metaKey) {
+					event.preventDefault();
+					this.handleFontSizeChange(event.deltaY);
+				}
+			},
+			{ passive: false }
+		);
 	}
 
 	private handleFontSizeChange(deltaY: number) {
