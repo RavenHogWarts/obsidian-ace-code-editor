@@ -1,3 +1,22 @@
+## [1.3.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.3.0...1.3.1) (2025-08-14)
+
+
+### ♻️ Refactor
+
+* 优化重构项目结构 (#37) ([2167a83](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/2167a83df0ee253ec5dc7ae8ed96c627137c2518)), closes [#37](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/37)
+
+
+### ✨ Features
+
+* 增加快捷键 Alt + P 打开obsidian命令面板 (#38) ([8f0834d](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/8f0834d2b536bfe4c6aa0c8d78cbb35a6c392702)), closes [#38](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/38)
+
+
+### 🐛 Bug Fixes
+
+* 嵌入视图未正确设置成只读模式 (#36) ([cf006c3](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/cf006c351c723dc9f453deca4e595ec2bb458aad)), closes [#36](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/36)
+
+
+
 # [1.3.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.2.3...1.3.0) (2025-08-13)
 
 
