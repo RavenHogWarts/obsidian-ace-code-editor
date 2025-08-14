@@ -12,4 +12,8 @@ export class ObsidianUtils {
 			throw new Error("[ace-code-editor] 插件重载失败" + error);
 		}
 	}
+
+	static async runCommandById(app: App, commandId: string) {
+		app.commands.executeCommandById(commandId);
+	}
 }

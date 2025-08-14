@@ -6,6 +6,7 @@ declare module "obsidian" {
 		openWithDefaultApp(path: string): void;
 		embedRegistry: EmbedRegistry;
 		customCss: CustomCSS;
+		commands: Commands;
 	}
 	interface Plugins {
 		disablePluginAndSave(id: string): Promise<void>;
@@ -45,4 +46,8 @@ interface CustomCSS extends Component {
 	enabledSnippets: Set<string>;
 	requestLoadSnippets: Debouncer<[], void>;
 	setCssEnabledStatus(snippetName: string, enabled: boolean): void;
+}
+
+interface Commands {
+	executeCommandById(commandId: string): boolean;
 }
