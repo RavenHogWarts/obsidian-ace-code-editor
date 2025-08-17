@@ -1,9 +1,9 @@
 import "@/style/styles";
 import { Editor, Menu, Plugin, setIcon, TFile, TFolder } from "obsidian";
+import { BaseModal } from "./component/modal/BaseModal";
+import { QuickConfigModal } from "./component/modal/QuickConfigModal";
 import { SettingsBus } from "./hooks/useSettings";
 import { t } from "./i18n/i18n";
-import { BaseModal } from "./model/BaseModal";
-import { QuickConfigModal } from "./model/QuickConfigModal";
 import AceCodeEditorSettingTab from "./settings/SettingsTab";
 import { EmbedCreator } from "./type/obsidian-extend";
 import {
@@ -299,7 +299,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		new BaseModal(
 			this.app,
 			this,
-			() => import("./model/CreateCodeFileModal"),
+			() => import("./component/modal/CreateCodeFileModal"),
 			{
 				folderPath,
 				openInCodeEditor: (path: string, newTab: boolean) =>
@@ -315,7 +315,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		new BaseModal(
 			this.app,
 			this,
-			() => import("./model/SnippetsFileModal"),
+			() => import("./component/modal/SnippetsFileModal"),
 			{
 				snippetsFolder,
 				openExternalFile: (filePath: string, newTab: boolean) =>
@@ -329,7 +329,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 		new BaseModal(
 			this.app,
 			this,
-			() => import("./model/EditCodeBlockModal"),
+			() => import("./component/modal/EditCodeBlockModal"),
 			{
 				codeBlock,
 				config: this.settings,

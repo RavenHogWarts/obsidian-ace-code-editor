@@ -1,4 +1,7 @@
-import { ModalContext, ModalContextType } from "@/src/model/BaseModal";
+import {
+	ModalContext,
+	ModalContextType,
+} from "@/src/component/modal/BaseModal";
 import * as React from "react";
 
 // Custom hook to access modal context
