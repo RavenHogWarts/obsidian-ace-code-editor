@@ -12,10 +12,11 @@ import {
 	AceKeyboardList,
 	AceLightThemesList,
 } from "@/src/service/AceThemes";
-import { ICodeEditorConfig } from "@/src/type/types";
 import parse from "html-react-parser";
 import { Notice, Platform } from "obsidian";
 import * as React from "react";
+import usePluginSettings from "../hooks/usePluginSettings";
+import useSettingsStore from "../hooks/useSettingsStore";
 import { SettingsItem } from "./item/SettingItem";
 
 interface FontData {
@@ -37,12 +38,15 @@ interface AceSettingsProps {
 }
 
 export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
-	const [settingsValue, setSettingsValue] = React.useState(plugin.settings);
+	// const [settingsValue, setSettingsValue] = React.useState(plugin.settings);
+	const settingsStore = useSettingsStore();
+	const settings = usePluginSettings(settingsStore);
+	const app = settingsStore.app;
 
 	// 监听外部settings变化，同步到本地状态
-	React.useEffect(() => {
-		setSettingsValue(plugin.settings);
-	}, [plugin.settings]);
+	// React.useEffect(() => {
+	// 	setSettingsValue(plugin.settings);
+	// }, [plugin.settings]);
 
 	const [systemFonts, setSystemFonts] = React.useState<string[]>([]);
 
@@ -231,15 +235,15 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 		});
 	}
 
-	const handleUpdateConfig = React.useCallback(
-		async (newSettings: Partial<ICodeEditorConfig>) => {
-			const updatedSettings = { ...settingsValue, ...newSettings };
-			setSettingsValue(updatedSettings);
-			// 直接调用plugin.updateSettings，避免useEffect带来的副作用
-			await plugin.updateSettings(newSettings);
-		},
-		[settingsValue, plugin]
-	);
+	// const handleUpdateConfig = React.useCallback(
+	// 	async (newSettings: Partial<ICodeEditorConfig>) => {
+	// 		const updatedSettings = { ...settingsValue, ...newSettings };
+	// 		setSettingsValue(updatedSettings);
+	// 		// 直接调用plugin.updateSettings，避免useEffect带来的副作用
+	// 		await plugin.updateSettings(newSettings);
+	// 	},
+	// 	[settingsValue, plugin]
+	// );
 
 	const lightThemeOptions = React.useMemo(
 		() =>
@@ -281,9 +285,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Select
 						options={lightThemeOptions}
-						value={settingsValue.lightTheme}
+						value={settings.lightTheme}
 						onChange={(value) =>
-							handleUpdateConfig({ lightTheme: value as string })
+							settingsStore.updateSettingByPath(
+								"lightTheme",
+								value as string
+							)
 						}
 					/>
 				</SettingsItem>
@@ -294,9 +301,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Select
 						options={darkThemeOptions}
-						value={settingsValue.darkTheme}
+						value={settings.darkTheme}
 						onChange={(value) =>
-							handleUpdateConfig({ darkTheme: value as string })
+							settingsStore.updateSettingByPath(
+								"darkTheme",
+								value as string
+							)
 						}
 					/>
 				</SettingsItem>
@@ -308,9 +318,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					defaultCollapsed={false}
 				>
 					<TagInput
-						values={settingsValue.fontFamily}
+						values={settings.fontFamily}
 						onChange={(value) =>
-							handleUpdateConfig({ fontFamily: value })
+							settingsStore.updateSettingByPath(
+								"fontFamily",
+								value
+							)
 						}
 						suggestions={systemFonts}
 						placeholder={t("setting.fontFamily.placeholder")}
@@ -333,9 +346,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Input
 						type="number"
-						value={settingsValue.fontSize}
+						value={settings.fontSize}
 						onChange={(value) =>
-							handleUpdateConfig({ fontSize: Number(value) })
+							settingsStore.updateSettingByPath(
+								"fontSize",
+								Number(value)
+							)
 						}
 					/>
 				</SettingsItem>
@@ -345,9 +361,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.showLineNumbers.desc")}
 				>
 					<Toggle
-						checked={settingsValue.showLineNumbers}
+						checked={settings.showLineNumbers}
 						onChange={(value) =>
-							handleUpdateConfig({ showLineNumbers: value })
+							settingsStore.updateSettingByPath(
+								"showLineNumbers",
+								value
+							)
 						}
 					/>
 				</SettingsItem>
@@ -357,9 +376,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.showPrintMargin.desc")}
 				>
 					<Toggle
-						checked={settingsValue.showPrintMargin}
+						checked={settings.showPrintMargin}
 						onChange={(value) =>
-							handleUpdateConfig({ showPrintMargin: value })
+							settingsStore.updateSettingByPath(
+								"showPrintMargin",
+								value
+							)
 						}
 					/>
 				</SettingsItem>
@@ -369,9 +391,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.showInvisibles.desc")}
 				>
 					<Toggle
-						checked={settingsValue.showInvisibles}
+						checked={settings.showInvisibles}
 						onChange={(value) =>
-							handleUpdateConfig({ showInvisibles: value })
+							settingsStore.updateSettingByPath(
+								"showInvisibles",
+								value
+							)
 						}
 					/>
 				</SettingsItem>
@@ -381,9 +406,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.displayIndentGuides.desc")}
 				>
 					<Toggle
-						checked={settingsValue.displayIndentGuides}
+						checked={settings.displayIndentGuides}
 						onChange={(value) =>
-							handleUpdateConfig({ displayIndentGuides: value })
+							settingsStore.updateSettingByPath(
+								"displayIndentGuides",
+								value
+							)
 						}
 					/>
 				</SettingsItem>
@@ -393,15 +421,18 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.showFoldWidgets.desc")}
 				>
 					<Toggle
-						checked={settingsValue.showFoldWidgets}
+						checked={settings.showFoldWidgets}
 						onChange={(value) =>
-							handleUpdateConfig({ showFoldWidgets: value })
+							settingsStore.updateSettingByPath(
+								"showFoldWidgets",
+								value
+							)
 						}
 					/>
 				</SettingsItem>
 			</>
 		);
-	}, [settingsValue, systemFonts, handleUpdateConfig]);
+	}, [settings, systemFonts]);
 
 	const SessionSettings = React.useMemo(() => {
 		return (
@@ -413,9 +444,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					defaultCollapsed={false}
 				>
 					<TagInput
-						values={settingsValue.supportExtensions}
+						values={settings.supportExtensions}
 						onChange={(value) =>
-							handleUpdateConfig({ supportExtensions: value })
+							settingsStore.updateSettingByPath(
+								"supportExtensions",
+								value
+							)
 						}
 						placeholder={t("setting.supportExtensions.placeholder")}
 						suggestions={Object.values(languageModeMap).flat()}
@@ -428,9 +462,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Select
 						options={keyboardOptions}
-						value={settingsValue.keyboard}
+						value={settings.keyboard}
 						onChange={(value) =>
-							handleUpdateConfig({ keyboard: value as string })
+							settingsStore.updateSettingByPath(
+								"keyboard",
+								value as string
+							)
 						}
 					/>
 				</SettingsItem>
@@ -441,9 +478,12 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Input
 						type="number"
-						value={settingsValue.tabSize}
+						value={settings.tabSize}
 						onChange={(value) =>
-							handleUpdateConfig({ tabSize: Number(value) })
+							settingsStore.updateSettingByPath(
+								"tabSize",
+								Number(value)
+							)
 						}
 					/>
 				</SettingsItem>
@@ -453,15 +493,15 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.wrap.desc")}
 				>
 					<Toggle
-						checked={settingsValue.wrap}
+						checked={settings.wrap}
 						onChange={(value) =>
-							handleUpdateConfig({ wrap: value })
+							settingsStore.updateSettingByPath("wrap", value)
 						}
 					/>
 				</SettingsItem>
 			</>
 		);
-	}, [settingsValue, handleUpdateConfig]);
+	}, [settings]);
 
 	const ExtendSettings = React.useMemo(() => {
 		return (
@@ -471,26 +511,28 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 					desc={t("setting.snippetsManager.desc")}
 				>
 					<Toggle
-						checked={settingsValue.snippetsManager.location}
+						checked={settings.snippetsManager.location}
 						onChange={(value) =>
-							handleUpdateConfig({
-								snippetsManager: {
-									...settingsValue.snippetsManager,
+							settingsStore.updateSettingByPath(
+								"snippetsManager",
+								{
+									...settings.snippetsManager,
 									location: value,
-								},
-							})
+								}
+							)
 						}
 					/>
 					<IconPicker
-						app={plugin.app}
-						value={settingsValue.snippetsManager.icon}
+						app={app}
+						value={settings.snippetsManager.icon}
 						onChange={(value) =>
-							handleUpdateConfig({
-								snippetsManager: {
-									...settingsValue.snippetsManager,
+							settingsStore.updateSettingByPath(
+								"snippetsManager",
+								{
+									...settings.snippetsManager,
 									icon: value,
-								},
-							})
+								}
+							)
 						}
 					/>
 				</SettingsItem>
@@ -501,17 +543,18 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 				>
 					<Input
 						type="number"
-						value={settingsValue.embedMaxHeight}
+						value={settings.embedMaxHeight}
 						onChange={(value) =>
-							handleUpdateConfig({
-								embedMaxHeight: Number(value),
-							})
+							settingsStore.updateSettingByPath(
+								"embedMaxHeight",
+								Number(value)
+							)
 						}
 					/>
 				</SettingsItem>
 			</>
 		);
-	}, [settingsValue, handleUpdateConfig, plugin.app]);
+	}, [settings, app]);
 
 	const AboutSettings = React.useMemo(() => {
 		return (

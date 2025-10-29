@@ -4,6 +4,7 @@ import { BaseModal } from "./component/modal/BaseModal";
 import { QuickConfigModal } from "./component/modal/QuickConfigModal";
 import { SettingsBus } from "./hooks/useSettings";
 import { t } from "./i18n/i18n";
+import SettingsStore from "./settings/SettingsStore";
 import AceCodeEditorSettingTab from "./settings/SettingsTab";
 import { EmbedCreator } from "./type/obsidian-extend";
 import {
@@ -20,6 +21,7 @@ import { SETTINGS_VIEW_TYPE, SettingsView } from "./view/SettingsView";
 export default class AceCodeEditorPlugin extends Plugin {
 	settings: ICodeEditorConfig;
 	statusBar: HTMLElement;
+	readonly settingsStore = new SettingsStore(this);
 
 	async onload() {
 		await this.loadSettings();
