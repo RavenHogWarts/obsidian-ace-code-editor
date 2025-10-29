@@ -204,7 +204,7 @@ export class AceService {
 			// 聚焦超时(ms) focusTimeout
 			focusTimeout: 0,
 			// 工具提示跟随鼠标 tooltipFollowsMouse: false
-			tooltipFollowsMouse: false,
+			// tooltipFollowsMouse: false,
 
 			// -- session选项 --
 			// 起始行号 firstLineNumber: 1,
