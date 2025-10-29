@@ -1,5 +1,5 @@
-import AceCodeEditorPlugin from "@/src/main";
-import { ICodeEditorConfig } from "@/src/type/types";
+import AceCodeEditorPlugin from "@src/main";
+import { ICodeEditorConfig } from "@src/type/types";
 import * as React from "react";
 
 export const SettingsBus = {

@@ -1,5 +1,5 @@
-import { t } from "@/src/i18n/i18n";
-import AceCodeEditorPlugin from "@/src/main";
+import { t } from "@src/i18n/i18n";
+import AceCodeEditorPlugin from "@src/main";
 import { Modal } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";

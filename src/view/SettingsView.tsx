@@ -1,5 +1,5 @@
-import AceCodeEditorPlugin from "@/src/main";
-import { AceSettings } from "@/src/settings/AceSettings";
+import AceCodeEditorPlugin from "@src/main";
+import { AceSettings } from "@src/settings/AceSettings";
 import { IconName, ItemView, WorkspaceLeaf } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";

@@ -1,22 +1,22 @@
-import { IconPicker } from "@/src/component/icon-picker/IconPicker";
-import { Input } from "@/src/component/input/Input";
-import { Select } from "@/src/component/select/Select";
-import { TabNav, TabNavItem } from "@/src/component/tab-nav/TabNav";
-import { TagInput } from "@/src/component/tag-input/TagInput";
-import { Toggle } from "@/src/component/toggle/Toggle";
-import { t } from "@/src/i18n/i18n";
-import AceCodeEditorPlugin from "@/src/main";
-import { languageModeMap } from "@/src/service/AceLanguages";
+import { IconPicker } from "@src/component/icon-picker/IconPicker";
+import { Input } from "@src/component/input/Input";
+import { Select } from "@src/component/select/Select";
+import { TabNav, TabNavItem } from "@src/component/tab-nav/TabNav";
+import { TagInput } from "@src/component/tag-input/TagInput";
+import { Toggle } from "@src/component/toggle/Toggle";
+import usePluginSettings from "@src/hooks/usePluginSettings";
+import useSettingsStore from "@src/hooks/useSettingsStore";
+import { t } from "@src/i18n/i18n";
+import AceCodeEditorPlugin from "@src/main";
+import { languageModeMap } from "@src/service/AceLanguages";
 import {
 	AceDarkThemesList,
 	AceKeyboardList,
 	AceLightThemesList,
-} from "@/src/service/AceThemes";
+} from "@src/service/AceThemes";
 import parse from "html-react-parser";
 import { Notice, Platform } from "obsidian";
 import * as React from "react";
-import usePluginSettings from "../hooks/usePluginSettings";
-import useSettingsStore from "../hooks/useSettingsStore";
 import { SettingsItem } from "./item/SettingItem";
 
 interface FontData {

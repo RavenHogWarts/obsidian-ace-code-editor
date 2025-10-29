@@ -1,4 +1,4 @@
-import AceCodeEditorPlugin from "@/src/main";
+import AceCodeEditorPlugin from "@src/main";
 import { X } from "lucide-react";
 import { App, Modal } from "obsidian";
 import * as React from "react";

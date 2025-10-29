@@ -1,4 +1,4 @@
-import { BaseMessage } from "../types";
+import { BaseMessage } from "@src/i18n/types";
 
 const translations: BaseMessage = {
 	common: {
