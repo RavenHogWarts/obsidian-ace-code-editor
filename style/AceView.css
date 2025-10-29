@@ -1,0 +1,5 @@
+.workspace-leaf-content[data-type="ace-code-editor"] {
+	.view-content {
+		overflow: hidden;
+	}
+}
