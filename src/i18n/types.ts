@@ -95,6 +95,7 @@ export type BaseMessage = {
 		displayIndentGuides: IBaseSettingsItem;
 		showFoldWidgets: IBaseSettingsItem;
 		embedMaxHeight: IBaseSettingsItem;
+		wrap: IBaseSettingsItem;
 	};
 };
 
