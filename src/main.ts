@@ -1,4 +1,4 @@
-import "@/style/styles";
+import "@styles/styles";
 import { Editor, Menu, Plugin, setIcon, TFile, TFolder } from "obsidian";
 import { BaseModal } from "./component/modal/BaseModal";
 import { QuickConfigModal } from "./component/modal/QuickConfigModal";

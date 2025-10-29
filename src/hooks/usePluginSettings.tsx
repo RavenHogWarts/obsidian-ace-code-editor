@@ -1,6 +1,6 @@
+import SettingsStore from "@src/settings/SettingsStore";
+import { ICodeEditorConfig } from "@src/type/types";
 import { useSyncExternalStore } from "react";
-import SettingsStore from "../settings/SettingsStore";
-import { ICodeEditorConfig } from "../type/types";
 
 export default function usePluginSettings(
 	settingsStore: SettingsStore

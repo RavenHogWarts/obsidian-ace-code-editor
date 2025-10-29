@@ -1,8 +1,8 @@
-import AceCodeEditorPlugin from "@/src/main";
+import { SettingsStoreContext } from "@src/context/SettingsStoreContext";
+import AceCodeEditorPlugin from "@src/main";
 import { App, PluginSettingTab } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
-import { SettingsStoreContext } from "../context/SettingsStoreContext";
 import { AceSettings } from "./AceSettings";
 
 export default class AceCodeEditorSettingTab extends PluginSettingTab {

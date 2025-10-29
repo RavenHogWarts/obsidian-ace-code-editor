@@ -12,8 +12,8 @@ import "./AceExtensions";
 // import "ace-builds/src-noconflict/keybinding-vim";
 // import "ace-builds/src-noconflict/keybinding-vscode";
 
-import { ICodeEditorConfig, LineRange } from "@/src/type/types";
-import { extractLineRange } from "@/src/utils/LineRange";
+import { ICodeEditorConfig, LineRange } from "@src/type/types";
+import { extractLineRange } from "@src/utils/LineRange";
 import { getLanguageMode } from "./AceLanguages";
 import { getAceTheme } from "./AceThemes";
 

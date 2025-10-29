@@ -1,5 +1,5 @@
-import AceCodeEditorPlugin from "../main";
-import { DEFAULT_CONFIG, ICodeEditorConfig } from "../type/types";
+import AceCodeEditorPlugin from "@src/main";
+import { DEFAULT_CONFIG, ICodeEditorConfig } from "@src/type/types";
 
 export default class SettingsStore {
 	#plugin: AceCodeEditorPlugin;

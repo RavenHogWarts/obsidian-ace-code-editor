@@ -1,4 +1,4 @@
-import AceCodeEditorPlugin from "@/src/main";
+import AceCodeEditorPlugin from "@src/main";
 import { Component } from "obsidian";
 
 export class AcePluginComponent extends Component {

@@ -1,6 +1,6 @@
+import { SettingsStoreContext } from "@src/context/SettingsStoreContext";
+import SettingsStore from "@src/settings/SettingsStore";
 import { useContext } from "react";
-import { SettingsStoreContext } from "../context/SettingsStoreContext";
-import SettingsStore from "../settings/SettingsStore";
 
 export default function useSettingsStore(): SettingsStore {
 	const store = useContext(SettingsStoreContext);
