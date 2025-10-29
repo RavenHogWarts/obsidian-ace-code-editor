@@ -447,6 +447,18 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 						}
 					/>
 				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.wrap.name")}
+					desc={t("setting.wrap.desc")}
+				>
+					<Toggle
+						checked={settingsValue.wrap}
+						onChange={(value) =>
+							handleUpdateConfig({ wrap: value })
+						}
+					/>
+				</SettingsItem>
 			</>
 		);
 	}, [settingsValue, handleUpdateConfig]);

@@ -122,6 +122,10 @@ const translations: BaseMessage = {
 			name: "Embed code block max height",
 			desc: "Maximum height of embedded code blocks (in px). A scrollbar will appear if this height is exceeded",
 		},
+		wrap: {
+			name: "Auto wrap",
+			desc: "Enable auto wrap in code editor. Code exceeding the editor width will automatically wrap",
+		},
 	},
 };
 
