@@ -103,18 +103,6 @@ jobs:
                   echo "Build Artifacts: ${{ steps.checks.outputs.artifacts_check }}"
                   echo "Version Consistency: ${{ steps.checks.outputs.version_check }}"
 
-            - name: Upload build artifacts
-              if: success()
-              uses: actions/upload-artifact@v4
-              with:
-                  name: version-bump-precheck-artifacts
-                  path: |
-                      main.js
-                      manifest.json
-                      styles.css
-                      ${{ env.PLUGIN_ID }}.zip
-                  retention-days: 7
-
             - name: Find previous precheck comment
               if: always()
               uses: peter-evans/find-comment@v3
@@ -131,7 +119,7 @@ jobs:
                   comment-id: ${{ steps.fc.outputs.comment-id }}
                   issue-number: ${{ github.event.pull_request.number }}
                   body: |
-                      ## ✅ Version Bump Pre-check Passed!
+                      ## Version Bump Pre-check Passed!
 
                       All checks have completed successfully. This PR is ready for version bump.
 
@@ -140,12 +128,7 @@ jobs:
                       - ${{ steps.checks.outputs.artifacts_check }} Build Artifacts
                       - ${{ steps.checks.outputs.version_check }} Version Consistency
 
-                      **Build method**: Same as release workflow (yarn run build --if-present)
-
                       You can now safely proceed with version bump and release.
-
-                      ---
-                      *Updated automatically on run #${{ github.run_number }}*
 
             - name: Create or update failure comment
               if: failure()
@@ -154,7 +137,7 @@ jobs:
                   comment-id: ${{ steps.fc.outputs.comment-id }}
                   issue-number: ${{ github.event.pull_request.number }}
                   body: |
-                      ## ❌ Version Bump Pre-check Failed!
+                      ## Version Bump Pre-check Failed!
 
                       Some checks have failed. Please review and fix the issues before proceeding with version bump.
 
@@ -163,9 +146,4 @@ jobs:
                       - ${{ steps.checks.outputs.artifacts_check || '❓' }} Build Artifacts
                       - ${{ steps.checks.outputs.version_check || '❓' }} Version Consistency
 
-                      **Build method**: Same as release workflow (yarn run build --if-present)
-
                       Please check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for detailed error information.
-
-                      ---
-                      *Updated automatically on run #${{ github.run_number }}*
