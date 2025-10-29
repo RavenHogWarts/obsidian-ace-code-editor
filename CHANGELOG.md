@@ -18,9 +18,22 @@
 * 引入 AceView 样式并限制编辑器溢出 (#42) ([6d3aa9c](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/6d3aa9ce1cbb1d6bbe8b482603308871ce94ee25)), closes [#42](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/42)
 
 
+### 🐛 Bug Fixes
+
+* unknown properties ([3d04cfc](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/3d04cfcd7802a5d14ea4c667c1a8c06e4add08d8))
+
+
+### 🔧 CI
+
+* 移除工作流中的 lint 检查和输出 (#49) ([0994b73](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/0994b73ca71f430b1acdbe64cc52ab74cd4c08de)), closes [#49](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/49)
+* remove artifact upload and comment footer (#50) ([1b4412f](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/1b4412fb2d1a146750b17bca8105ce9fd8fdc475)), closes [#50](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/50)
+* update workflows and add precheck (#47) ([b656340](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/b65634080ec8a58513d2bc68cc0827fe364dda8b)), closes [#47](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/47)
+
+
 ### 🔨 Chore
 
 * 优化构建脚本 (#41) ([29b544e](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/29b544ee67f53df7e855863a95f79b70ad5e530c)), closes [#41](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/41)
+* bump version 1.3.2 (#46) ([c7474c0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/c7474c0fbae80cd864db3bf5c80d6bf7949dc2f1)), closes [#46](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/46)
 
 
 
