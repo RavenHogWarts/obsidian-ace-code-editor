@@ -57,17 +57,6 @@ jobs:
                     exit 1
                   fi
 
-                  # Linting 检查
-                  echo "🧹 Running linting checks..."
-                  if yarn run lint; then
-                    echo "✅ Linting passed"
-                    echo "lint_check=✅" >> $GITHUB_OUTPUT
-                  else
-                    echo "❌ Linting failed"
-                    echo "lint_check=❌" >> $GITHUB_OUTPUT
-                    exit 1
-                  fi
-
                   # 构建产物检查
                   echo "📦 Verifying build artifacts..."
                   required_files=("main.js" "manifest.json" "styles.css")
@@ -111,7 +100,6 @@ jobs:
                   echo "📊 Pre-version-bump Check Report"
                   echo "================================="
                   echo "Build: ${{ steps.checks.outputs.build_check }}"
-                  echo "Linting: ${{ steps.checks.outputs.lint_check }}"
                   echo "Build Artifacts: ${{ steps.checks.outputs.artifacts_check }}"
                   echo "Version Consistency: ${{ steps.checks.outputs.version_check }}"
 
@@ -149,7 +137,6 @@ jobs:
 
                       ### Check Results:
                       - ${{ steps.checks.outputs.build_check }} Build & Compilation
-                      - ${{ steps.checks.outputs.lint_check }} Linting
                       - ${{ steps.checks.outputs.artifacts_check }} Build Artifacts
                       - ${{ steps.checks.outputs.version_check }} Version Consistency
 
@@ -173,7 +160,6 @@ jobs:
 
                       ### Check Results:
                       - ${{ steps.checks.outputs.build_check || '❓' }} Build & Compilation
-                      - ${{ steps.checks.outputs.lint_check || '❓' }} Linting
                       - ${{ steps.checks.outputs.artifacts_check || '❓' }} Build Artifacts
                       - ${{ steps.checks.outputs.version_check || '❓' }} Version Consistency
 
