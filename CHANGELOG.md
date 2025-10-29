@@ -1,3 +1,29 @@
+## [1.3.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.3.1...1.3.2) (2025-10-29)
+
+
+### ♻️ Refactor
+
+* 调整项目结构 ([1492293](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/1492293f315b0c4fd4ddde9faa22b7dd5767a95e))
+
+
+### ✨ Features
+
+* 统一使用路径别名将工程中的相对/相对路径导入改统一的路径别名 (#45) ([27ed130](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/27ed1308998805d28da1a91ad5f61d46891b0f6d)), closes [#45](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/45)
+* 引入存储与订阅机制 (#44) ([8127563](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/81275639ba7d4e02d8133ac4a2f51a6459ffc71e)), closes [#44](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/44)
+* 在编辑器设置中添加自动换行支持 (#43) ([621413d](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/621413d05baca7fedbe56fc16450e62d03244d12)), closes [#43](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/43)
+
+
+### 🎨 Styles
+
+* 引入 AceView 样式并限制编辑器溢出 (#42) ([6d3aa9c](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/6d3aa9ce1cbb1d6bbe8b482603308871ce94ee25)), closes [#42](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/42)
+
+
+### 🔨 Chore
+
+* 优化构建脚本 (#41) ([29b544e](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/29b544ee67f53df7e855863a95f79b70ad5e530c)), closes [#41](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/41)
+
+
+
 ## [1.3.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.3.0...1.3.1) (2025-08-14)
 
 
