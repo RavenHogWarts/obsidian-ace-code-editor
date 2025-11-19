@@ -7,7 +7,6 @@ import { Toggle } from "@src/component/toggle/Toggle";
 import usePluginSettings from "@src/hooks/usePluginSettings";
 import useSettingsStore from "@src/hooks/useSettingsStore";
 import { t } from "@src/i18n/i18n";
-import AceCodeEditorPlugin from "@src/main";
 import { languageModeMap } from "@src/service/AceLanguages";
 import {
 	AceDarkThemesList,
@@ -33,20 +32,12 @@ declare global {
 	}
 }
 
-interface AceSettingsProps {
-	plugin: AceCodeEditorPlugin;
-}
+interface AceSettingsProps {}
 
-export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
-	// const [settingsValue, setSettingsValue] = React.useState(plugin.settings);
+export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 	const settingsStore = useSettingsStore();
 	const settings = usePluginSettings(settingsStore);
 	const app = settingsStore.app;
-
-	// 监听外部settings变化，同步到本地状态
-	// React.useEffect(() => {
-	// 	setSettingsValue(plugin.settings);
-	// }, [plugin.settings]);
 
 	const [systemFonts, setSystemFonts] = React.useState<string[]>([]);
 
@@ -234,16 +225,6 @@ export const AceSettings: React.FC<AceSettingsProps> = ({ plugin }) => {
 			}
 		});
 	}
-
-	// const handleUpdateConfig = React.useCallback(
-	// 	async (newSettings: Partial<ICodeEditorConfig>) => {
-	// 		const updatedSettings = { ...settingsValue, ...newSettings };
-	// 		setSettingsValue(updatedSettings);
-	// 		// 直接调用plugin.updateSettings，避免useEffect带来的副作用
-	// 		await plugin.updateSettings(newSettings);
-	// 	},
-	// 	[settingsValue, plugin]
-	// );
 
 	const lightThemeOptions = React.useMemo(
 		() =>

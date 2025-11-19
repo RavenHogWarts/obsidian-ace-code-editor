@@ -39,7 +39,7 @@ export default class AceCodeEditorSettingTab extends PluginSettingTab {
 				<SettingsStoreContext.Provider
 					value={this.plugin.settingsStore}
 				>
-					<AceSettings plugin={this.plugin} />
+					<AceSettings />
 				</SettingsStoreContext.Provider>
 			</React.StrictMode>
 		);
