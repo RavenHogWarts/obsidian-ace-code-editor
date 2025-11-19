@@ -4,49 +4,35 @@ import { App, Modal } from "obsidian";
 import * as React from "react";
 import { createRoot, Root } from "react-dom/client";
 
-interface IBaseModalProps {
-	app: App;
-	plugin: AceCodeEditorPlugin;
-	onClose: () => void;
-	additionalProps?: Record<string, any>;
-	sizeClass?: string;
-}
-
-export interface ModalContextType {
-	app: App;
-	plugin: AceCodeEditorPlugin;
-	additionalProps?: Record<string, any>;
-}
-
-export const ModalContext = React.createContext<ModalContextType | null>(null);
-
 const ModalLoading: React.FC = () => (
 	<div className="ace-modal-loading">
 		<span>Loading...</span>
 	</div>
 );
 
-export class BaseModal extends Modal {
+export class BaseModal<T extends { onClose: () => void }> extends Modal {
 	private root: Root | null = null;
-	private props: IBaseModalProps;
-	private LazyComponent: React.LazyExoticComponent<React.ComponentType<any>>;
+	private LazyComponent: React.LazyExoticComponent<React.ComponentType<T>>;
+	private componentProps: T;
+	private sizeClass: string;
 
 	constructor(
 		app: App,
 		plugin: AceCodeEditorPlugin,
-		componentImport: () => Promise<{ default: React.ComponentType<any> }>,
-		additionalProps: Record<string, any> = {},
+		componentImport: () => Promise<{ default: React.ComponentType<T> }>,
+		props: T,
 		sizeClass = "modal-size-large"
 	) {
 		super(app);
-		this.props = {
-			app,
-			plugin,
-			onClose: () => this.close(),
-			additionalProps,
-			sizeClass,
-		};
 		this.LazyComponent = React.lazy(componentImport);
+		this.componentProps = {
+			...props,
+			onClose: () => {
+				props.onClose();
+				this.close();
+			},
+		};
+		this.sizeClass = sizeClass;
 	}
 
 	async onOpen(): Promise<void> {
@@ -54,18 +40,10 @@ export class BaseModal extends Modal {
 		this.root = createRoot(el);
 		this.root.render(
 			<React.StrictMode>
-				<div className={`ace-modal ${this.props.sizeClass}`}>
-					<ModalContext.Provider
-						value={{
-							app: this.props.app,
-							plugin: this.props.plugin,
-							additionalProps: this.props.additionalProps,
-						}}
-					>
-						<React.Suspense fallback={<ModalLoading />}>
-							<this.LazyComponent {...this.props} />
-						</React.Suspense>
-					</ModalContext.Provider>
+				<div className={`ace-modal ${this.sizeClass}`}>
+					<React.Suspense fallback={<ModalLoading />}>
+						<this.LazyComponent {...this.componentProps} />
+					</React.Suspense>
 					<div
 						className="ace-modal-close"
 						onClick={() => this.close()}
@@ -81,5 +59,6 @@ export class BaseModal extends Modal {
 		this.root?.unmount();
 		this.root = null;
 		this.containerEl.empty();
+		this.componentProps.onClose();
 	}
 }
