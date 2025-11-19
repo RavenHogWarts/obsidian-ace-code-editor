@@ -1,27 +1,25 @@
-import { useModal } from "@src/hooks/useModal";
 import { t } from "@src/i18n/i18n";
 import { AceService } from "@src/service/AceService";
-import { ICodeEditorConfig } from "@src/type/types";
+import { ICodeBlock, ICodeEditorConfig } from "@src/type/types";
 import { Ace } from "ace-builds";
 import * as React from "react";
 
 interface EditCodeBlockModalProps {
 	onClose: () => void;
+	codeBlock: ICodeBlock;
+	onSave: (code: string) => Promise<void>;
+	config: ICodeEditorConfig;
 }
 
-const EditCodeBlockModal: React.FC<EditCodeBlockModalProps> = ({ onClose }) => {
-	const { additionalProps } = useModal();
+const EditCodeBlockModal: React.FC<EditCodeBlockModalProps> = ({
+	onClose,
+	codeBlock,
+	onSave,
+	config,
+}) => {
 	const editorRef = React.useRef<HTMLDivElement>(null);
 	const aceEditorRef = React.useRef<Ace.Editor | null>(null);
 	const aceServiceRef = React.useRef<AceService | null>(null);
-
-	const codeBlock = additionalProps?.codeBlock as {
-		language: string;
-		code: string;
-		range: { start: number; end: number };
-	};
-	const onSave = additionalProps?.onSave as (code: string) => Promise<void>;
-	const config = additionalProps?.config as ICodeEditorConfig;
 
 	React.useEffect(() => {
 		if (editorRef.current && !aceEditorRef.current) {

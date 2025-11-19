@@ -1,7 +1,6 @@
 import { ConfirmDialog } from "@src/component/confirm-dialog/ConfirmDialog";
 import { Input } from "@src/component/input/Input";
 import { Toggle } from "@src/component/toggle/Toggle";
-import { useModal } from "@src/hooks/useModal";
 import { t } from "@src/i18n/i18n";
 import {
 	Code2,
@@ -13,11 +12,17 @@ import {
 	SquarePen,
 	Trash2,
 } from "lucide-react";
-import { Notice } from "obsidian";
+import { App, Notice } from "obsidian";
 import * as React from "react";
+
+import AceCodeEditorPlugin from "@src/main";
 
 interface SnippetsFileModalProps {
 	onClose: () => void;
+	app: App;
+	plugin: AceCodeEditorPlugin;
+	snippetsFolder: string;
+	openExternalFile: (path: string, newTab: boolean) => Promise<void>;
 }
 
 interface SnippetFile {
@@ -26,19 +31,18 @@ interface SnippetFile {
 	enabled?: boolean;
 }
 
-const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({ onClose }) => {
-	const { app, additionalProps, plugin } = useModal();
+const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
+	onClose,
+	app,
+	plugin,
+	snippetsFolder,
+	openExternalFile,
+}) => {
 	const [files, setFiles] = React.useState<SnippetFile[]>([]);
 	const [isCreatingNew, setIsCreatingNew] = React.useState(false);
 	const [newFileName, setNewFileName] = React.useState("");
 	const [searchQuery, setSearchQuery] = React.useState("");
 	const newFileInputRef = React.useRef<HTMLInputElement>(null);
-
-	const snippetsFolder = additionalProps?.snippetsFolder as string;
-	const openExternalFile = additionalProps?.openExternalFile as (
-		path: string,
-		newTab: boolean
-	) => Promise<void>;
 
 	React.useEffect(() => {
 		loadSnippetsFiles();

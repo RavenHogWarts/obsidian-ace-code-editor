@@ -303,9 +303,11 @@ export default class AceCodeEditorPlugin extends Plugin {
 			this,
 			() => import("./component/modal/CreateCodeFileModal"),
 			{
+				app: this.app,
 				folderPath,
 				openInCodeEditor: (path: string, newTab: boolean) =>
 					this.openInCodeEditor(path, newTab),
+				onClose: () => {},
 			},
 			"modal-size-small"
 		).open();
@@ -319,9 +321,12 @@ export default class AceCodeEditorPlugin extends Plugin {
 			this,
 			() => import("./component/modal/SnippetsFileModal"),
 			{
+				app: this.app,
+				plugin: this,
 				snippetsFolder,
 				openExternalFile: (filePath: string, newTab: boolean) =>
 					this.openExternalFile(filePath, newTab),
+				onClose: () => {},
 			},
 			"modal-size-medium"
 		).open();
@@ -342,6 +347,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 						newCode,
 						codeBlock.indent
 					),
+				onClose: () => {},
 			},
 			"modal-size-large"
 		).open();
