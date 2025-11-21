@@ -58,7 +58,7 @@ If you encounter any issues or have suggestions:
 - [Check the contributing guidelines](./CONTRIBUTING.md) if you'd like to contribute to the project
 
 If you find this plugin helpful, you can support the development through:
-- WeChat/Alipay: [QR Code](https://s2.loli.net/2024/05/06/lWBj3ObszUXSV2f.png)
+- [afdian](https://afdian.com/a/ravenhogwarts)
 
 ## License
 
