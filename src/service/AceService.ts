@@ -37,10 +37,11 @@ export class AceService {
 		if (!this.editor) return;
 
 		const languageMode = await this.getLanguageMode(fileExtension);
-		const settings = this.getEditorSettings(languageMode, config);
 
-		this.editor.setOptions(settings);
-		this.editor.session.setMode(`ace/mode/${languageMode}`);
+		this.editor.setOptions(this.getEditorOptions(config));
+		this.editor.session.setOptions(
+			this.getEditSessionOptions(config, languageMode)
+		);
 
 		// 设置键盘处理器
 		if (config.keyboard === "default") {
@@ -114,127 +115,142 @@ export class AceService {
 		return await getLanguageMode(extension);
 	}
 
-	private getEditorSettings(
-		languageMode: string,
+	private getEditorOptions(
 		config: ICodeEditorConfig
 	): Partial<ace.Ace.EditorOptions> {
 		return {
-			// -- editor选项 --
-			// 选中样式 selectionStyle: text [line|text]
+			// -- EditorOptions --
+			// selectionStyle: "fullLine" | "screenLine" | "text" | "line";
 			selectionStyle: "text",
-			// 高亮当前行 highlightActiveLine: true
+			// highlightActiveLine: boolean;
 			highlightActiveLine: true,
-			// 高亮选中文本 highlightSelectedWord: true
+			// highlightSelectedWord: boolean;
 			highlightSelectedWord: true,
-			// 是否只读 readOnly: false
+			// readOnly: boolean;
 			readOnly: false,
-			// 光标样式 cursorStyle: ace [ace|slim|smooth|wide]
-			cursorStyle: "ace",
-			// 合并撤销 mergeUndoDeltas: false [always]
-			mergeUndoDeltas: "always",
-			// 启用行为 behavioursEnabled: true
-			behavioursEnabled: true,
-			// 启用换行行为 wrapBehavioursEnabled: true
-			wrapBehavioursEnabled: true,
-			// 自动滚动编辑器到视图 autoScrollEditorIntoView: false
-			autoScrollEditorIntoView: false,
-			// 复制空选择 copyWithEmptySelection: true
+			// copyWithEmptySelection: boolean;
 			copyWithEmptySelection: true,
-			// 使用软标签  useSoftTabs: false
-			useSoftTabs: false,
-			// 缩进软换行 indentedSoftWrap: false
-			indentedSoftWrap: false,
-			// 软标签内导航 navigateWithinSoftTabs: false
-			navigateWithinSoftTabs: false,
-			// 选中多处 enableMultiselect: true
-			enableMultiselect: true,
-			// 启用自动缩进 enableAutoIndent: true
+			// cursorStyle: "ace" | "slim" | "smooth" | "wide";
+			cursorStyle: "ace",
+			// mergeUndoDeltas: true | false | "always";
+			mergeUndoDeltas: "always",
+			// behavioursEnabled: boolean;
+			behavioursEnabled: true,
+			// wrapBehavioursEnabled: boolean;
+			wrapBehavioursEnabled: true,
+			// enableAutoIndent: boolean;
 			enableAutoIndent: true,
-			// 启用键盘辅助功能 enableKeyboardAccessibility: false
-			enableKeyboardAccessibility: false,
-
-			// -- renderer选项 --
-			// 水平滚动条始终可见 hScrollBarAlwaysVisible: false
-			hScrollBarAlwaysVisible: false,
-			// 垂直滚动条始终可见 vScrollBarAlwaysVisible: false
-			vScrollBarAlwaysVisible: false,
-			// 高亮装订线(行号区域) highlightGutterLine: true
-			highlightGutterLine: true,
-			// 滚动动画 animatedScroll: false
-			animatedScroll: false,
-			// 显示不可见字符 showInvisibles: false
-			showInvisibles: config.showInvisibles,
-			// 显示打印边距 showPrintMargin: true
-			showPrintMargin: config.showPrintMargin,
-			// 设置页边距 printMarginColumn: 80
-			printMarginColumn: 80,
-			// 显示并设置页边距 printMargin: false
-			printMargin: false,
-			// 淡入折叠部件 fadeFoldWidgets: false
-			fadeFoldWidgets: false,
-			// 显示折叠部件 showFoldWidgets: true
-			showFoldWidgets: config.showFoldWidgets,
-			// 显示行号
-			showLineNumbers: config.showLineNumbers,
-			// 显示装订线(行号区域) showGutter: true
-			showGutter: true,
-			// 显示参考线 displayIndentGuides: true
-			displayIndentGuides: config.displayIndentGuides,
-			// 高亮缩进参考线 highlightIndentGuides: false
-			highlightIndentGuides: false,
-			// 设置字号
-			fontSize: config.fontSize,
-			// 设置字体
-			fontFamily: Object.values(config.fontFamily).join(","),
-			// 至多行数 maxLines
-			// 至少行数 minLines
-			// 滚动超过末尾 scrollPastEnd: 0
-			scrollPastEnd: 0.5,
-			// 固定行号区域宽度 fixedWidthGutter: false
-			fixedWidthGutter: false,
-			// 主题引用路径 theme `ace/theme/${theme}`, 在 updateTheme 中设置
-
-			// -- mouseHandler选项 --
-			// 滚动速度 scrollSpeed
-			scrollSpeed: 2,
-			// 拖拽延时(ms) dragDelay
-			dragDelay: 0,
-			// 是否启用拖动 dragEnabled: true
-			dragEnabled: true,
-			// 聚焦超时(ms) focusTimeout
-			focusTimeout: 0,
-			// 工具提示跟随鼠标 tooltipFollowsMouse: false
-			// tooltipFollowsMouse: false,
-
-			// -- session选项 --
-			// 起始行号 firstLineNumber: 1,
-			firstLineNumber: 1,
-			// 重做 overwrite
-			overwrite: false,
-			// 新开行模式 newLineMode: auto [auto|unix|windows]
-			newLineMode: "auto",
-			// 使用辅助对象
-			useWorker: false,
-			// 标签大小
-			tabSize: config.tabSize,
-			// 自动换行 wrap: false ["off"|"free"|"printmargin"|true|false|数字]
-			wrap: config.wrap,
-			// 换行方法 wrapMethod: "code" ["code"|"text"|"auto"]
-			wrapMethod: "code",
-			// 折叠样式 foldStyle: markbegin [markbegin|markbeginend|manual]
-			foldStyle: "markbegin",
-			// 代码匹配模式
-			mode: `ace/mode/${languageMode}`,
-
-			// -- 扩展选项 --
-			// 启用基本自动完成 enableBasicAutocompletion: false
+			// enableBasicAutocompletion: boolean | Completer[];
 			enableBasicAutocompletion: true,
-			// 启用实时自动完成 enableLiveAutocompletion: false
+			// enableLiveAutocompletion: boolean | Completer[];
 			enableLiveAutocompletion: true,
-			// 启用代码段 enableSnippets: false
+			// liveAutocompletionDelay: number;
+			// liveAutocompletionThreshold: number;
+			// enableSnippets: boolean;
 			enableSnippets: true,
-			// 启用Emmet enableEmmet, 需要 ext-emmet.js 和 emmet 库
-			// @deprecated 使用弹性制表位 useElasticTabstops, 需要 ext-elastic_tabstops_lite.js
+			// autoScrollEditorIntoView: boolean;
+			autoScrollEditorIntoView: false,
+			// keyboardHandler: string | null;
+			// placeholder: string;
+			// value: string;
+			// session: EditSession;
+			// relativeLineNumbers: boolean;
+			// enableMultiselect: boolean;
+			enableMultiselect: true,
+			// enableKeyboardAccessibility: boolean;
+			enableKeyboardAccessibility: false,
+			// enableCodeLens: boolean;
+			// textInputAriaLabel: string;
+			// enableMobileMenu: boolean;
+
+			// -- VirtualRendererOptions --
+			// animatedScroll: boolean;
+			animatedScroll: false,
+			// showInvisibles: boolean;
+			showInvisibles: config.showInvisibles,
+			// showPrintMargin: boolean;
+			showPrintMargin: config.showPrintMargin,
+			// printMarginColumn: number;
+			printMarginColumn: 80,
+			// printMargin: boolean | number;
+			printMargin: false,
+			// showGutter: boolean;
+			showGutter: true,
+			// fadeFoldWidgets: boolean;
+			fadeFoldWidgets: false,
+			// showFoldWidgets: boolean;
+			showFoldWidgets: config.showFoldWidgets,
+			// showLineNumbers: boolean;
+			showLineNumbers: config.showLineNumbers,
+			// displayIndentGuides: boolean;
+			displayIndentGuides: config.displayIndentGuides,
+			// highlightIndentGuides: boolean;
+			highlightIndentGuides: false,
+			// highlightGutterLine: boolean;
+			highlightGutterLine: true,
+			// hScrollBarAlwaysVisible: boolean;
+			hScrollBarAlwaysVisible: false,
+			// vScrollBarAlwaysVisible: boolean;
+			vScrollBarAlwaysVisible: false,
+			// fontSize: string | number;
+			fontSize: config.fontSize,
+			// fontFamily: string;
+			fontFamily: Object.values(config.fontFamily).join(","),
+			// maxLines: number;
+			// minLines: number;
+			// scrollPastEnd: number;
+			scrollPastEnd: 0.5,
+			// fixedWidthGutter: boolean;
+			fixedWidthGutter: false,
+			// customScrollbar: boolean;
+			// theme: string;
+			// hasCssTransforms: boolean;
+			// maxPixelHeight: number;
+			// useSvgGutterIcons: boolean;
+			// showFoldedAnnotations: boolean;
+			// useResizeObserver: boolean;
+
+			// -- MouseHandlerOptions --
+			// scrollSpeed: number;
+			scrollSpeed: 2,
+			// dragDelay: number;
+			dragDelay: 0,
+			// dragEnabled: boolean;
+			dragEnabled: true,
+			// focusTimeout: number;
+			focusTimeout: 0,
+		};
+	}
+
+	private getEditSessionOptions(
+		config: ICodeEditorConfig,
+		languageMode: string
+	): Partial<ace.Ace.EditSessionOptions> {
+		return {
+			// wrap: "off" | "free" | "printmargin" | boolean | number;
+			wrap: config.wrap,
+			// wrapMethod: "code" | "text" | "auto";
+			wrapMethod: "code",
+			// indentedSoftWrap: boolean;
+			indentedSoftWrap: false,
+			// firstLineNumber: number;
+			firstLineNumber: 1,
+			// useWorker: boolean;
+			useWorker: false,
+			// useSoftTabs: boolean;
+			useSoftTabs: false,
+			// tabSize: number;
+			tabSize: config.tabSize,
+			// navigateWithinSoftTabs: boolean;
+			navigateWithinSoftTabs: false,
+			// foldStyle: "markbegin" | "markbeginend" | "manual";
+			foldStyle: "markbegin",
+			// overwrite: boolean;
+			overwrite: false,
+			// newLineMode: "auto" | "unix" | "windows";
+			newLineMode: "auto",
+			// mode: string;
+			mode: `ace/mode/${languageMode}`,
 		};
 	}
 
