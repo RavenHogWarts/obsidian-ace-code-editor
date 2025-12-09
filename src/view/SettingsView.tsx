@@ -40,7 +40,7 @@ export class SettingsView extends ItemView {
 
 		this.root.render(
 			<React.StrictMode>
-				<AceSettings plugin={this.plugin} />
+				<AceSettings />
 			</React.StrictMode>
 		);
 	}
