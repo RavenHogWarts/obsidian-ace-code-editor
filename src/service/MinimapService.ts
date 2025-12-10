@@ -38,8 +38,10 @@ export class MinimapService {
 		// 绑定事件
 		this.bindEvents();
 
-		// 初始渲染
-		this.render();
+		// 延迟初始渲染，确保编辑器已经完全初始化
+		requestAnimationFrame(() => {
+			this.render();
+		});
 	}
 
 	private createMinimapElements(container: HTMLElement) {
@@ -283,15 +285,27 @@ export class MinimapService {
 		const editorHeight = this.editor.container.clientHeight;
 		const minimapHeight = this.minimapCanvas.height;
 
+		// 边界检查：防止除零和无效值
+		if (totalLines === 0 || lineHeight === 0 || editorHeight === 0) {
+			this.sliderElement.style.top = `0px`;
+			this.sliderElement.style.height = `0px`;
+			return;
+		}
+
 		// 计算滑块位置和高度
 		const visibleLines = Math.floor(editorHeight / lineHeight);
-		const scrollRatio = scrollTop / (totalLines * lineHeight);
-		const sliderHeight = (visibleLines / totalLines) * editorHeight;
+		const totalHeight = totalLines * lineHeight;
+		const scrollRatio = totalHeight > 0 ? scrollTop / totalHeight : 0;
+		const sliderHeight =
+			totalLines > 0 ? (visibleLines / totalLines) * editorHeight : 0;
 		const sliderTop = scrollRatio * editorHeight;
 
 		// 更新滑块样式
-		this.sliderElement.style.top = `${sliderTop}px`;
-		this.sliderElement.style.height = `${sliderHeight}px`;
+		this.sliderElement.style.top = `${Math.max(0, sliderTop)}px`;
+		this.sliderElement.style.height = `${Math.max(
+			0,
+			Math.min(sliderHeight, editorHeight)
+		)}px`;
 	}
 
 	public updateConfig(config: Partial<MinimapConfig>) {

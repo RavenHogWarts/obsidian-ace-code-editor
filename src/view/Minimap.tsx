@@ -92,20 +92,37 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 		const editorHeight = editor.container.clientHeight;
 		const canvasHeight = canvasRef.current.offsetHeight;
 
+		// 边界检查：防止除零和无效值
+		if (
+			totalLines === 0 ||
+			lineHeight === 0 ||
+			editorHeight === 0 ||
+			canvasHeight === 0
+		) {
+			sliderRef.current.style.setProperty("--minimap-slider-top", `0px`);
+			sliderRef.current.style.setProperty(
+				"--minimap-slider-height",
+				`0px`
+			);
+			return;
+		}
+
 		// 计算滑块位置和高度
 		const visibleLines = Math.floor(editorHeight / lineHeight);
-		const scrollRatio = scrollTop / (totalLines * lineHeight);
-		const sliderHeight = (visibleLines / totalLines) * canvasHeight;
+		const totalHeight = totalLines * lineHeight;
+		const scrollRatio = totalHeight > 0 ? scrollTop / totalHeight : 0;
+		const sliderHeight =
+			totalLines > 0 ? (visibleLines / totalLines) * canvasHeight : 0;
 		const sliderTop = scrollRatio * canvasHeight;
 
 		// 使用 CSS 变量更新滑块位置和高度
 		sliderRef.current.style.setProperty(
 			"--minimap-slider-top",
-			`${sliderTop}px`
+			`${Math.max(0, sliderTop)}px`
 		);
 		sliderRef.current.style.setProperty(
 			"--minimap-slider-height",
-			`${sliderHeight}px`
+			`${Math.max(0, Math.min(sliderHeight, canvasHeight))}px`
 		);
 	}, [editor, enabled]);
 
@@ -184,7 +201,10 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 
 		const handleChange = () => renderMinimap();
 		const handleScroll = () => updateSlider();
-		const handleRender = () => renderMinimap();
+		const handleRender = () => {
+			renderMinimap();
+			updateSlider(); // 在渲染后更新滑块
+		};
 		const handleResize = () => {
 			renderMinimap();
 			updateSlider();
@@ -196,9 +216,11 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 		editor.renderer.on("afterRender", handleRender);
 		window.addEventListener("resize", handleResize);
 
-		// 初始渲染
-		renderMinimap();
-		updateSlider();
+		// 初始渲染 - 使用 requestAnimationFrame 确保 DOM 已经更新
+		requestAnimationFrame(() => {
+			renderMinimap();
+			updateSlider();
+		});
 
 		// 清理
 		return () => {
