@@ -199,11 +199,14 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	React.useEffect(() => {
 		if (!editor || !enabled) return;
 
-		const handleChange = () => renderMinimap();
+		const handleChange = () => {
+			renderMinimap();
+			updateSlider();
+		};
 		const handleScroll = () => updateSlider();
 		const handleRender = () => {
 			renderMinimap();
-			updateSlider(); // 在渲染后更新滑块
+			updateSlider();
 		};
 		const handleResize = () => {
 			renderMinimap();
