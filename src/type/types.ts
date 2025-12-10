@@ -25,6 +25,9 @@ export interface ICodeEditorConfig {
 	showFoldWidgets: boolean;
 	embedMaxHeight: number;
 	wrap: boolean;
+	minimap: {
+		enabled: boolean;
+	};
 }
 
 export const DEFAULT_CONFIG: ICodeEditorConfig = {
@@ -46,6 +49,9 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 	showFoldWidgets: true,
 	embedMaxHeight: 500,
 	wrap: true,
+	minimap: {
+		enabled: true,
+	},
 };
 
 export interface ICodeBlock {

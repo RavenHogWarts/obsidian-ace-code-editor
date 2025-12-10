@@ -2,13 +2,18 @@ import type AceCodeEditorPlugin from "@src/main";
 import { AceService } from "@src/service/AceService";
 import { CODE_EDITOR_VIEW_TYPE, ICodeEditorConfig } from "@src/type/types";
 import { ObsidianUtils } from "@src/utils/ObsidianUtils";
+import { Minimap } from "@src/view/Minimap";
 import { IconName, Scope, TextFileView, TFile, WorkspaceLeaf } from "obsidian";
+import { StrictMode } from "react";
+import { createRoot, Root } from "react-dom/client";
 
 export class CodeEditorView extends TextFileView {
 	public aceService: AceService;
 	private config: ICodeEditorConfig;
 	editorScope: Scope;
 	editorElement: HTMLElement;
+	private minimapRoot: Root | null = null;
+	private minimapContainer: HTMLElement | null = null;
 
 	constructor(leaf: WorkspaceLeaf, private plugin: AceCodeEditorPlugin) {
 		super(leaf);
@@ -53,18 +58,70 @@ export class CodeEditorView extends TextFileView {
 			setTimeout(() => {
 				editor?.getSession().getUndoManager().reset();
 			}, 0);
+
+			// 渲染 Minimap
+			this.renderMinimap();
 		}
 
 		await super.onLoadFile(file);
 	}
 
+	private renderMinimap() {
+		if (!this.config.minimap.enabled) {
+			this.unmountMinimap();
+			return;
+		}
+
+		// 创建 minimap 容器（如果不存在）
+		if (!this.minimapContainer) {
+			this.minimapContainer = document.createElement("div");
+			this.minimapContainer.className = "ace-minimap-wrapper";
+			this.editorElement.appendChild(this.minimapContainer);
+		}
+
+		// 创建 React root（如果不存在）
+		if (!this.minimapRoot) {
+			this.minimapRoot = createRoot(this.minimapContainer);
+		}
+
+		// 渲染 Minimap 组件
+		const editor = this.aceService.getEditor();
+		this.minimapRoot.render(
+			<StrictMode>
+				<Minimap
+					editor={editor}
+					enabled={this.config.minimap.enabled}
+				/>
+			</StrictMode>
+		);
+
+		// 添加样式类
+		this.editorElement.classList.add("ace-minimap-enabled");
+	}
+
+	private unmountMinimap() {
+		if (this.minimapRoot) {
+			this.minimapRoot.unmount();
+			this.minimapRoot = null;
+		}
+
+		if (this.minimapContainer && this.minimapContainer.parentNode) {
+			this.minimapContainer.parentNode.removeChild(this.minimapContainer);
+			this.minimapContainer = null;
+		}
+
+		this.editorElement.classList.remove("ace-minimap-enabled");
+	}
+
 	async onUnloadFile(file: TFile) {
 		await super.onUnloadFile(file);
+		this.unmountMinimap();
 		this.aceService.destroy();
 	}
 
 	async onClose() {
 		await super.onClose();
+		this.unmountMinimap();
 	}
 
 	onResize() {
@@ -101,6 +158,9 @@ export class CodeEditorView extends TextFileView {
 			this.config,
 			this.file?.extension ?? ""
 		);
+
+		// 更新 minimap
+		this.renderMinimap();
 	}
 
 	private registerAceKeybindings() {

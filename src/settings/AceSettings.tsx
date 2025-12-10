@@ -411,6 +411,20 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 						}
 					/>
 				</SettingsItem>
+
+				<SettingsItem
+					name={t("setting.minimap.enabled.name")}
+					desc={t("setting.minimap.enabled.desc")}
+				>
+					<Toggle
+						checked={settings.minimap.enabled}
+						onChange={(value) =>
+							settingsStore.updateSettingByPath("minimap", {
+								enabled: value,
+							})
+						}
+					/>
+				</SettingsItem>
 			</>
 		);
 	}, [settings, systemFonts]);

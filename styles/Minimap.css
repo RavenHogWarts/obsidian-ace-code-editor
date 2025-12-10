@@ -1,0 +1,71 @@
+/* Minimap 容器 */
+.ace-minimap-container {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 10dvw; /* 默认宽度为视口宽度的 10% */
+	background-color: var(--background-primary);
+	border-left: 1px solid var(--background-modifier-border);
+	overflow: hidden;
+	z-index: 10;
+	box-sizing: border-box;
+}
+
+/* Minimap Canvas */
+.ace-minimap-canvas {
+	display: block;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+/* 视口滑块 */
+.ace-minimap-slider {
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: var(--minimap-slider-top, 0);
+	height: var(--minimap-slider-height, 100px);
+	background-color: var(--interactive-accent);
+	opacity: 0.2;
+	border: 2px solid var(--interactive-accent);
+	cursor: pointer;
+	pointer-events: all;
+	transition: opacity 0.15s ease-in-out;
+	box-sizing: border-box;
+}
+
+.ace-minimap-slider:hover {
+	opacity: 0.35;
+}
+
+.ace-minimap-slider:active {
+	opacity: 0.5;
+}
+
+/* 暗色主题调整 */
+.theme-dark .ace-minimap-container {
+	background-color: var(--background-primary-alt);
+	border-left-color: var(--background-modifier-border);
+}
+
+.theme-dark .ace-minimap-slider {
+	background-color: var(--interactive-accent);
+	border-color: var(--interactive-accent);
+}
+
+/* 亮色主题调整 */
+.theme-light .ace-minimap-container {
+	background-color: var(--background-secondary);
+	border-left-color: var(--background-modifier-border);
+}
+
+.theme-light .ace-minimap-slider {
+	background-color: var(--interactive-accent);
+	border-color: var(--interactive-accent);
+}
