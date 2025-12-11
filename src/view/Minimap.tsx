@@ -9,8 +9,6 @@ export interface MinimapProps {
 export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	const canvasRef = React.useRef<HTMLCanvasElement>(null);
 	const sliderRef = React.useRef<HTMLDivElement>(null);
-	const containerRef = React.useRef<HTMLDivElement>(null);
-	const [isDragging, setIsDragging] = React.useState(false);
 
 	// 渲染 minimap 内容
 	const renderMinimap = React.useCallback(() => {
@@ -22,7 +20,6 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 
 		const session = editor.getSession();
 		const totalLines = session.getLength();
-		const editorHeight = editor.container.clientHeight;
 
 		// 设置 canvas 尺寸
 		const dpr = window.devicePixelRatio || 1;
@@ -146,15 +143,6 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 		[editor]
 	);
 
-	// 处理拖动开始
-	const handleMouseDown = React.useCallback(
-		(e: React.MouseEvent<HTMLCanvasElement>) => {
-			e.preventDefault();
-			setIsDragging(true);
-		},
-		[]
-	);
-
 	// 处理滑块拖动
 	const handleSliderMouseDown = React.useCallback(
 		(e: React.MouseEvent<HTMLDivElement>) => {
@@ -162,7 +150,6 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 
 			e.preventDefault();
 			e.stopPropagation();
-			setIsDragging(true);
 
 			const startY = e.clientY;
 			const startScrollTop = editor.getSession().getScrollTop();
@@ -184,7 +171,6 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 			};
 
 			const handleMouseUp = () => {
-				setIsDragging(false);
 				document.removeEventListener("mousemove", handleMouseMove);
 				document.removeEventListener("mouseup", handleMouseUp);
 			};
@@ -234,47 +220,16 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 		};
 	}, [editor, enabled, renderMinimap, updateSlider]);
 
-	// 处理拖动时的鼠标移动
-	React.useEffect(() => {
-		if (!isDragging || !editor || !canvasRef.current) return;
-
-		const handleMouseMove = (moveEvent: MouseEvent) => {
-			if (!editor || !canvasRef.current) return;
-
-			const rect = canvasRef.current.getBoundingClientRect();
-			const y = moveEvent.clientY - rect.top;
-			const totalHeight = canvasRef.current.offsetHeight;
-			const session = editor.getSession();
-			const totalLines = session.getLength();
-
-			const targetLine = Math.floor((y / totalHeight) * totalLines);
-			editor.scrollToLine(targetLine, true, true, () => {});
-		};
-
-		const handleMouseUp = () => {
-			setIsDragging(false);
-		};
-
-		document.addEventListener("mousemove", handleMouseMove);
-		document.addEventListener("mouseup", handleMouseUp);
-
-		return () => {
-			document.removeEventListener("mousemove", handleMouseMove);
-			document.removeEventListener("mouseup", handleMouseUp);
-		};
-	}, [isDragging, editor]);
-
 	if (!enabled) {
 		return null;
 	}
 
 	return (
-		<div ref={containerRef} className="ace-minimap-container">
+		<div className="ace-minimap-container">
 			<canvas
 				ref={canvasRef}
 				className="ace-minimap-canvas"
 				onClick={handleCanvasClick}
-				onMouseDown={handleMouseDown}
 			/>
 			<div
 				ref={sliderRef}
