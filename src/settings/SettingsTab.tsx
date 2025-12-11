@@ -8,6 +8,7 @@ import { AceSettings } from "./AceSettings";
 export default class AceCodeEditorSettingTab extends PluginSettingTab {
 	plugin: AceCodeEditorPlugin;
 	root: Root | null = null;
+	icon: string = "square-dashed-bottom-code";
 
 	constructor(app: App, plugin: AceCodeEditorPlugin) {
 		super(app, plugin);
