@@ -9,6 +9,9 @@ export interface MinimapProps {
 export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	const canvasRef = React.useRef<HTMLCanvasElement>(null);
 	const sliderRef = React.useRef<HTMLDivElement>(null);
+	const containerRef = React.useRef<HTMLDivElement>(null);
+	const [isHovering, setIsHovering] = React.useState(false);
+	const [isDragging, setIsDragging] = React.useState(false);
 
 	// 渲染 minimap 内容
 	const renderMinimap = React.useCallback(() => {
@@ -97,29 +100,18 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 			canvasHeight === 0
 		) {
 			sliderRef.current.style.setProperty("--minimap-slider-top", `0px`);
-			sliderRef.current.style.setProperty(
-				"--minimap-slider-height",
-				`0px`
-			);
 			return;
 		}
 
-		// 计算滑块位置和高度
-		const visibleLines = Math.floor(editorHeight / lineHeight);
+		// 计算滑块位置（固定高度）
 		const totalHeight = totalLines * lineHeight;
 		const scrollRatio = totalHeight > 0 ? scrollTop / totalHeight : 0;
-		const sliderHeight =
-			totalLines > 0 ? (visibleLines / totalLines) * canvasHeight : 0;
 		const sliderTop = scrollRatio * canvasHeight;
 
-		// 使用 CSS 变量更新滑块位置和高度
+		// 使用 CSS 变量更新滑块位置
 		sliderRef.current.style.setProperty(
 			"--minimap-slider-top",
-			`${Math.max(0, sliderTop)}px`
-		);
-		sliderRef.current.style.setProperty(
-			"--minimap-slider-height",
-			`${Math.max(0, Math.min(sliderHeight, canvasHeight))}px`
+			`${Math.max(0, Math.min(sliderTop, canvasHeight))}px`
 		);
 	}, [editor, enabled]);
 
@@ -150,6 +142,7 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 
 			e.preventDefault();
 			e.stopPropagation();
+			setIsDragging(true);
 
 			const startY = e.clientY;
 			const startScrollTop = editor.getSession().getScrollTop();
@@ -171,6 +164,7 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 			};
 
 			const handleMouseUp = () => {
+				setIsDragging(false);
 				document.removeEventListener("mousemove", handleMouseMove);
 				document.removeEventListener("mouseup", handleMouseUp);
 			};
@@ -180,6 +174,17 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 		},
 		[editor]
 	);
+
+	// 处理容器鼠标进入/离开
+	const handleContainerMouseEnter = React.useCallback(() => {
+		setIsHovering(true);
+	}, []);
+
+	const handleContainerMouseLeave = React.useCallback(() => {
+		if (!isDragging) {
+			setIsHovering(false);
+		}
+	}, [isDragging]);
 
 	// 监听编辑器事件
 	React.useEffect(() => {
@@ -225,7 +230,12 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	}
 
 	return (
-		<div className="ace-minimap-container">
+		<div
+			ref={containerRef}
+			className="ace-minimap-container"
+			onMouseEnter={handleContainerMouseEnter}
+			onMouseLeave={handleContainerMouseLeave}
+		>
 			<canvas
 				ref={canvasRef}
 				className="ace-minimap-canvas"
@@ -233,7 +243,9 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 			/>
 			<div
 				ref={sliderRef}
-				className="ace-minimap-slider"
+				className={`ace-minimap-slider ${
+					isHovering || isDragging ? "visible" : ""
+				} ${isDragging ? "dragging" : ""}`}
 				onMouseDown={handleSliderMouseDown}
 			/>
 		</div>

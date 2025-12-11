@@ -30,22 +30,30 @@
 	right: 0;
 	left: 0;
 	top: var(--minimap-slider-top, 0);
-	height: var(--minimap-slider-height, 100px);
+	height: 10dvh; /* 固定高度 */
 	background-color: var(--interactive-accent);
-	opacity: 0.2;
-	border: 2px solid var(--interactive-accent);
+	opacity: 0;
+	border: 1px solid var(--interactive-accent);
 	cursor: pointer;
 	pointer-events: all;
-	transition: opacity 0.15s ease-in-out;
+	transition: opacity 0.2s ease-in-out;
 	box-sizing: border-box;
+	border-radius: 3px;
 }
 
-.ace-minimap-slider:hover {
-	opacity: 0.35;
+/* 鼠标悬停在容器上时显示 slider */
+.ace-minimap-slider.visible {
+	opacity: 0.15;
 }
 
-.ace-minimap-slider:active {
-	opacity: 0.5;
+/* 鼠标悬停在 slider 上时加深 */
+.ace-minimap-slider.visible:hover {
+	opacity: 0.3;
+}
+
+/* 拖动时再次加深 */
+.ace-minimap-slider.dragging {
+	opacity: 0.4 !important;
 }
 
 /* 暗色主题调整 */
