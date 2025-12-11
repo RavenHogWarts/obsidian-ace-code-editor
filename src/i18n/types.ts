@@ -96,6 +96,9 @@ export type BaseMessage = {
 		showFoldWidgets: IBaseSettingsItem;
 		embedMaxHeight: IBaseSettingsItem;
 		wrap: IBaseSettingsItem;
+		minimap: {
+			enabled: IBaseSettingsItem;
+		};
 	};
 };
 

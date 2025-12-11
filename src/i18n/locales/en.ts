@@ -126,6 +126,12 @@ const translations: BaseMessage = {
 			name: "Auto wrap",
 			desc: "Enable auto wrap in code editor. Code exceeding the editor width will automatically wrap",
 		},
+		minimap: {
+			enabled: {
+				name: "Enable minimap",
+				desc: "Show minimap on the right side of the editor for quick navigation",
+			},
+		},
 	},
 };
 

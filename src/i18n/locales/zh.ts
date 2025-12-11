@@ -123,6 +123,12 @@ const translations: BaseMessage = {
 			name: "自动换行",
 			desc: "在代码编辑器中启用自动换行，超过编辑器宽度的代码将自动换行显示",
 		},
+		minimap: {
+			enabled: {
+				name: "启用缩略图",
+				desc: "在编辑器右侧显示缩略图，方便快速导航代码",
+			},
+		},
 	},
 };
 

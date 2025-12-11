@@ -123,6 +123,12 @@ const translations: BaseMessage = {
 			name: "自動換行",
 			desc: "在程式碼編輯器中啟用自動換行，超過編輯器寬度的程式碼將自動換行顯示",
 		},
+		minimap: {
+			enabled: {
+				name: "啟用縮略圖",
+				desc: "在編輯器右側顯示縮略圖，方便快速導航程式碼",
+			},
+		},
 	},
 };
 

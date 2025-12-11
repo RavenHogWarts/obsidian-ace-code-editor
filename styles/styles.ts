@@ -3,6 +3,7 @@ import "./AceView.css";
 import "./BaseModal.css";
 import "./CreateCodeFileModal.css";
 import "./EditCodeBlockModal.css";
+import "./Minimap.css";
 import "./QuickConfigModal.css";
 import "./SettingsTab.css";
 import "./SettingsView.css";
