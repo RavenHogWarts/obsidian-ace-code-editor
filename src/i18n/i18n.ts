@@ -13,7 +13,6 @@ export class I18n {
 	protected flatTranslations: Record<string, Record<string, string>> = {};
 
 	private constructor() {
-		// 获取系统语言，默认为英文
 		const lang = getLanguage();
 
 		this.currentLocale = this.translations[lang] ? lang : "en";
@@ -33,14 +32,27 @@ export class I18n {
 		}
 	}
 
-	private flattenObject(obj: any, prefix = ""): Record<string, string> {
+	private flattenObject(
+		obj: Record<string, unknown>,
+		prefix = ""
+	): Record<string, string> {
 		return Object.keys(obj).reduce(
 			(acc: Record<string, string>, k: string) => {
 				const pre = prefix.length ? prefix + "." : "";
-				if (typeof obj[k] === "object") {
-					Object.assign(acc, this.flattenObject(obj[k], pre + k));
+				if (
+					typeof obj[k] === "object" &&
+					obj[k] !== null &&
+					!Array.isArray(obj[k])
+				) {
+					Object.assign(
+						acc,
+						this.flattenObject(
+							obj[k] as Record<string, unknown>,
+							pre + k
+						)
+					);
 				} else {
-					acc[pre + k] = obj[k];
+					acc[pre + k] = String(obj[k]);
 				}
 				return acc;
 			},
@@ -51,7 +63,8 @@ export class I18n {
 	public t(key: TranslationKeys, params?: TranslationParams): string {
 		const translation = this.flatTranslations[this.currentLocale][key];
 		if (!translation) {
-			throw new Error(`Translation key not found: ${key}`);
+			console.warn(`Translation key not found: ${key}`);
+			return key;
 		}
 
 		if (!params) {
@@ -62,19 +75,6 @@ export class I18n {
 		return translation.replace(/\{\{([^}]+)\}\}/g, (match, name) => {
 			return params[name] !== undefined ? String(params[name]) : match;
 		});
-	}
-
-	public setLocale(locale: string): void {
-		if (this.translations[locale]) {
-			this.currentLocale = locale;
-			window.localStorage.setItem("language", locale);
-		} else {
-			this.currentLocale = "en";
-			window.localStorage.setItem("language", "en");
-			throw new Error(
-				`Locale not found: ${locale}, falling back to 'en'`
-			);
-		}
 	}
 
 	public getLocale(): string {
