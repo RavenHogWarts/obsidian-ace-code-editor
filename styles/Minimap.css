@@ -1,79 +1,44 @@
-/* Minimap 容器 */
 .ace-minimap-container {
 	position: absolute;
 	right: 0;
 	top: 0;
-	bottom: 0;
-	width: 10dvw; /* 默认宽度为视口宽度的 10% */
-	background-color: var(--background-primary);
-	border-left: 1px solid var(--background-modifier-border);
+	max-height: 100%;
+	width: 10dvw;
+	background-color: var(--background-primary, #1e1e1e);
+	border-left: 1px solid var(--background-modifier-border, #333);
+	z-index: 100;
 	overflow: hidden;
-	z-index: 10;
+	transition: height 0.1s ease-out;
 	box-sizing: border-box;
 }
 
-/* Minimap Canvas */
 .ace-minimap-canvas {
 	display: block;
 	width: 100%;
 	height: 100%;
-	cursor: pointer;
-	user-select: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
+	cursor: text;
+	pointer-events: auto;
 }
 
-/* 视口滑块 */
 .ace-minimap-slider {
 	position: absolute;
-	right: 0;
 	left: 0;
-	top: var(--minimap-slider-top, 0);
-	height: 10dvh; /* 固定高度 */
-	background-color: var(--interactive-accent);
+	right: 0;
+	top: 0;
+	background-color: rgba(120, 120, 120, 0.2);
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+	cursor: grab;
+	pointer-events: auto;
+	transition: opacity 0.2s;
 	opacity: 0;
-	border: 1px solid var(--interactive-accent);
-	cursor: pointer;
-	pointer-events: all;
-	transition: opacity 0.2s ease-in-out;
-	box-sizing: border-box;
-	border-radius: 3px;
 }
 
-/* 鼠标悬停在容器上时显示 slider */
 .ace-minimap-slider.visible {
-	opacity: 0.15;
+	opacity: 1;
 }
 
-/* 鼠标悬停在 slider 上时加深 */
-.ace-minimap-slider.visible:hover {
-	opacity: 0.3;
-}
-
-/* 拖动时再次加深 */
 .ace-minimap-slider.dragging {
-	opacity: 0.4 !important;
-}
-
-/* 暗色主题调整 */
-.theme-dark .ace-minimap-container {
-	background-color: var(--background-primary-alt);
-	border-left-color: var(--background-modifier-border);
-}
-
-.theme-dark .ace-minimap-slider {
-	background-color: var(--interactive-accent);
-	border-color: var(--interactive-accent);
-}
-
-/* 亮色主题调整 */
-.theme-light .ace-minimap-container {
-	background-color: var(--background-secondary);
-	border-left-color: var(--background-modifier-border);
-}
-
-.theme-light .ace-minimap-slider {
-	background-color: var(--interactive-accent);
-	border-color: var(--interactive-accent);
+	cursor: grabbing;
+	background-color: rgba(120, 120, 120, 0.4);
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
 }
