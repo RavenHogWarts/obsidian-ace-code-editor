@@ -48,7 +48,7 @@ const translations: BaseMessage = {
 				"Are you sure you want to delete file {{fileName}}?",
 			new_snippet_name: "New snippet name",
 			search_snippets: "Search snippets",
-			refresh: "Refresh",
+			refresh: "Reload snippets",
 			new_snippet: "New snippet",
 			open_snippets_folder: "Open snippets folder",
 			no_matching_snippets: "No matching snippets",
