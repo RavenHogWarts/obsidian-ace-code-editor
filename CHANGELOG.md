@@ -1,3 +1,45 @@
+# [1.4.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.3.2...1.4.0) (2025-12-20)
+
+
+### ♻️ Refactor
+
+* React hooks 简化组件和钩子导入 (#73) ([f2cc467](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/f2cc467fd47da0857b4c7d9c5579b8e8573a956e)), closes [#73](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/73)
+* **settings:** 简化 AceSettings 组件接口与状态管理 (#58) ([4ad2e43](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/4ad2e4329405cb45c3ddefd0240247b32803f0fd)), closes [#58](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/58)
+
+
+### ✨ Features
+
+* 将模态框改为显式传参并移除 useModal (#57) ([c5badd2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/c5badd27c6cdd141c762ff99d3f95ce9630f88e3)), closes [#57](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/57)
+* 优化 CSS 代码片段管理器 (#71) ([cd78217](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/cd782174761f89f6657cd5115e3513c375a93344)), closes [#71](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/71)
+* 增加 minimap (#64) ([0c98223](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/0c98223764890be9a3b8add1c81e4b2baa689d04)), closes [#64](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/64)
+* 重构 Ace 编辑器配置为选项生成器 (#62) ([24672ec](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/24672ecf93042ce27882cc5d02985fd14d1b3922)), closes [#62](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/62)
+* **minimap:** 固定滑块高度并完善悬停和拖拽交互 (#65) ([a73195e](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/a73195e36ee350fe44794cf324512a1ce3afeee9)), closes [#65](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/65)
+* **minimap:** 为小地图添加渲染与交互改进 (#70) ([a13e519](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/a13e51944295210997a6ae02a5ebea15f9b47ad9)), closes [#70](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/70)
+* **modal:** 点击遮罩关闭并添加容器类 (#72) ([5347785](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/53477852deeef1fb7f4863f3969450d59ed2b371)), closes [#72](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/72)
+* **settings:** 为设置页添加图标（ob 1.11.0） (#66) ([146a7e9](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/146a7e91a8edba032120deb02ddbdd7f3ec116e6)), closes [#66](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/66)
+
+
+### 🐛 Bug Fixes
+
+* 正确移除文件名中的 .css 扩展名 (#56) ([f5cbde2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/f5cbde2dd2f062c05086fd1f989d325a6c2611c9)), closes [#56](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/56)
+* **icon-picker:** 移除多余的父类渲染调用 (#68) ([a66a8aa](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/a66a8aac74ddca92d143e88bbba8c4ba0fd783ce)), closes [#68](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/68)
+
+
+### 📝 Documentation
+
+* 更新资助链接为 afdian (#59) ([4ae8448](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/4ae8448387b32ed53d04d023cca451c83770c3ce)), closes [#59](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/59)
+
+
+### 🔨 Chore
+
+* **deps:** 升级多项依赖以保持兼容性并修复问题 (#67) ([e086f54](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/e086f5462b3f6801f2a0cfa185b5a23b5c86ef47)), closes [#67](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/67)
+* **deps:** 升级若干依赖以修复问题并保持兼容 (#63) ([fe23bd0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/fe23bd059bec98139cae592afa968d5f254bf6ff)), closes [#63](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/63)
+* **eslint:** 添加 ESLint 配置并升级依赖 ([d3d2c56](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/d3d2c56aa5c2798b327ee8c9d750addf506378e9))
+* **funding:** 添加自定义赞助链接 (#60) ([cfc7523](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/cfc7523c74f4c269742ec6c8f24d52f645825bda)), closes [#60](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/60)
+* **license:** 切换许可证为 GPL-3.0-only (#69) ([2d3f0da](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/2d3f0da7554f4e1f8e3aa7613e7a3bdd149b17d0)), closes [#69](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/69)
+
+
+
 ## [1.3.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.3.1...1.3.2) (2025-10-29)
 
 
