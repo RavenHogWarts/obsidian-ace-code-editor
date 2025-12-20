@@ -1,6 +1,6 @@
 import AceCodeEditorPlugin from "@src/main";
 import { ICodeEditorConfig } from "@src/type/types";
-import * as React from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const SettingsBus = {
 	listeners: new Set<() => void>(),
@@ -20,11 +20,11 @@ export const SettingsBus = {
 };
 
 export function useSettings(plugin: AceCodeEditorPlugin) {
-	const [settings, setSettings] = React.useState<ICodeEditorConfig>(
+	const [settings, setSettings] = useState<ICodeEditorConfig>(
 		plugin.getSettings()
 	);
 
-	const updateSettings = React.useCallback(
+	const updateSettings = useCallback(
 		async (newSettings: ICodeEditorConfig) => {
 			await plugin.updateSettings(newSettings);
 			setSettings(newSettings);
@@ -33,7 +33,7 @@ export function useSettings(plugin: AceCodeEditorPlugin) {
 		[plugin]
 	);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		setSettings(plugin.settings);
 
 		const unsubscribe = SettingsBus.subscribe(() => {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useCallback } from "react";
 import "./Toggle.css";
 
 interface ToggleProps {
@@ -14,11 +14,11 @@ export const Toggle: React.FC<ToggleProps> = ({
 	className = "",
 	"aria-label": ariaLabel,
 }) => {
-	const handleChange = React.useCallback(() => {
+	const handleChange = useCallback(() => {
 		onChange(!checked);
 	}, [checked, onChange]);
 
-	const handleKeyDown = React.useCallback(
+	const handleKeyDown = useCallback(
 		(e: React.KeyboardEvent) => {
 			if (e.key === "Enter" || e.key === " ") {
 				e.preventDefault();

@@ -1,5 +1,5 @@
 import * as ace from "ace-builds";
-import * as React from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export interface MinimapProps {
 	editor: ace.Ace.Editor | null;
@@ -16,15 +16,15 @@ const TOKEN_COLORS: Record<string, string> = {
 };
 
 export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
-	const canvasRef = React.useRef<HTMLCanvasElement>(null);
-	const sliderRef = React.useRef<HTMLDivElement>(null);
-	const containerRef = React.useRef<HTMLDivElement>(null);
+	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const sliderRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
 
-	const [isHovering, setIsHovering] = React.useState(false);
-	const [isDragging, setIsDragging] = React.useState(false);
-	const isDraggingRef = React.useRef(false);
+	const [isHovering, setIsHovering] = useState(false);
+	const [isDragging, setIsDragging] = useState(false);
+	const isDraggingRef = useRef(false);
 
-	const config = React.useMemo(
+	const config = useMemo(
 		() => ({
 			lineHeight: 3, // Minimap 行高 (px)
 			charWidth: 2, // Minimap 字符宽 (px)
@@ -36,7 +36,7 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	// ============================================================================
 	// 1. 核心渲染逻辑 (Canvas)
 	// ============================================================================
-	const renderMinimap = React.useCallback(() => {
+	const renderMinimap = useCallback(() => {
 		if (!editor || !canvasRef.current || !containerRef.current || !enabled)
 			return;
 
@@ -140,7 +140,7 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	// ============================================================================
 	// 2. 更新滑块位置 (Editor -> Minimap)
 	// ============================================================================
-	const updateSlider = React.useCallback(() => {
+	const updateSlider = useCallback(() => {
 		// 拖拽中不更新，防止抖动
 		if (isDraggingRef.current) return;
 		if (!editor || !sliderRef.current || !containerRef.current || !enabled)
@@ -196,7 +196,7 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	// ============================================================================
 	// 3. 处理滑块拖拽 (Minimap -> Editor)
 	// ============================================================================
-	const handleSliderMouseDown = React.useCallback(
+	const handleSliderMouseDown = useCallback(
 		(e: React.MouseEvent<HTMLDivElement>) => {
 			if (!editor || !sliderRef.current || !containerRef.current) return;
 
@@ -274,7 +274,7 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	// ============================================================================
 	// 4. 处理点击跳转
 	// ============================================================================
-	const handleCanvasClick = React.useCallback(
+	const handleCanvasClick = useCallback(
 		(e: React.MouseEvent<HTMLCanvasElement>) => {
 			if (
 				!editor ||
@@ -332,7 +332,7 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	// ============================================================================
 	// 5. 生命周期管理
 	// ============================================================================
-	React.useEffect(() => {
+	useEffect(() => {
 		if (!editor || !enabled) return;
 
 		let rAF: number;

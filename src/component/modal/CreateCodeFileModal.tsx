@@ -2,7 +2,7 @@ import { Input } from "@src/component/input/Input";
 import { Select } from "@src/component/select/Select";
 import { t } from "@src/i18n/i18n";
 import { App, normalizePath, Notice } from "obsidian";
-import * as React from "react";
+import { useState } from "react";
 
 interface CreateCodeFileModalProps {
 	onClose: () => void;
@@ -34,10 +34,10 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 	folderPath,
 	openInCodeEditor,
 }) => {
-	const [fileName, setFileName] = React.useState("");
-	const [fileExtension, setFileExtension] = React.useState("custom");
-	const [openAfterCreate, setOpenAfterCreate] = React.useState(true);
-	const [isCustomFilename, setIsCustomFilename] = React.useState(true);
+	const [fileName, setFileName] = useState("");
+	const [fileExtension, setFileExtension] = useState("custom");
+	const [openAfterCreate, setOpenAfterCreate] = useState(true);
+	const [isCustomFilename, setIsCustomFilename] = useState(true);
 
 	const handleFileExtensionChange = (value: string) => {
 		setFileExtension(value);

@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
-import * as React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./Select.css";
 
 export interface SelectOption {
@@ -22,16 +22,16 @@ export const Select: React.FC<SelectProps> = ({
 	placeholder = "Select an option",
 	className = "",
 }) => {
-	const [isOpen, setIsOpen] = React.useState(false);
-	const selectRef = React.useRef<HTMLDivElement>(null);
-	const dropdownRef = React.useRef<HTMLDivElement>(null);
-	const selectedOptionRef = React.useRef<HTMLDivElement>(null);
+	const [isOpen, setIsOpen] = useState(false);
+	const selectRef = useRef<HTMLDivElement>(null);
+	const dropdownRef = useRef<HTMLDivElement>(null);
+	const selectedOptionRef = useRef<HTMLDivElement>(null);
 
 	const selectedOption = options.find((opt) => opt.value === value);
 	const selectedIndex = options.findIndex((opt) => opt.value === value);
 
 	// 虚拟滚动相关状态
-	const [visibleStartIndex, setVisibleStartIndex] = React.useState(0);
+	const [visibleStartIndex, setVisibleStartIndex] = useState(0);
 	const itemHeight = 36; // 选项高度，需根据实际CSS调整
 	const visibleItems = 10; // 一次渲染的可见项数量
 	const bufferItems = 5; // 缓冲项数量，提高滚动体验
@@ -48,7 +48,7 @@ export const Select: React.FC<SelectProps> = ({
 	);
 
 	// 处理滚动事件
-	const handleScroll = React.useCallback(
+	const handleScroll = useCallback(
 		(e: React.UIEvent<HTMLDivElement>) => {
 			const scrollTop = e.currentTarget.scrollTop;
 			const newStartIndex = Math.floor(scrollTop / itemHeight);
@@ -58,7 +58,7 @@ export const Select: React.FC<SelectProps> = ({
 	);
 
 	// 打开下拉框时滚动到选中项
-	React.useEffect(() => {
+	useEffect(() => {
 		if (isOpen && dropdownRef.current && selectedIndex >= 0) {
 			const scrollPosition = selectedIndex * itemHeight;
 			dropdownRef.current.scrollTop = scrollPosition;
@@ -68,7 +68,7 @@ export const Select: React.FC<SelectProps> = ({
 		}
 	}, [isOpen, selectedIndex, itemHeight, visibleItems]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (
 				selectRef.current &&

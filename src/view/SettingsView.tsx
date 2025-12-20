@@ -1,7 +1,8 @@
 import AceCodeEditorPlugin from "@src/main";
 import { AceSettings } from "@src/settings/AceSettings";
 import { IconName, ItemView, WorkspaceLeaf } from "obsidian";
-import * as React from "react";
+import { StrictMode } from "react";
+
 import { createRoot, Root } from "react-dom/client";
 
 export const SETTINGS_VIEW_TYPE = "ace-code-editor-settings";
@@ -39,9 +40,9 @@ export class SettingsView extends ItemView {
 		}
 
 		this.root.render(
-			<React.StrictMode>
+			<StrictMode>
 				<AceSettings />
-			</React.StrictMode>
+			</StrictMode>
 		);
 	}
 

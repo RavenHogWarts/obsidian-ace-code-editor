@@ -1,7 +1,7 @@
 import { t } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
 import { Modal } from "obsidian";
-import * as React from "react";
+import { StrictMode } from "react";
 import { createRoot, Root } from "react-dom/client";
 import "./ConfirmDialog.css";
 
@@ -61,14 +61,14 @@ export class ConfirmDialog extends Modal {
 		this.root = createRoot(contentEl);
 
 		this.root.render(
-			<React.StrictMode>
+			<StrictMode>
 				<ConfirmDialogView
 					title={this.props.title}
 					message={this.props.message}
 					onConfirm={this.props.onConfirm}
 					onClose={() => this.close()}
 				/>
-			</React.StrictMode>
+			</StrictMode>
 		);
 	}
 

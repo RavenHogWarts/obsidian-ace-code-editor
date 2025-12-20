@@ -1,4 +1,10 @@
-import * as React from "react";
+import {
+	forwardRef,
+	useCallback,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+} from "react";
 import "./Input.css";
 
 interface InputProps
@@ -12,7 +18,7 @@ interface InputProps
 	onChange: (value: string) => void;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
 	(
 		{
 			className = "",
@@ -25,14 +31,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		},
 		ref
 	) => {
-		const inputRef = React.useRef<HTMLInputElement>(null);
-		const isComposingRef = React.useRef(false);
+		const inputRef = useRef<HTMLInputElement>(null);
+		const isComposingRef = useRef(false);
 
 		// 合并外部ref和内部ref
-		React.useImperativeHandle(ref, () => inputRef.current!);
+		useImperativeHandle(ref, () => inputRef.current!);
 
 		// 强制设置value的函数
-		const forceSetValue = React.useCallback(() => {
+		const forceSetValue = useCallback(() => {
 			if (inputRef.current && value !== undefined) {
 				const stringValue = String(value);
 				if (inputRef.current.value !== stringValue) {
@@ -43,7 +49,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		}, [value]);
 
 		// 在value变化时强制更新DOM
-		React.useEffect(() => {
+		useEffect(() => {
 			if (!isComposingRef.current) {
 				forceSetValue();
 			}

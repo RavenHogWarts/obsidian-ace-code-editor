@@ -1,5 +1,5 @@
 import { Tabs } from "radix-ui";
-import * as React from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import "./TabNav.css";
 
 export interface TabNavItem {
@@ -26,12 +26,12 @@ export const TabNav: React.FC<TabNavProps> = ({
 }) => {
 	const enabledTabs = tabs.filter((tab) => !tab.disabled);
 	const defaultTab = defaultValue || enabledTabs[0]?.id;
-	const scrollContainerRef = React.useRef<HTMLDivElement>(null);
-	const scrollPositionRef = React.useRef<{ [key: string]: number }>({});
-	const [currentTab, setCurrentTab] = React.useState(defaultTab);
+	const scrollContainerRef = useRef<HTMLDivElement>(null);
+	const scrollPositionRef = useRef<{ [key: string]: number }>({});
+	const [currentTab, setCurrentTab] = useState(defaultTab);
 
 	// 监听标签切换，保存当前滚动位置
-	const handleTabChange = React.useCallback(
+	const handleTabChange = useCallback(
 		(value: string) => {
 			// 保存当前标签的滚动位置
 			if (scrollContainerRef.current && currentTab) {
@@ -57,7 +57,7 @@ export const TabNav: React.FC<TabNavProps> = ({
 	);
 
 	// 在组件更新后保持滚动位置
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		if (
 			scrollContainerRef.current &&
 			currentTab &&
@@ -69,7 +69,7 @@ export const TabNav: React.FC<TabNavProps> = ({
 	});
 
 	// 监听滚动事件，实时保存滚动位置
-	const handleScroll = React.useCallback(() => {
+	const handleScroll = useCallback(() => {
 		if (scrollContainerRef.current && currentTab) {
 			scrollPositionRef.current[currentTab] =
 				scrollContainerRef.current.scrollTop;

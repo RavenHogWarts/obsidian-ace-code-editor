@@ -1,7 +1,7 @@
 import AceCodeEditorPlugin from "@src/main";
 import { X } from "lucide-react";
 import { App, Modal } from "obsidian";
-import * as React from "react";
+import { lazy, StrictMode, Suspense } from "react";
 import { createRoot, Root } from "react-dom/client";
 
 const ModalLoading: React.FC = () => (
@@ -24,7 +24,7 @@ export class BaseModal<T extends { onClose: () => void }> extends Modal {
 		sizeClass = "modal-size-large"
 	) {
 		super(app);
-		this.LazyComponent = React.lazy(componentImport);
+		this.LazyComponent = lazy(componentImport);
 		this.componentProps = {
 			...props,
 			onClose: () => {
@@ -47,11 +47,11 @@ export class BaseModal<T extends { onClose: () => void }> extends Modal {
 
 		this.root = createRoot(el);
 		this.root.render(
-			<React.StrictMode>
+			<StrictMode>
 				<div className={`ace-modal ${this.sizeClass}`}>
-					<React.Suspense fallback={<ModalLoading />}>
+					<Suspense fallback={<ModalLoading />}>
 						<this.LazyComponent {...this.componentProps} />
-					</React.Suspense>
+					</Suspense>
 					<div
 						className="ace-modal-close"
 						onClick={() => this.close()}
@@ -59,7 +59,7 @@ export class BaseModal<T extends { onClose: () => void }> extends Modal {
 						<X size={18} />
 					</div>
 				</div>
-			</React.StrictMode>
+			</StrictMode>
 		);
 	}
 

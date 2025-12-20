@@ -2,7 +2,7 @@ import { t } from "@src/i18n/i18n";
 import { AceService } from "@src/service/AceService";
 import { ICodeBlock, ICodeEditorConfig } from "@src/type/types";
 import { Ace } from "ace-builds";
-import * as React from "react";
+import { useEffect, useRef } from "react";
 
 interface EditCodeBlockModalProps {
 	onClose: () => void;
@@ -17,11 +17,11 @@ const EditCodeBlockModal: React.FC<EditCodeBlockModalProps> = ({
 	onSave,
 	config,
 }) => {
-	const editorRef = React.useRef<HTMLDivElement>(null);
-	const aceEditorRef = React.useRef<Ace.Editor | null>(null);
-	const aceServiceRef = React.useRef<AceService | null>(null);
+	const editorRef = useRef<HTMLDivElement>(null);
+	const aceEditorRef = useRef<Ace.Editor | null>(null);
+	const aceServiceRef = useRef<AceService | null>(null);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (editorRef.current && !aceEditorRef.current) {
 			aceServiceRef.current = new AceService();
 			aceEditorRef.current = aceServiceRef.current.createEditor(
