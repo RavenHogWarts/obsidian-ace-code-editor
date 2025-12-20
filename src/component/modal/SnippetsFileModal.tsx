@@ -7,7 +7,7 @@ import {
 	FilePlus2,
 	FileX,
 	FolderCode,
-	RefreshCcwDot,
+	RefreshCcw,
 	Search,
 	SquarePen,
 	Trash2,
@@ -218,7 +218,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 								onClick={requestLoadSnippets}
 								title={t("modal.snippetsFile.refresh")}
 							>
-								<RefreshCcwDot size={18} />
+								<RefreshCcw size={18} />
 							</button>
 
 							<button
