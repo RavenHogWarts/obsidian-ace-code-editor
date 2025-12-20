@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronRight } from "lucide-react";
-import * as React from "react";
+import { useState } from "react";
 import "./SettingItem.css";
 
 interface SettingsItemProps {
@@ -19,7 +19,7 @@ export const SettingsItem: React.FC<SettingsItemProps> = ({
 	collapsible,
 	defaultCollapsed,
 }) => {
-	const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
+	const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
 
 	return (
 		<div

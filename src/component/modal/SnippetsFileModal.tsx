@@ -2,6 +2,7 @@ import { ConfirmDialog } from "@src/component/confirm-dialog/ConfirmDialog";
 import { Input } from "@src/component/input/Input";
 import { Toggle } from "@src/component/toggle/Toggle";
 import { t } from "@src/i18n/i18n";
+import AceCodeEditorPlugin from "@src/main";
 import {
 	Code2,
 	FilePlus2,
@@ -13,9 +14,7 @@ import {
 	Trash2,
 } from "lucide-react";
 import { App, Notice } from "obsidian";
-import * as React from "react";
-
-import AceCodeEditorPlugin from "@src/main";
+import { useEffect, useRef, useState } from "react";
 
 interface SnippetsFileModalProps {
 	onClose: () => void;
@@ -38,17 +37,17 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 	snippetsFolder,
 	openExternalFile,
 }) => {
-	const [files, setFiles] = React.useState<SnippetFile[]>([]);
-	const [isCreatingNew, setIsCreatingNew] = React.useState(false);
-	const [newFileName, setNewFileName] = React.useState("");
-	const [searchQuery, setSearchQuery] = React.useState("");
-	const newFileInputRef = React.useRef<HTMLInputElement>(null);
+	const [files, setFiles] = useState<SnippetFile[]>([]);
+	const [isCreatingNew, setIsCreatingNew] = useState(false);
+	const [newFileName, setNewFileName] = useState("");
+	const [searchQuery, setSearchQuery] = useState("");
+	const newFileInputRef = useRef<HTMLInputElement>(null);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		loadSnippetsFiles();
 	}, []);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (isCreatingNew && newFileInputRef.current) {
 			newFileInputRef.current.focus();
 		}

@@ -9,7 +9,14 @@ import { parseLinkWithRange } from "@src/utils/LineRange";
 import { Ace } from "ace-builds";
 import { Maximize2 } from "lucide-react";
 import { TFile } from "obsidian";
-import * as React from "react";
+import {
+	createElement,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 import { createRoot, Root } from "react-dom/client";
 
 interface CodeEmbedContainerProps {
@@ -23,14 +30,14 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 	file,
 	range,
 }) => {
-	const editorRef = React.useRef<HTMLDivElement>(null);
-	const aceEditorRef = React.useRef<Ace.Editor | null>(null);
-	const aceServiceRef = React.useRef<AceService | null>(null);
-	const [lang, setLang] = React.useState<string>();
+	const editorRef = useRef<HTMLDivElement>(null);
+	const aceEditorRef = useRef<Ace.Editor | null>(null);
+	const aceServiceRef = useRef<AceService | null>(null);
+	const [lang, setLang] = useState<string>();
 
 	const { settings } = useSettings(plugin);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const initializeEditor = async () => {
 			if (editorRef.current) {
 				const data = await plugin.app.vault.read(file);
@@ -74,7 +81,7 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 		};
 	}, []);
 
-	const displayLabel = React.useMemo(() => {
+	const displayLabel = useMemo(() => {
 		if (range) {
 			if (range.startLine === range.endLine) {
 				return `${lang} (Line ${range.startLine})`;
@@ -85,7 +92,7 @@ const CodeEmbedContainer: React.FC<CodeEmbedContainerProps> = ({
 		return lang;
 	}, [lang, range]);
 
-	const handleOpenInNewTab = React.useCallback(async () => {
+	const handleOpenInNewTab = useCallback(async () => {
 		// 使用 Obsidian API 在新标签页打开文件
 		const leaf = plugin.app.workspace.getLeaf("tab");
 		await leaf.openFile(file);
@@ -172,7 +179,7 @@ export class CodeEmbedView extends AcePluginComponent implements Embed {
 	async loadFile(): Promise<void> {
 		if (this.root) {
 			this.root.render(
-				React.createElement(CodeEmbedContainer, {
+				createElement(CodeEmbedContainer, {
 					plugin: this.plugin,
 					file: this.file,
 					range: this.range || undefined,

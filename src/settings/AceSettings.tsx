@@ -15,7 +15,7 @@ import {
 } from "@src/service/AceThemes";
 import parse from "html-react-parser";
 import { Notice, Platform } from "obsidian";
-import * as React from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SettingsItem } from "./item/SettingItem";
 
 interface FontData {
@@ -39,10 +39,10 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 	const settings = usePluginSettings(settingsStore);
 	const app = settingsStore.app;
 
-	const [systemFonts, setSystemFonts] = React.useState<string[]>([]);
+	const [systemFonts, setSystemFonts] = useState<string[]>([]);
 
 	// 加载系统字体
-	React.useEffect(() => {
+	useEffect(() => {
 		async function loadSystemFonts() {
 			try {
 				let fonts: string[] = [];
@@ -226,7 +226,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		});
 	}
 
-	const lightThemeOptions = React.useMemo(
+	const lightThemeOptions = useMemo(
 		() =>
 			AceLightThemesList.map((theme) => ({
 				value: theme,
@@ -235,7 +235,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		[]
 	);
 
-	const darkThemeOptions = React.useMemo(
+	const darkThemeOptions = useMemo(
 		() =>
 			AceDarkThemesList.map((theme) => ({
 				value: theme,
@@ -244,7 +244,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		[]
 	);
 
-	const keyboardOptions = React.useMemo(
+	const keyboardOptions = useMemo(
 		() =>
 			AceKeyboardList.map((keyboard) => ({
 				value: keyboard,
@@ -253,11 +253,11 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		[]
 	);
 
-	const EditorSettings = React.useMemo(() => {
+	const EditorSettings = useMemo(() => {
 		return <></>;
 	}, []);
 
-	const RendererSettings = React.useMemo(() => {
+	const RendererSettings = useMemo(() => {
 		return (
 			<>
 				<SettingsItem
@@ -429,7 +429,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		);
 	}, [settings, systemFonts]);
 
-	const SessionSettings = React.useMemo(() => {
+	const SessionSettings = useMemo(() => {
 		return (
 			<>
 				<SettingsItem
@@ -498,7 +498,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		);
 	}, [settings]);
 
-	const ExtendSettings = React.useMemo(() => {
+	const ExtendSettings = useMemo(() => {
 		return (
 			<>
 				<SettingsItem
@@ -551,7 +551,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		);
 	}, [settings, app]);
 
-	const AboutSettings = React.useMemo(() => {
+	const AboutSettings = useMemo(() => {
 		return (
 			<>
 				<SettingsItem
@@ -562,7 +562,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		);
 	}, []);
 
-	const settingsTabNavItems: TabNavItem[] = React.useMemo(
+	const settingsTabNavItems: TabNavItem[] = useMemo(
 		() => [
 			{
 				id: "renderer",

@@ -6,7 +6,7 @@ import {
 	IconName,
 	setIcon,
 } from "obsidian";
-import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 import "./IconPicker.css";
 
 interface IconPickerProps {
@@ -20,8 +20,8 @@ export const IconPicker: React.FC<IconPickerProps> = ({
 	value,
 	onChange,
 }) => {
-	const [selectedIcon, setSelectedIcon] = React.useState<string>(value);
-	const buttonRef = React.useRef<HTMLDivElement>(null);
+	const [selectedIcon, setSelectedIcon] = useState<string>(value);
+	const buttonRef = useRef<HTMLDivElement>(null);
 
 	const handleClick = () => {
 		const modal = new IconSelector(app, (icon) => {
@@ -31,7 +31,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({
 		modal.open();
 	};
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (buttonRef.current) {
 			setIcon(buttonRef.current, selectedIcon);
 		}

@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import * as React from "react";
+import { useRef, useState } from "react";
 import "./TagInput.css";
 
 interface TagInputProps {
@@ -17,14 +17,14 @@ export const TagInput: React.FC<TagInputProps> = ({
 	placeholder,
 	renderCustomSuggestion,
 }) => {
-	const [inputValue, setInputValue] = React.useState("");
-	const [showSuggestions, setShowSuggestions] = React.useState(false);
-	const [selectedIndex, setSelectedIndex] = React.useState(-1);
-	const containerRef = React.useRef<HTMLDivElement>(null);
-	const [draggedTag, setDraggedTag] = React.useState<number | null>(null);
-	const [dragOverTag, setDragOverTag] = React.useState<number | null>(null);
+	const [inputValue, setInputValue] = useState("");
+	const [showSuggestions, setShowSuggestions] = useState(false);
+	const [selectedIndex, setSelectedIndex] = useState(-1);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [draggedTag, setDraggedTag] = useState<number | null>(null);
+	const [dragOverTag, setDragOverTag] = useState<number | null>(null);
 
-	const filteredSuggestions = React.useMemo(() => {
+	const filteredSuggestions = useMemo(() => {
 		return suggestions.filter(
 			(suggestion) =>
 				suggestion.toLowerCase().includes(inputValue.toLowerCase()) &&
