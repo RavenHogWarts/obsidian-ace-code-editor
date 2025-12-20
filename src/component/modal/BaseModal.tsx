@@ -37,6 +37,14 @@ export class BaseModal<T extends { onClose: () => void }> extends Modal {
 
 	async onOpen(): Promise<void> {
 		const el = this.containerEl;
+		el.classList.add("ace-modal-container");
+
+		el.addEventListener("click", (e) => {
+			if (e.target === el) {
+				this.close();
+			}
+		});
+
 		this.root = createRoot(el);
 		this.root.render(
 			<React.StrictMode>
