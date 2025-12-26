@@ -1,8 +1,8 @@
 import AceCodeEditorPlugin from "@src/main";
 import { X } from "lucide-react";
 import { App, Modal } from "obsidian";
-import { lazy, StrictMode, Suspense } from "react";
-import { createRoot, Root } from "react-dom/client";
+import { StrictMode, Suspense, lazy } from "react";
+import { Root, createRoot } from "react-dom/client";
 
 const ModalLoading: React.FC = () => (
 	<div className="ace-modal-loading">
@@ -67,6 +67,5 @@ export class BaseModal<T extends { onClose: () => void }> extends Modal {
 		this.root?.unmount();
 		this.root = null;
 		this.containerEl.empty();
-		this.componentProps.onClose();
 	}
 }
