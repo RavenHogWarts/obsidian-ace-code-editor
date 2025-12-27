@@ -1,6 +1,6 @@
-import { BaseMessage } from "@src/i18n/types";
+import type { BaseTranslation } from '../i18n-types'
 
-const translations: BaseMessage = {
+const zh_TW = {
 	common: {
 		confirm: "確定",
 		cancel: "取消",
@@ -21,7 +21,6 @@ const translations: BaseMessage = {
 		file_name_with_extension_validate: "自定義檔案名必須包含副檔名",
 		file_already_exists: "檔案已存在",
 		create_file_success: "檔案創建成功，{{path}}",
-		create_file_failed: "檔案創建失敗，{{error}}",
 		file_deleted: "檔案 {{fileName}} 已刪除",
 	},
 	modal: {
@@ -130,6 +129,6 @@ const translations: BaseMessage = {
 			},
 		},
 	},
-};
+} satisfies BaseTranslation
 
-export default translations;
+export default zh_TW

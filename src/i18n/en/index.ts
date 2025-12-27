@@ -1,6 +1,6 @@
-import { BaseMessage } from "@src/i18n/types";
+import type { BaseTranslation } from '../i18n-types'
 
-const translations: BaseMessage = {
+const en = {
 	common: {
 		confirm: "Confirm",
 		cancel: "Cancel",
@@ -18,11 +18,9 @@ const translations: BaseMessage = {
 	},
 	notice: {
 		file_name_validate: "File name cannot be empty",
-		file_name_with_extension_validate:
-			"Custom file name must include extension",
+		file_name_with_extension_validate: "Custom file name must include extension",
 		file_already_exists: "File already exists",
 		create_file_success: "File created successfully, {{path}}",
-		create_file_failed: "File creation failed, {{error}}",
 		file_deleted: "File {{fileName}} has been deleted",
 	},
 	modal: {
@@ -33,8 +31,7 @@ const translations: BaseMessage = {
 			file_name: "File name",
 			file_name_placeholder: "Please enter file name",
 			file_name_with_extension: "File name (with extension)",
-			file_name_with_extension_placeholder:
-				"Enter file name (with extension)",
+			file_name_with_extension_placeholder: "Enter file name (with extension)",
 			preview: "Preview",
 			open_file_after_create: "Open file after creation",
 		},
@@ -44,8 +41,7 @@ const translations: BaseMessage = {
 		snippetsFile: {
 			header: "Snippet files",
 			deleteFile: "Delete file",
-			deleteFileMessage:
-				"Are you sure you want to delete file {{fileName}}?",
+			deleteFileMessage: "Are you sure you want to delete file {{fileName}}?",
 			new_snippet_name: "New snippet name",
 			search_snippets: "Search snippets",
 			refresh: "Reload snippets",
@@ -133,6 +129,6 @@ const translations: BaseMessage = {
 			},
 		},
 	},
-};
+} satisfies BaseTranslation
 
-export default translations;
+export default en

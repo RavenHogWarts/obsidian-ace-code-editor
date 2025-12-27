@@ -1,4 +1,4 @@
-import { t } from "@src/i18n/i18n";
+import { LL } from "@src/i18n/i18n";
 import {
 	AceDarkThemesList,
 	AceKeyboardList,
@@ -26,22 +26,22 @@ export class QuickConfigModal {
 		const configOptions: ConfigOption[] = [
 			{
 				key: "lightTheme",
-				displayName: t("setting.lightTheme.name"),
-				description: t("setting.lightTheme.desc"),
+				displayName: LL.setting.lightTheme.name(),
+				description: LL.setting.lightTheme.desc(),
 				currentValue: this.settings.lightTheme,
 				options: AceLightThemesList,
 			},
 			{
 				key: "darkTheme",
-				displayName: t("setting.darkTheme.name"),
-				description: t("setting.darkTheme.desc"),
+				displayName: LL.setting.darkTheme.name(),
+				description: LL.setting.darkTheme.desc(),
 				currentValue: this.settings.darkTheme,
 				options: AceDarkThemesList,
 			},
 			{
 				key: "keyboard",
-				displayName: t("setting.keyboard.name"),
-				description: t("setting.keyboard.desc"),
+				displayName: LL.setting.keyboard.name(),
+				description: LL.setting.keyboard.desc(),
 				currentValue: this.settings.keyboard,
 				options: AceKeyboardList,
 			},

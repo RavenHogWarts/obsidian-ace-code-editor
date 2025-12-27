@@ -1,8 +1,8 @@
-import { t } from "@src/i18n/i18n";
+import { LL } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
 import { Modal } from "obsidian";
 import { StrictMode } from "react";
-import { createRoot, Root } from "react-dom/client";
+import { Root, createRoot } from "react-dom/client";
 import "./ConfirmDialog.css";
 
 interface ConfirmDialogViewProps {
@@ -33,9 +33,9 @@ const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
 					<p>{message}</p>
 				</div>
 				<div className="ace-confirm-dialog-actions">
-					<button onClick={onClose}>{t("common.cancel")}</button>
+					<button onClick={onClose}>{LL.common.cancel()}</button>
 					<button onClick={handleConfirm} className="mod-cta">
-						{t("common.confirm")}
+						{LL.common.confirm()}
 					</button>
 				</div>
 			</div>

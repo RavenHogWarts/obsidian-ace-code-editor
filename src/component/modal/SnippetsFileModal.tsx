@@ -1,7 +1,7 @@
 import { ConfirmDialog } from "@src/component/confirm-dialog/ConfirmDialog";
 import { Input } from "@src/component/input/Input";
 import { Toggle } from "@src/component/toggle/Toggle";
-import { t } from "@src/i18n/i18n";
+import { LL } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
 import {
 	Code2,
@@ -112,13 +112,13 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 
 	const handleDeleteFile = async (fileName: string) => {
 		new ConfirmDialog(plugin, {
-			title: t("modal.snippetsFile.deleteFile"),
-			message: t("modal.snippetsFile.deleteFileMessage", { fileName }),
+			title: LL.modal.snippetsFile.deleteFile(),
+			message: LL.modal.snippetsFile.deleteFileMessage({ fileName }),
 			onConfirm: async () => {
 				const filePath = `${snippetsFolder}/${fileName}`;
 				const adapter = app.vault.adapter;
 				await adapter.remove(filePath);
-				new Notice(t("notice.file_deleted", { fileName }));
+				new Notice(LL.notice.file_deleted({ fileName }));
 				await loadSnippetsFiles();
 			},
 		}).open();
@@ -126,7 +126,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 
 	const handleCreateFile = async () => {
 		if (!newFileName.trim()) {
-			throw new Error(t("notice.file_name_validate"));
+			new Notice(LL.notice.file_name_validate());
 		}
 
 		let fileName = newFileName;
@@ -140,11 +140,11 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 			const exists = await adapter.exists(filePath);
 
 			if (exists) {
-				throw new Error(t("notice.file_already_exists"));
+				new Notice(LL.notice.file_already_exists());
 			}
 
 			await adapter.write(filePath, "/* CSS Snippet */\n");
-			new Notice(t("notice.create_file_success", { path: fileName }));
+			new Notice(LL.notice.create_file_success({ path: fileName }));
 
 			await loadSnippetsFiles();
 			setIsCreatingNew(false);
@@ -154,7 +154,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 			await openExternalFile(filePath, true);
 			onClose();
 		} catch (error) {
-			throw new Error(t("notice.create_file_failed", { error }));
+			throw new Error(error);
 		}
 	};
 
@@ -166,7 +166,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 		<div className="ace-snippets-file-modal">
 			<div className="snippets-modal-header">
 				<Code2 size={24} className="snippets-modal-header-icon" />
-				<h2>{t("modal.snippetsFile.header")}</h2>
+				<h2>{LL.modal.snippetsFile.header()}</h2>
 			</div>
 			<div className="snippets-modal-content">
 				{isCreatingNew ? (
@@ -175,9 +175,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 							ref={newFileInputRef}
 							value={newFileName}
 							onChange={setNewFileName}
-							placeholder={t(
-								"modal.snippetsFile.new_snippet_name"
-							)}
+							placeholder={LL.modal.snippetsFile.new_snippet_name()}
 						/>
 
 						<div className="snippets-new-file-actions">
@@ -187,14 +185,14 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 									setNewFileName("");
 								}}
 							>
-								{t("common.cancel")}
+								{LL.common.cancel()}
 							</button>
 
 							<button
 								className="mod-cta"
 								onClick={handleCreateFile}
 							>
-								{t("common.create")}
+								{LL.common.create()}
 							</button>
 						</div>
 					</div>
@@ -204,9 +202,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 							<Input
 								value={searchQuery}
 								onChange={setSearchQuery}
-								placeholder={t(
-									"modal.snippetsFile.search_snippets"
-								)}
+								placeholder={LL.modal.snippetsFile.search_snippets()}
 								prefix={<Search size={16} />}
 							/>
 						</div>
@@ -215,7 +211,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 							<button
 								className="snippets-refresh"
 								onClick={requestLoadSnippets}
-								title={t("modal.snippetsFile.refresh")}
+								title={LL.modal.snippetsFile.refresh()}
 							>
 								<RefreshCcw size={18} />
 							</button>
@@ -223,7 +219,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 							<button
 								className="snippets-new"
 								onClick={() => setIsCreatingNew(true)}
-								title={t("modal.snippetsFile.new_snippet")}
+								title={LL.modal.snippetsFile.new_snippet()}
 							>
 								<FilePlus2 size={18} />
 							</button>
@@ -231,9 +227,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 							<button
 								className="snippets-open-folder"
 								onClick={handleOpenSnippetsFolder}
-								title={t(
-									"modal.snippetsFile.open_snippets_folder"
-								)}
+								title={LL.modal.snippetsFile.open_snippets_folder()}
 							>
 								<FolderCode size={18} />
 							</button>
@@ -294,8 +288,8 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 						<div className="snippets-empty-state">
 							<FileX size={32} className="snippets-empty-icon" />
 							{searchQuery
-								? t("modal.snippetsFile.no_matching_snippets")
-								: t("modal.snippetsFile.no_snippets")}
+								? LL.modal.snippetsFile.no_matching_snippets()
+								: LL.modal.snippetsFile.no_snippets()}
 						</div>
 					)}
 				</div>

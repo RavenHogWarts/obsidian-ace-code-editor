@@ -6,7 +6,7 @@ import { TagInput } from "@src/component/tag-input/TagInput";
 import { Toggle } from "@src/component/toggle/Toggle";
 import usePluginSettings from "@src/hooks/usePluginSettings";
 import useSettingsStore from "@src/hooks/useSettingsStore";
-import { t } from "@src/i18n/i18n";
+import { LL } from "@src/i18n/i18n";
 import { languageModeMap } from "@src/service/AceLanguages";
 import {
 	AceDarkThemesList,
@@ -261,8 +261,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		return (
 			<>
 				<SettingsItem
-					name={t("setting.lightTheme.name")}
-					desc={t("setting.lightTheme.desc")}
+					name={LL.setting.lightTheme.name()}
+					desc={LL.setting.lightTheme.desc()}
 				>
 					<Select
 						options={lightThemeOptions}
@@ -277,8 +277,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.darkTheme.name")}
-					desc={t("setting.darkTheme.desc")}
+					name={LL.setting.darkTheme.name()}
+					desc={LL.setting.darkTheme.desc()}
 				>
 					<Select
 						options={darkThemeOptions}
@@ -293,8 +293,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.fontFamily.name")}
-					desc={t("setting.fontFamily.desc")}
+					name={LL.setting.fontFamily.name()}
+					desc={LL.setting.fontFamily.desc()}
 					collapsible={true}
 					defaultCollapsed={false}
 				>
@@ -307,7 +307,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 							)
 						}
 						suggestions={systemFonts}
-						placeholder={t("setting.fontFamily.placeholder")}
+						placeholder={LL.setting.fontFamily.placeholder()}
 						renderCustomSuggestion={(font) => (
 							<div
 								className="ace-font-family"
@@ -322,8 +322,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.fontSize.name")}
-					desc={t("setting.fontSize.desc")}
+					name={LL.setting.fontSize.name()}
+					desc={LL.setting.fontSize.desc()}
 				>
 					<Input
 						type="number"
@@ -338,8 +338,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.showLineNumbers.name")}
-					desc={t("setting.showLineNumbers.desc")}
+					name={LL.setting.showLineNumbers.name()}
+					desc={LL.setting.showLineNumbers.desc()}
 				>
 					<Toggle
 						checked={settings.showLineNumbers}
@@ -353,8 +353,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.showPrintMargin.name")}
-					desc={t("setting.showPrintMargin.desc")}
+					name={LL.setting.showPrintMargin.name()}
+					desc={LL.setting.showPrintMargin.desc()}
 				>
 					<Toggle
 						checked={settings.showPrintMargin}
@@ -368,8 +368,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.showInvisibles.name")}
-					desc={t("setting.showInvisibles.desc")}
+					name={LL.setting.showInvisibles.name()}
+					desc={LL.setting.showInvisibles.desc()}
 				>
 					<Toggle
 						checked={settings.showInvisibles}
@@ -383,8 +383,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.displayIndentGuides.name")}
-					desc={t("setting.displayIndentGuides.desc")}
+					name={LL.setting.displayIndentGuides.name()}
+					desc={LL.setting.displayIndentGuides.desc()}
 				>
 					<Toggle
 						checked={settings.displayIndentGuides}
@@ -398,8 +398,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.showFoldWidgets.name")}
-					desc={t("setting.showFoldWidgets.desc")}
+					name={LL.setting.showFoldWidgets.name()}
+					desc={LL.setting.showFoldWidgets.desc()}
 				>
 					<Toggle
 						checked={settings.showFoldWidgets}
@@ -413,8 +413,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.minimap.enabled.name")}
-					desc={t("setting.minimap.enabled.desc")}
+					name={LL.setting.minimap.enabled.name()}
+					desc={LL.setting.minimap.enabled.desc()}
 				>
 					<Toggle
 						checked={settings.minimap.enabled}
@@ -433,8 +433,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		return (
 			<>
 				<SettingsItem
-					name={t("setting.supportExtensions.name")}
-					desc={t("setting.supportExtensions.desc")}
+					name={LL.setting.supportExtensions.name()}
+					desc={LL.setting.supportExtensions.desc()}
 					collapsible={true}
 					defaultCollapsed={false}
 				>
@@ -446,14 +446,14 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 								value
 							)
 						}
-						placeholder={t("setting.supportExtensions.placeholder")}
+						placeholder={LL.setting.supportExtensions.placeholder()}
 						suggestions={Object.values(languageModeMap).flat()}
 					/>
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.keyboard.name")}
-					desc={t("setting.keyboard.desc")}
+					name={LL.setting.keyboard.name()}
+					desc={LL.setting.keyboard.desc()}
 				>
 					<Select
 						options={keyboardOptions}
@@ -468,8 +468,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.tabSize.name")}
-					desc={t("setting.tabSize.desc")}
+					name={LL.setting.tabSize.name()}
+					desc={LL.setting.tabSize.desc()}
 				>
 					<Input
 						type="number"
@@ -484,8 +484,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.wrap.name")}
-					desc={t("setting.wrap.desc")}
+					name={LL.setting.wrap.name()}
+					desc={LL.setting.wrap.desc()}
 				>
 					<Toggle
 						checked={settings.wrap}
@@ -502,8 +502,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		return (
 			<>
 				<SettingsItem
-					name={t("setting.snippetsManager.name")}
-					desc={t("setting.snippetsManager.desc")}
+					name={LL.setting.snippetsManager.name()}
+					desc={LL.setting.snippetsManager.desc()}
 				>
 					<Toggle
 						checked={settings.snippetsManager.location}
@@ -533,8 +533,8 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 				</SettingsItem>
 
 				<SettingsItem
-					name={t("setting.embedMaxHeight.name")}
-					desc={t("setting.embedMaxHeight.desc")}
+					name={LL.setting.embedMaxHeight.name()}
+					desc={LL.setting.embedMaxHeight.desc()}
 				>
 					<Input
 						type="number"
@@ -556,7 +556,7 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 			<>
 				<SettingsItem
 					name={"wiki"}
-					desc={parse(t("setting.desc"))}
+					desc={parse(LL.setting.desc())}
 				></SettingsItem>
 			</>
 		);
@@ -566,28 +566,28 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 		() => [
 			{
 				id: "renderer",
-				title: t("setting.tabs.renderer"),
+				title: LL.setting.tabs.renderer(),
 				content: RendererSettings,
 			},
 			{
 				id: "session",
-				title: t("setting.tabs.session"),
+				title: LL.setting.tabs.session(),
 				content: SessionSettings,
 			},
 			{
 				id: "editor",
-				title: t("setting.tabs.editor"),
+				title: LL.setting.tabs.editor(),
 				content: EditorSettings,
 				disabled: true,
 			},
 			{
 				id: "extend",
-				title: t("setting.tabs.extend"),
+				title: LL.setting.tabs.extend(),
 				content: ExtendSettings,
 			},
 			{
 				id: "about",
-				title: t("setting.tabs.about"),
+				title: LL.setting.tabs.about(),
 				content: AboutSettings,
 			},
 		],

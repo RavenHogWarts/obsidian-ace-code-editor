@@ -3,7 +3,7 @@ import { Editor, Menu, Plugin, setIcon, TFile, TFolder } from "obsidian";
 import { BaseModal } from "./component/modal/BaseModal";
 import { QuickConfigModal } from "./component/modal/QuickConfigModal";
 import { SettingsBus } from "./hooks/useSettings";
-import { t } from "./i18n/i18n";
+import { LL } from "./i18n/i18n";
 import SettingsStore from "./settings/SettingsStore";
 import AceCodeEditorSettingTab from "./settings/SettingsTab";
 import { EmbedCreator } from "./type/obsidian-extend";
@@ -170,7 +170,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 	private registerCommands() {
 		this.addCommand({
 			id: "createCodeFile",
-			name: t("command.create_code_file"),
+			name: LL.command.create_code_file(),
 			callback: async () => {
 				const activeFile = this.app.workspace.getActiveFile();
 				const folderPath = activeFile?.parent?.path || "";
@@ -180,7 +180,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 
 		this.addCommand({
 			id: "openCssSnippet",
-			name: t("command.open_css_snippet_manager"),
+			name: LL.command.open_css_snippet_manager(),
 			callback: async () => {
 				await this.openCssSnippetSelector();
 			},
@@ -188,7 +188,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 
 		this.addCommand({
 			id: "openSettingsView",
-			name: t("command.open_settings_view"),
+			name: LL.command.open_settings_view(),
 			callback: async () => {
 				await this.openPluginView(SETTINGS_VIEW_TYPE);
 			},
@@ -196,7 +196,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 
 		this.addCommand({
 			id: "quickConfig",
-			name: t("command.quick_config"),
+			name: LL.command.quick_config(),
 			callback: async () => {
 				await this.openQuickConfig();
 			},
@@ -206,7 +206,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 	private registerRibbonCommands() {
 		this.addRibbonIcon(
 			this.settings.snippetsManager.icon,
-			t("command.open_css_snippet_manager"),
+			LL.command.open_css_snippet_manager(),
 			async () => {
 				await this.openCssSnippetSelector();
 			}
@@ -221,7 +221,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 					this.statusBar.setAttribute("aria-label-position", "top");
 					this.statusBar.setAttribute(
 						"aria-label",
-						t("command.open_css_snippet_manager")
+						LL.command.open_css_snippet_manager()
 					);
 					setIcon(this.statusBar, this.settings.snippetsManager.icon);
 					this.statusBar.addEventListener("click", async () => {
@@ -254,7 +254,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 	private handleFileMenu(menu: Menu, file: TFile | TFolder): void {
 		if (file instanceof TFolder) {
 			menu.addItem((item) => {
-				item.setTitle(t("command.create_code_file"))
+				item.setTitle(LL.command.create_code_file())
 					.setIcon("code-xml")
 					.onClick(() => {
 						this.createCodeFile(file.path);
@@ -264,14 +264,14 @@ export default class AceCodeEditorPlugin extends Plugin {
 
 		if (file instanceof TFile) {
 			menu.addItem((item) => {
-				item.setTitle(t("command.create_code_file"))
+				item.setTitle(LL.command.create_code_file())
 					.setIcon("code-xml")
 					.onClick(() => {
 						this.createCodeFile(file.parent?.path || "");
 					});
 			});
 			menu.addItem((item) => {
-				item.setTitle(t("command.open_in_code_editor"))
+				item.setTitle(LL.command.open_in_code_editor())
 					.setIcon("code-xml")
 					.onClick(async () => {
 						await this.openInCodeEditor(file.path, true);
@@ -282,7 +282,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 
 	private handleEditorMenu(menu: Menu, editor: Editor): void {
 		menu.addItem((item) => {
-			item.setTitle(t("command.edit_code_block"))
+			item.setTitle(LL.command.edit_code_block())
 				.setIcon("code-xml")
 				.onClick(async () => {
 					const cursor = editor.getCursor();
