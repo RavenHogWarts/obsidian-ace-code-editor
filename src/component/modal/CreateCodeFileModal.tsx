@@ -1,7 +1,7 @@
 import { Input } from "@src/component/input/Input";
 import { Select } from "@src/component/select/Select";
-import { t } from "@src/i18n/i18n";
-import { App, normalizePath, Notice } from "obsidian";
+import { LL } from "@src/i18n/i18n";
+import { App, Notice, normalizePath } from "obsidian";
 import { useState } from "react";
 
 interface CreateCodeFileModalProps {
@@ -55,11 +55,11 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 
 	const validateFileName = () => {
 		if (!fileName.trim()) {
-			throw new Error(t("notice.file_name_validate"));
+			new Notice(LL.notice.file_name_validate());
 		}
 
 		if (isCustomFilename && !fileName.includes(".")) {
-			throw new Error(t("notice.file_name_with_extension_validate"));
+			new Notice(LL.notice.file_name_with_extension_validate());
 		}
 
 		return true;
@@ -75,11 +75,11 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 		try {
 			const existingFile = app.vault.getFileByPath(fullPath);
 			if (existingFile) {
-				throw new Error(t("notice.file_already_exists"));
+				new Notice(LL.notice.file_already_exists());
 			}
 
 			await app.vault.create(fullPath, "");
-			new Notice(t("notice.create_file_success", { path: fullPath }));
+			new Notice(LL.notice.create_file_success({ path: fullPath }));
 
 			if (openAfterCreate) {
 				await openInCodeEditor(fullPath, true);
@@ -87,55 +87,49 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 
 			onClose();
 		} catch (error) {
-			throw new Error(t("notice.create_file_failed", { error }));
+			throw new Error(error);
 		}
 	};
 
 	return (
 		<div className="ace-create-code-file-modal">
 			<div className="code-editor-modal-header">
-				<h2>{t("modal.createCodeFile.header")}</h2>
+				<h2>{LL.modal.createCodeFile.header()}</h2>
 			</div>
 
 			<div className="code-editor-modal-content">
 				<div className="code-editor-input-group">
 					<label htmlFor="fileType">
-						{t("modal.createCodeFile.file_type")}
+						{LL.modal.createCodeFile.file_type()}
 					</label>
 					<Select
 						value={fileExtension}
 						options={FILE_EXTENSIONS}
 						onChange={handleFileExtensionChange}
-						placeholder={t(
-							"modal.createCodeFile.file_type_placeholder"
-						)}
+						placeholder={LL.modal.createCodeFile.file_type_placeholder()}
 					/>
 				</div>
 
 				<div className="code-editor-input-group">
 					<label htmlFor="fileName">
 						{isCustomFilename
-							? t("modal.createCodeFile.file_name_with_extension")
-							: t("modal.createCodeFile.file_name")}
+							? LL.modal.createCodeFile.file_name_with_extension()
+							: LL.modal.createCodeFile.file_name()}
 					</label>
 					<Input
 						value={fileName}
 						onChange={(value) => setFileName(value)}
 						title={
 							isCustomFilename
-								? t(
-										"modal.createCodeFile.file_name_with_extension_placeholder"
-								  )
-								: t(
-										"modal.createCodeFile.file_name_placeholder"
-								  )
+								? LL.modal.createCodeFile.file_name_with_extension_placeholder()
+								: LL.modal.createCodeFile.file_name_placeholder()
 						}
 					/>
 				</div>
 
 				<div className="code-editor-modal-preview">
 					<span className="preview-label">
-						{t("modal.createCodeFile.preview")}
+						{LL.modal.createCodeFile.preview()}
 					</span>
 					<span className="preview-value">{getFullPath()}</span>
 				</div>
@@ -149,15 +143,15 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 								setOpenAfterCreate(e.target.checked)
 							}
 						/>
-						{t("modal.createCodeFile.open_file_after_create")}
+						{LL.modal.createCodeFile.open_file_after_create()}
 					</label>
 				</div>
 			</div>
 
 			<div className="code-editor-modal-footer">
-				<button onClick={onClose}>{t("common.cancel")}</button>
+				<button onClick={onClose}>{LL.common.cancel()}</button>
 				<button className="mod-cta" onClick={handleCreate}>
-					{t("common.create")}
+					{LL.common.create()}
 				</button>
 			</div>
 		</div>

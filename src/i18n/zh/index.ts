@@ -1,6 +1,6 @@
-import { BaseMessage } from "@src/i18n/types";
+import type { BaseTranslation } from "../i18n-types";
 
-const translations: BaseMessage = {
+const zh = {
 	common: {
 		confirm: "确定",
 		cancel: "取消",
@@ -20,9 +20,8 @@ const translations: BaseMessage = {
 		file_name_validate: "文件名不能为空",
 		file_name_with_extension_validate: "自定义文件名必须包含扩展名",
 		file_already_exists: "文件已存在",
-		create_file_success: "文件创建成功，{{path}}",
-		create_file_failed: "文件创建失败，{{error}}",
-		file_deleted: "文件 {{fileName}} 已删除",
+		create_file_success: "文件创建成功，{path:string}",
+		file_deleted: "文件 {fileName:string} 已删除",
 	},
 	modal: {
 		createCodeFile: {
@@ -42,7 +41,7 @@ const translations: BaseMessage = {
 		snippetsFile: {
 			header: "CSS 代码片段",
 			deleteFile: "删除文件",
-			deleteFileMessage: "确定要删除文件 {{fileName}} 吗？",
+			deleteFileMessage: "确定要删除文件 {fileName:string} 吗？",
 			new_snippet_name: "新代码片段名称",
 			search_snippets: "搜索代码片段",
 			refresh: "重新加载代码片段",
@@ -130,6 +129,6 @@ const translations: BaseMessage = {
 			},
 		},
 	},
-};
+} satisfies BaseTranslation;
 
-export default translations;
+export default zh;

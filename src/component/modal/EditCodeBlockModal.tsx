@@ -1,4 +1,4 @@
-import { t } from "@src/i18n/i18n";
+import { LL } from "@src/i18n/i18n";
 import { AceService } from "@src/service/AceService";
 import { ICodeBlock, ICodeEditorConfig } from "@src/type/types";
 import { Ace } from "ace-builds";
@@ -51,7 +51,7 @@ const EditCodeBlockModal: React.FC<EditCodeBlockModalProps> = ({
 	return (
 		<div className="ace-edit-code-block-modal">
 			<div className="code-editor-modal-header">
-				<h2>{t("modal.editCodeBlock.header")}</h2>
+				<h2>{LL.modal.editCodeBlock.header()}</h2>
 				<div className="language-indicator">
 					{codeBlock.language || "plain text"}
 				</div>
@@ -62,8 +62,8 @@ const EditCodeBlockModal: React.FC<EditCodeBlockModalProps> = ({
 			</div>
 
 			<div className="code-editor-modal-footer">
-				<button onClick={onClose}>{t("common.cancel")}</button>
-				<button onClick={handleSave}>{t("common.save")}</button>
+				<button onClick={onClose}>{LL.common.cancel()}</button>
+				<button onClick={handleSave}>{LL.common.save()}</button>
 			</div>
 		</div>
 	);
