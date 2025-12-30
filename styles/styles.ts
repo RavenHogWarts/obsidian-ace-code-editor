@@ -7,4 +7,5 @@ import "./Minimap.css";
 import "./QuickConfigModal.css";
 import "./SettingsTab.css";
 import "./SettingsView.css";
+import "./SnippetsEditorView.css";
 import "./SnippetsFileModal.css";

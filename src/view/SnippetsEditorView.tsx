@@ -1,0 +1,180 @@
+import { SnippetsNavigation } from "@src/component/snippets/SnippetsNavigation";
+import AceCodeEditorPlugin from "@src/main";
+import { SNIPPETS_EDITOR_VIEW_TYPE } from "@src/type/types";
+import { SnippetUtils } from "@src/utils/SnippetUtils";
+import { setTooltip, WorkspaceLeaf } from "obsidian";
+import { StrictMode } from "react";
+import { createRoot, Root } from "react-dom/client";
+import { AceEditorView } from "./AceEditorView";
+
+export class SnippetsEditorView extends AceEditorView {
+	private leftPanel: HTMLElement;
+	private rightPanel: HTMLElement;
+	private NavigationRoot: Root | null = null;
+	private currentFile: string | null = null;
+	private snippetsFolder: string;
+	private toggleAction: HTMLElement | null = null;
+
+	constructor(leaf: WorkspaceLeaf, plugin: AceCodeEditorPlugin) {
+		super(leaf, plugin);
+		this.snippetsFolder = SnippetUtils.getSnippetsFolder(this.app);
+	}
+
+	getEditorContainer(): HTMLElement {
+		return this.rightPanel;
+	}
+
+	getViewType(): string {
+		return SNIPPETS_EDITOR_VIEW_TYPE;
+	}
+
+	getIcon(): string {
+		return "file-code-2";
+	}
+
+	getDisplayText(): string {
+		return "Snippets editor";
+	}
+
+	protected getFileExtension(): string {
+		return "css";
+	}
+
+	async onOpen(): Promise<void> {
+		await super.onOpen();
+		this.contentEl.empty();
+		this.contentEl.addClass("ace-snippets-editor");
+
+		const splitContainer = this.contentEl.createDiv(
+			"ace-snippets-split-container"
+		);
+
+		this.leftPanel = splitContainer.createDiv("ace-snippets-left-panel");
+		this.renderFileNavigation();
+
+		this.rightPanel = splitContainer.createDiv("ace-snippets-right-panel");
+		this.init();
+		this.aceService.editor?.setOption("readOnly", true);
+		this.addActions();
+
+		this.registerEvent(
+			this.app.workspace.on("css-change", () => {
+				this.updateToggleAction();
+			})
+		);
+	}
+
+	getState(): Record<string, unknown> {
+		return {
+			file: this.currentFile,
+		};
+	}
+
+	async setState(
+		state: unknown,
+		result: { history: boolean }
+	): Promise<void> {
+		const viewState = state as Record<string, unknown> | null;
+		if (viewState?.file && typeof viewState.file === "string") {
+			setTimeout(async () => {
+				await this.handleFileSelect(viewState.file as string);
+			}, 100);
+		}
+	}
+
+	async save(clear?: boolean | undefined): Promise<void> {
+		if (!this.currentFile) {
+			return;
+		}
+		const content = this.getViewData();
+		try {
+			await this.app.vault.adapter.write(
+				`${this.snippetsFolder}/${this.currentFile}`,
+				content
+			);
+			this.app.customCss.requestLoadSnippets();
+		} catch (error) {
+			console.error("Failed to save snippet file", error);
+		}
+	}
+
+	requestSave = () => {
+		if (this.currentFile) {
+			this.save();
+		}
+	};
+
+	async onClose() {
+		if (this.NavigationRoot) {
+			this.NavigationRoot.unmount();
+		}
+		await super.onClose();
+	}
+
+	private addActions() {
+		this.toggleAction = this.addAction("power", "Enable snippet", () => {
+			if (!this.currentFile) return;
+			const isEnabled = SnippetUtils.isSnippetEnabled(
+				this.app,
+				this.currentFile
+			);
+			SnippetUtils.toggleSnippetState(
+				this.app,
+				this.currentFile,
+				!isEnabled
+			);
+			this.updateToggleAction();
+		});
+		this.updateToggleAction();
+	}
+
+	private updateToggleAction() {
+		if (!this.toggleAction) return;
+
+		this.toggleAction.style.display = "";
+		const isEnabled = SnippetUtils.isSnippetEnabled(
+			this.app,
+			this.currentFile!
+		);
+
+		if (isEnabled) {
+			setTooltip(this.toggleAction, "Disable snippet");
+			this.toggleAction.addClass("mod-success");
+		} else {
+			setTooltip(this.toggleAction, "Enable snippet");
+			this.toggleAction.removeClass("mod-success");
+		}
+	}
+
+	private renderFileNavigation() {
+		if (!this.NavigationRoot) {
+			this.NavigationRoot = createRoot(this.leftPanel);
+		}
+
+		this.NavigationRoot.render(
+			<StrictMode>
+				<SnippetsNavigation
+					app={this.app}
+					selectedFile={this.currentFile}
+					onFileSelect={(file) => this.handleFileSelect(file)}
+				/>
+			</StrictMode>
+		);
+	}
+
+	private async handleFileSelect(fileName: string) {
+		this.currentFile = fileName;
+		this.renderFileNavigation();
+		this.updateToggleAction();
+
+		try {
+			const content = await this.app.vault.adapter.read(
+				`${this.snippetsFolder}/${this.currentFile}`
+			);
+			this.aceService.editor?.setOption("readOnly", false);
+			this.setViewData(content, true);
+		} catch (error) {
+			console.error("Failed to load snippet file", error);
+		}
+	}
+}

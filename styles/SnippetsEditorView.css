@@ -1,0 +1,29 @@
+.ace-snippets-editor {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.ace-snippets-split-container {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	overflow: hidden;
+}
+
+.ace-snippets-left-panel {
+	width: 20dvw;
+	border-right: 1px solid var(--background-modifier-border);
+	display: flex;
+	flex-direction: column;
+	background-color: var(--background-secondary);
+}
+
+.ace-snippets-right-panel {
+	flex: 1;
+	position: relative;
+	background-color: var(--background-primary);
+	display: flex;
+	flex-direction: column;
+}

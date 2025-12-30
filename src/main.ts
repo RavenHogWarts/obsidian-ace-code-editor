@@ -12,16 +12,21 @@ import {
 	DEFAULT_CONFIG,
 	ICodeBlock,
 	ICodeEditorConfig,
+	SETTINGS_VIEW_TYPE,
+	SNIPPETS_EDITOR_VIEW_TYPE,
 } from "./type/types";
 import { getCodeBlockAtCursor, updateCodeBlock } from "./utils/CodeBlock";
+import { SnippetUtils } from "./utils/SnippetUtils";
 import { CodeEditorView } from "./view/CodeEditorView";
 import { CodeEmbedView } from "./view/CodeEmbedView";
-import { SETTINGS_VIEW_TYPE, SettingsView } from "./view/SettingsView";
+import { SettingsView } from "./view/SettingsView";
+import { SnippetsEditorView } from "./view/SnippetsEditorView";
 
 export default class AceCodeEditorPlugin extends Plugin {
 	settings: ICodeEditorConfig;
 	statusBar: HTMLElement;
 	readonly settingsStore = new SettingsStore(this);
+	private snippetsFolder: string = SnippetUtils.getSnippetsFolder(this.app);
 
 	async onload() {
 		await this.loadSettings();
@@ -83,6 +88,10 @@ export default class AceCodeEditorPlugin extends Plugin {
 
 			this.registerView(SETTINGS_VIEW_TYPE, (leaf) => {
 				return new SettingsView(leaf, this);
+			});
+
+			this.registerView(SNIPPETS_EDITOR_VIEW_TYPE, (leaf) => {
+				return new SnippetsEditorView(leaf, this);
 			});
 
 			this.registerFileExtensions();
@@ -314,8 +323,6 @@ export default class AceCodeEditorPlugin extends Plugin {
 	}
 
 	async openCssSnippetSelector(): Promise<void> {
-		const snippetsFolder = `${this.app.vault.configDir}/snippets`;
-
 		new BaseModal(
 			this.app,
 			this,
@@ -323,13 +330,31 @@ export default class AceCodeEditorPlugin extends Plugin {
 			{
 				app: this.app,
 				plugin: this,
-				snippetsFolder,
-				openExternalFile: (filePath: string, newTab: boolean) =>
-					this.openExternalFile(filePath, newTab),
+				snippetsFolder: this.snippetsFolder,
+				openSnippetFile: (filePath: string, newTab: boolean) =>
+					this.openSnippetFile(filePath, newTab),
 				onClose: () => {},
 			},
 			"modal-size-medium"
 		).open();
+	}
+
+	async openSnippetFile(
+		file: string,
+		newTab: boolean = false
+	): Promise<void> {
+		const adapter = this.app.vault.adapter;
+		const exists = await adapter.exists(`${this.snippetsFolder}/${file}`);
+		if (!exists) {
+			return;
+		}
+
+		const leaf = this.app.workspace.getLeaf(newTab);
+		await leaf.setViewState({
+			type: SNIPPETS_EDITOR_VIEW_TYPE,
+			state: { file: file },
+		});
+		this.app.workspace.setActiveLeaf(leaf);
 	}
 
 	async openCodeBlockEditor(codeBlock: ICodeBlock): Promise<void> {

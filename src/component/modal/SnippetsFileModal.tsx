@@ -21,7 +21,7 @@ interface SnippetsFileModalProps {
 	app: App;
 	plugin: AceCodeEditorPlugin;
 	snippetsFolder: string;
-	openExternalFile: (path: string, newTab: boolean) => Promise<void>;
+	openSnippetFile: (file: string, newTab: boolean) => Promise<void>;
 }
 
 interface SnippetFile {
@@ -35,7 +35,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 	app,
 	plugin,
 	snippetsFolder,
-	openExternalFile,
+	openSnippetFile,
 }) => {
 	const [files, setFiles] = useState<SnippetFile[]>([]);
 	const [isCreatingNew, setIsCreatingNew] = useState(false);
@@ -88,7 +88,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 
 	const handleOpenFile = async (fileName: string) => {
 		const filePath = `${snippetsFolder}/${fileName}`;
-		await openExternalFile(filePath, true);
+		await openSnippetFile(fileName, true);
 		onClose();
 	};
 
@@ -151,7 +151,7 @@ const SnippetsFileModal: React.FC<SnippetsFileModalProps> = ({
 			setNewFileName("");
 
 			// 自动打开新创建的文件
-			await openExternalFile(filePath, true);
+			await openSnippetFile(fileName, true);
 			onClose();
 		} catch (error) {
 			throw new Error(error);
