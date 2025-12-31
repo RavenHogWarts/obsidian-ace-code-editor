@@ -1,5 +1,5 @@
 import { SnippetUtils } from "@src/utils/SnippetUtils";
-import { FileCode2, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { App } from "obsidian";
 import { useCallback, useEffect, useState } from "react";
 
@@ -9,24 +9,44 @@ interface SnippetsNavigationProps {
 	selectedFile: string | null;
 }
 
+interface SnippetFile {
+	name: string;
+	nameWithoutExtension: string;
+	lastModified?: number;
+	enabled?: boolean;
+}
+
 export const SnippetsNavigation = ({
 	app,
 	onFileSelect,
 	selectedFile,
 }: SnippetsNavigationProps) => {
-	const [files, setFiles] = useState<string[]>([]);
+	const [files, setFiles] = useState<SnippetFile[]>([]);
 	const [loading, setLoading] = useState(false);
 
 	const loadFiles = useCallback(async () => {
 		setLoading(true);
 		try {
-			const paths = await SnippetUtils.getSnippetsFiles(app);
-			// paths are relative to vault root, e.g., ".obsidian/snippets/my-snippet.css"
-			// We want to display just the filename.
-			const fileNames = paths
-				.map((path) => path.split("/").pop() || "")
-				.filter((name) => name.length > 0)
-				.sort((a, b) => a.localeCompare(b));
+			const snippetFiles = await SnippetUtils.getSnippetsFiles(app);
+			const fileNames = await Promise.all(
+				snippetFiles.map(async (file) => {
+					const fileName = file.split("/").pop() || file;
+					const fileNameWithoutExtension = fileName.endsWith(".css")
+						? fileName.slice(0, -4)
+						: fileName;
+					const stat = await app.vault.adapter.stat(file);
+					const isEnabled = SnippetUtils.isSnippetEnabled(
+						app,
+						fileName
+					);
+					return {
+						name: fileName,
+						nameWithoutExtension: fileNameWithoutExtension,
+						lastModified: stat?.mtime || 0,
+						enabled: isEnabled,
+					};
+				})
+			);
 
 			setFiles(fileNames);
 		} catch (error) {
@@ -41,81 +61,39 @@ export const SnippetsNavigation = ({
 	}, [loadFiles]);
 
 	return (
-		<div className="nav-folder ace-snippets-navigation">
-			<div
-				className="nav-header"
-				style={{
-					display: "flex",
-					justifyContent: "space-between",
-					alignItems: "center",
-					padding: "10px 10px 5px 10px",
-				}}
-			>
-				<div
-					className="nav-folder-title-content"
-					style={{ fontWeight: "bold" }}
-				>
-					Snippets
-				</div>
-				<div
-					className="clickable-icon"
-					onClick={loadFiles}
-					title="Refresh Snippets"
-					style={{ display: "flex", alignItems: "center" }}
-				>
-					<RefreshCw
-						size={14}
-						className={loading ? "animate-spin" : ""}
-					/>
+		<div className="ace-snippets-navigation">
+			<div className="nav-header">
+				<div className="nav-buttons-container">
+					<div className="clickable-icon nav-action-button">
+						<RefreshCw
+							size={14}
+							className={loading ? "animate-spin" : ""}
+							onClick={loadFiles}
+						/>
+					</div>
 				</div>
 			</div>
 
-			<div className="nav-files-container" style={{ padding: "0 5px" }}>
+			<div className="nav-files-container">
 				{files.map((file) => (
 					<div
-						key={file}
-						className={`nav-file-title ${
-							file === selectedFile ? "is-active" : ""
+						key={file.name}
+						className={`nav-file-title tappable is-clickable ${
+							file.name === selectedFile ? "is-active" : ""
 						}`}
-						onClick={() => onFileSelect(file)}
-						style={{
-							cursor: "pointer",
-							display: "flex",
-							alignItems: "center",
-							gap: "8px",
-							padding: "4px 8px",
-							borderRadius: "4px",
-						}}
+						onClick={() => onFileSelect(file.name)}
 					>
-						<FileCode2
-							size={14}
-							className="nav-file-icon"
-							style={{ opacity: 0.7 }}
-						/>
-						<div className="nav-file-title-content">{file}</div>
+						<div className="nav-file-title-content">
+							{file.nameWithoutExtension}
+						</div>
 					</div>
 				))}
 				{files.length === 0 && !loading && (
-					<div
-						className="nav-file-title"
-						style={{
-							padding: "4px 8px",
-							color: "var(--text-muted)",
-						}}
-					>
+					<div className="nav-file-title tappable is-clickable">
 						No snippets found
 					</div>
 				)}
 			</div>
-			<style>{`
-				.animate-spin {
-					animation: spin 1s linear infinite;
-				}
-				@keyframes spin {
-					from { transform: rotate(0deg); }
-					to { transform: rotate(360deg); }
-				}
-			`}</style>
 		</div>
 	);
 };

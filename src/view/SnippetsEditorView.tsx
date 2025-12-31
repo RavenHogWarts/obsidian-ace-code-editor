@@ -29,7 +29,7 @@ export class SnippetsEditorView extends AceEditorView {
 	}
 
 	getIcon(): string {
-		return "file-code-2";
+		return "code-xml";
 	}
 
 	getDisplayText(): string {
