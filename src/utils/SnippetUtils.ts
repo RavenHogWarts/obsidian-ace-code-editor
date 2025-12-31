@@ -16,13 +16,22 @@ export class SnippetUtils {
 	}
 
 	static toggleSnippetState(app: App, file: string, checked: boolean) {
-		const snippetId = file.endsWith(".css") ? file.slice(0, -4) : file;
+		const snippetId = file.slice(0, -4);
 		app.customCss.setCssEnabledStatus(snippetId, checked);
 		SnippetUtils.requestLoadSnippets(app);
 	}
 
+	static async toggleAllSnippetsState(app: App, checked: boolean) {
+		const snippetsFiles = await SnippetUtils.getSnippetsFiles(app);
+		snippetsFiles.forEach((file) => {
+			const snippetId = file.slice(0, -4);
+			app.customCss.setCssEnabledStatus(snippetId, checked);
+		});
+		SnippetUtils.requestLoadSnippets(app);
+	}
+
 	static isSnippetEnabled(app: App, file: string): boolean {
-		const snippetId = file.endsWith(".css") ? file.slice(0, -4) : file;
+		const snippetId = file.slice(0, -4);
 		return app.customCss.enabledSnippets.has(snippetId);
 	}
 

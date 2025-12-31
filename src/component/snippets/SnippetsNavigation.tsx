@@ -58,9 +58,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 			const fileNames = await Promise.all(
 				snippetFiles.map(async (file) => {
 					const fileName = file.split("/").pop() || file;
-					const fileNameWithoutExtension = fileName.endsWith(".css")
-						? fileName.slice(0, -4)
-						: fileName;
+					const fileNameWithoutExtension = fileName.slice(0, -4);
 					const stat = await plugin.app.vault.adapter.stat(file);
 					const isEnabled = SnippetUtils.isSnippetEnabled(
 						plugin.app,
@@ -175,18 +173,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 				.setTitle("启用所有")
 				.setIcon("circle-check")
 				.onClick(async () => {
-					files.forEach((file) => {
-						if (!file.enabled) {
-							const snippetId = file.name.endsWith(".css")
-								? file.name.slice(0, -4)
-								: file.name;
-							plugin.app.customCss.setCssEnabledStatus(
-								snippetId,
-								true
-							);
-						}
-					});
-					SnippetUtils.requestLoadSnippets(plugin.app);
+					await SnippetUtils.toggleAllSnippetsState(plugin.app, true);
 					loadFiles();
 				})
 		);
@@ -196,18 +183,10 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 				.setTitle("禁用所有")
 				.setIcon("circle-minus")
 				.onClick(async () => {
-					files.forEach((file) => {
-						if (file.enabled) {
-							const snippetId = file.name.endsWith(".css")
-								? file.name.slice(0, -4)
-								: file.name;
-							plugin.app.customCss.setCssEnabledStatus(
-								snippetId,
-								false
-							);
-						}
-					});
-					SnippetUtils.requestLoadSnippets(plugin.app);
+					await SnippetUtils.toggleAllSnippetsState(
+						plugin.app,
+						false
+					);
 					loadFiles();
 				})
 		);
