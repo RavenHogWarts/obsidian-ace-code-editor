@@ -1,4 +1,4 @@
-import type { BaseTranslation } from '../i18n-types'
+import type { BaseTranslation } from "../i18n-types";
 
 const en = {
 	common: {
@@ -6,8 +6,10 @@ const en = {
 		cancel: "Cancel",
 		create: "Create",
 		save: "Save",
-		enable: "TODO: 启用",
-		disable: "TODO: 禁用",
+		enable: "Enable",
+		disable: "Disable",
+		rename: "Rename",
+		delete: "Delete",
 	},
 	command: {
 		reload: "Reload plugin",
@@ -20,8 +22,10 @@ const en = {
 	},
 	notice: {
 		file_name_validate: "File name cannot be empty",
-		file_name_with_extension_validate: "Custom file name must include extension",
+		file_name_with_extension_validate:
+			"Custom file name must include extension",
 		file_already_exists: "File already exists",
+		rename_file_success: "File renamed successfully, {path:string}",
 		create_file_success: "File created successfully, {{path}}",
 		file_deleted: "File {{fileName}} has been deleted",
 	},
@@ -30,22 +34,25 @@ const en = {
 			created: "Created at {date:string}",
 			modified: "Last modified at {date:string}",
 			no_snippets: "No snippets",
-			create_new_snippet: "TODO: 新建代码片段",
-			sort_by: "TODO: 排序",
-			sort_by_name_asc: "TODO: 文件名(A-Z)",
-			sort_by_name_desc: "TODO: 文件名(Z-A)",
-			sort_by_mtime_asc: "TODO: 修改时间(旧->新)",
-			sort_by_mtime_desc: "TODO: 修改时间(新->旧)",
-			sort_by_ctime_asc: "TODO: 创建时间(旧->新)",
-			sort_by_ctime_desc: "TODO: 创建时间(新->旧)",
-			batch_operation: "TODO: 批量操作",
-			enable_all_snippets: "TODO: 启用所有代码片段",
-			disable_all_snippets: "TODO: 禁用所有代码片段",
-			reload_snippets: "TODO: 重新加载代码片段",
-			enable_snippet: "TODO: 启用代码片段",
-			disable_snippet: "TODO: 禁用代码片段",
-			rename_snippet: "TODO: 重命名代码片段",
-			delete_snippet: "TODO: 删除代码片段",
+			create_new_snippet: "Create new snippet",
+			sort_by: "Sort by",
+			sort_by_name_asc: "File name (A-Z)",
+			sort_by_name_desc: "File name (Z-A)",
+			sort_by_mtime_asc: "Modified time (old to new)",
+			sort_by_mtime_desc: "Modified time (new to old)",
+			sort_by_ctime_asc: "Created time (old to new)",
+			sort_by_ctime_desc: "Created time (new to old)",
+			batch_operation: "Batch operations",
+			enable_all_snippets: "Enable all snippets",
+			disable_all_snippets: "Disable all snippets",
+			reload_snippets: "Reload snippets",
+			enable_snippet: "Enable snippet",
+			disable_snippet: "Disable snippet",
+			rename_snippet: "Rename snippet",
+			delete_snippet: "Delete snippet",
+			delete_snippet_message:
+				"Are you sure you want to delete snippet {fileName:string}?",
+			file_modal_message: "No need to enter extension .css",
 		},
 	},
 	modal: {
@@ -56,7 +63,8 @@ const en = {
 			file_name: "File name",
 			file_name_placeholder: "Please enter file name",
 			file_name_with_extension: "File name (with extension)",
-			file_name_with_extension_placeholder: "Enter file name (with extension)",
+			file_name_with_extension_placeholder:
+				"Enter file name (with extension)",
 			preview: "Preview",
 			open_file_after_create: "Open file after creation",
 		},
@@ -66,7 +74,8 @@ const en = {
 		snippetsFile: {
 			header: "Snippet files",
 			deleteFile: "Delete file",
-			deleteFileMessage: "Are you sure you want to delete file {{fileName}}?",
+			deleteFileMessage:
+				"Are you sure you want to delete file {{fileName}}?",
 			new_snippet_name: "New snippet name",
 			search_snippets: "Search snippets",
 			refresh: "Reload snippets",
@@ -154,6 +163,6 @@ const en = {
 			},
 		},
 	},
-} satisfies BaseTranslation
+} satisfies BaseTranslation;
 
-export default en
+export default en;

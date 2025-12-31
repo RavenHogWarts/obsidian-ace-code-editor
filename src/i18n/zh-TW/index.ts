@@ -1,16 +1,18 @@
-import type { BaseTranslation } from '../i18n-types'
+import type { BaseTranslation } from "../i18n-types";
 
 const zh_TW = {
 	common: {
 		confirm: "確定",
 		cancel: "取消",
 		create: "創建",
-		save: "保存",
-		enable: "TODO: 启用",
-		disable: "TODO: 禁用",
+		save: "儲存",
+		enable: "啟用",
+		disable: "禁用",
+		rename: "重新命名",
+		delete: "刪除",
 	},
 	command: {
-		reload: "重載外掛",
+		reload: "重新載入外掛程式",
 		create_code_file: "創建程式碼檔案",
 		open_in_code_editor: "在程式碼編輯器中開啟",
 		edit_code_block: "編輯程式碼區塊",
@@ -22,6 +24,7 @@ const zh_TW = {
 		file_name_validate: "檔案名稱不能為空",
 		file_name_with_extension_validate: "自定義檔案名必須包含副檔名",
 		file_already_exists: "檔案已存在",
+		rename_file_success: "檔案重新命名成功，{path:string}",
 		create_file_success: "檔案創建成功，{{path}}",
 		file_deleted: "檔案 {{fileName}} 已刪除",
 	},
@@ -30,22 +33,25 @@ const zh_TW = {
 			created: "建檔時間: {date:string}",
 			modified: "最後修改時間: {date:string}",
 			no_snippets: "沒有 CSS 片段",
-			create_new_snippet: "TODO: 新建代码片段",
-			sort_by: "TODO: 排序",
-			sort_by_name_asc: "TODO: 文件名(A-Z)",
-			sort_by_name_desc: "TODO: 文件名(Z-A)",
-			sort_by_mtime_asc: "TODO: 修改时间(旧->新)",
-			sort_by_mtime_desc: "TODO: 修改时间(新->旧)",
-			sort_by_ctime_asc: "TODO: 创建时间(旧->新)",
-			sort_by_ctime_desc: "TODO: 创建时间(新->旧)",
-			batch_operation: "TODO: 批量操作",
-			enable_all_snippets: "TODO: 启用所有代码片段",
-			disable_all_snippets: "TODO: 禁用所有代码片段",
-			reload_snippets: "TODO: 重新加载代码片段",
-			enable_snippet: "TODO: 启用代码片段",
-			disable_snippet: "TODO: 禁用代码片段",
-			rename_snippet: "TODO: 重命名代码片段",
-			delete_snippet: "TODO: 删除代码片段",
+			create_new_snippet: "新增程式碼片段",
+			sort_by: "排序",
+			sort_by_name_asc: "按檔案名升冪排列 (A-Z)",
+			sort_by_name_desc: "按檔案名降冪排列 (Z-A)",
+			sort_by_mtime_asc: "按編輯時間排序 (從舊到新)",
+			sort_by_mtime_desc: "按編輯時間排序 (從新到舊)",
+			sort_by_ctime_asc: "按建檔時間排序 (從舊到新)",
+			sort_by_ctime_desc: "按建檔時間排序 (從新到舊)",
+			batch_operation: "批次操作",
+			enable_all_snippets: "啟用所有程式碼片段",
+			disable_all_snippets: "停用所有程式碼片段",
+			reload_snippets: "重新載入程式碼片段",
+			enable_snippet: "啟用程式碼片段",
+			disable_snippet: "停用程式碼片段",
+			rename_snippet: "重新命名程式碼片段",
+			delete_snippet: "刪除程式碼片段",
+			delete_snippet_message:
+				"確定要刪除程式碼片段 {fileName:string} 嗎？",
+			file_modal_message: "無需輸入副檔名 .css",
 		},
 	},
 	modal: {
@@ -154,6 +160,6 @@ const zh_TW = {
 			},
 		},
 	},
-} satisfies BaseTranslation
+} satisfies BaseTranslation;
 
-export default zh_TW
+export default zh_TW;
