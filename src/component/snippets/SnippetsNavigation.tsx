@@ -4,7 +4,7 @@ import { LL } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
 import { SnippetUtils } from "@src/utils/SnippetUtils";
 import formatDate from "@src/utils/formatDate";
-import { Edit, ListChecks, RefreshCw, SortAsc } from "lucide-react";
+import { CircleEllipsis, Edit, RefreshCw, SortAsc } from "lucide-react";
 import { Menu, Notice } from "obsidian";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CreateFileDialog } from "../confirm-dialog/CreateFileDialog";
@@ -336,38 +336,37 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		>
 			<div className="nav-header">
 				<div className="nav-buttons-container">
-					<div className="clickable-icon nav-action-button">
-						<Edit
-							className={"svg-icon"}
-							size={24}
-							aria-label={LL.view.snippets.create_new_snippet()}
-							onClick={handleCreate}
-						/>
+					<div
+						className="clickable-icon nav-action-button"
+						aria-label={LL.view.snippets.create_new_snippet()}
+						onClick={handleCreate}
+					>
+						<Edit className={"svg-icon"} size={24} />
 					</div>
-					<div className="clickable-icon nav-action-button">
-						<SortAsc
-							size={24}
-							className={"svg-icon"}
-							onClick={showSortMenu}
-							aria-label={LL.view.snippets.sort_by()}
-						/>
+					<div
+						className="clickable-icon nav-action-button"
+						aria-label={LL.view.snippets.sort_by()}
+						onClick={showSortMenu}
+					>
+						<SortAsc size={24} className={"svg-icon"} />
 					</div>
-					<div className="clickable-icon nav-action-button">
-						<ListChecks
-							size={24}
-							className={"svg-icon"}
-							onClick={showBatchMenu}
-							aria-label={LL.view.snippets.batch_operation()}
-						/>
+					<div
+						className="clickable-icon nav-action-button"
+						aria-label={LL.view.snippets.batch_operation()}
+						onClick={showBatchMenu}
+					>
+						<CircleEllipsis size={24} className={"svg-icon"} />
 					</div>
-					<div className="clickable-icon nav-action-button">
+					<div
+						className="clickable-icon nav-action-button"
+						onClick={loadFiles}
+						aria-label={LL.view.snippets.reload_snippets()}
+					>
 						<RefreshCw
 							size={24}
 							className={`svg-icon ${
 								loading ? "animate-spin" : ""
 							}`}
-							onClick={loadFiles}
-							aria-label={LL.view.snippets.reload_snippets()}
 						/>
 					</div>
 				</div>
