@@ -1,4 +1,5 @@
 import { SnippetsNavigation } from "@src/component/snippets/SnippetsNavigation";
+import { LL } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
 import { SNIPPETS_EDITOR_VIEW_TYPE } from "@src/type/types";
 import { SnippetUtils } from "@src/utils/SnippetUtils";
@@ -154,6 +155,12 @@ export class SnippetsEditorView extends AceEditorView {
 			this.currentFile
 		);
 
+		this.toggleSnippetAction?.setAttr(
+			"aria-label",
+			isEnabled
+				? LL.view.snippets.disable_snippet()
+				: LL.view.snippets.enable_snippet()
+		);
 		this.toggleSnippetAction?.toggleClass("mod-success", isEnabled);
 	}
 

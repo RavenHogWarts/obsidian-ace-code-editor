@@ -33,10 +33,10 @@ const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
 					<p>{message}</p>
 				</div>
 				<div className="ace-confirm-dialog-actions">
-					<button onClick={onClose}>{LL.common.cancel()}</button>
 					<button onClick={handleConfirm} className="mod-cta">
 						{LL.common.confirm()}
 					</button>
+					<button onClick={onClose}>{LL.common.cancel()}</button>
 				</div>
 			</div>
 		</div>

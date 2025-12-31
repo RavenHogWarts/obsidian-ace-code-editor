@@ -1,16 +1,20 @@
 import { LL } from "@src/i18n/i18n";
-import { App, Modal, Notice } from "obsidian";
+import AceCodeEditorPlugin from "@src/main";
+import { Modal } from "obsidian";
 import { StrictMode, useEffect, useRef, useState } from "react";
 import { Root, createRoot } from "react-dom/client";
-import "../confirm-dialog/ConfirmDialog.css"; // Reuse confirm dialog styles
 
-interface RenameFileModalViewProps {
+interface RenameFileDialogProps {
+	title: string;
+	message: string;
 	oldName: string;
 	onRename: (newName: string) => void;
-	onClose: () => void;
+	onClose?: () => void;
 }
 
-const RenameFileModalView: React.FC<RenameFileModalViewProps> = ({
+const RenameFileDialogView: React.FC<RenameFileDialogProps> = ({
+	title,
+	message,
 	oldName,
 	onRename,
 	onClose,
@@ -25,23 +29,22 @@ const RenameFileModalView: React.FC<RenameFileModalViewProps> = ({
 
 	const handleSubmit = () => {
 		if (!newName.trim()) {
-			new Notice("文件名不能为空");
 			return;
 		}
 		const finalName = newName.trim() + ".css";
 		if (finalName === oldName) {
-			onClose();
+			onClose?.();
 			return;
 		}
 		onRename(finalName);
-		onClose();
+		onClose?.();
 	};
 
 	return (
 		<div className="ace-confirm-dialog-overlay">
 			<div className="ace-confirm-dialog">
 				<div className="ace-confirm-dialog-header">
-					<h3>重命名片段</h3>
+					<h3>{title}</h3>
 				</div>
 				<div className="ace-confirm-dialog-content">
 					<input
@@ -51,42 +54,31 @@ const RenameFileModalView: React.FC<RenameFileModalViewProps> = ({
 						onChange={(e) => setNewName(e.target.value)}
 						onKeyDown={(e) => {
 							if (e.key === "Enter") handleSubmit();
-							if (e.key === "Escape") onClose();
+							if (e.key === "Escape") onClose?.();
 						}}
-						style={{ width: "100%" }}
 					/>
-					<p
-						style={{
-							marginTop: "8px",
-							fontSize: "0.8em",
-							color: "var(--text-muted)",
-						}}
-					>
-						无需输入后缀 .css
-					</p>
+					<p>{message}</p>
 				</div>
 				<div className="ace-confirm-dialog-actions">
-					<button onClick={onClose}>{LL.common.cancel()}</button>
 					<button onClick={handleSubmit} className="mod-cta">
 						{LL.common.confirm()}
 					</button>
+					<button onClick={onClose}>{LL.common.cancel()}</button>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export class RenameFileModal extends Modal {
+export class RenameFileDialog extends Modal {
 	private root: Root | null = null;
-	private props: RenameFileModalViewProps;
+	private plugin: AceCodeEditorPlugin;
+	private props: RenameFileDialogProps;
 
-	constructor(
-		app: App,
-		oldName: string,
-		onRename: (newName: string) => void
-	) {
-		super(app);
-		this.props = { oldName, onRename, onClose: () => this.close() };
+	constructor(plugin: AceCodeEditorPlugin, props: RenameFileDialogProps) {
+		super(plugin.app);
+		this.plugin = plugin;
+		this.props = props;
 	}
 
 	onOpen() {
@@ -95,7 +87,13 @@ export class RenameFileModal extends Modal {
 		this.root = createRoot(contentEl);
 		this.root.render(
 			<StrictMode>
-				<RenameFileModalView {...this.props} />
+				<RenameFileDialogView
+					title={this.props.title}
+					message={this.props.message}
+					oldName={this.props.oldName}
+					onRename={this.props.onRename}
+					onClose={() => this.close()}
+				/>
 			</StrictMode>
 		);
 	}

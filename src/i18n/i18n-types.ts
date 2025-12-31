@@ -32,6 +32,22 @@ type RootTranslation = {
 		 * 保​存
 		 */
 		save: string
+		/**
+		 * 启​用
+		 */
+		enable: string
+		/**
+		 * 禁​用
+		 */
+		disable: string
+		/**
+		 * 重​命​名
+		 */
+		rename: string
+		/**
+		 * 删​除
+		 */
+		'delete': string
 	}
 	command: {
 		/**
@@ -77,6 +93,11 @@ type RootTranslation = {
 		 */
 		file_already_exists: string
 		/**
+		 * 文​件​重​命​名​成​功​，​{​p​a​t​h​}
+		 * @param {string} path
+		 */
+		rename_file_success: RequiredParams<'path'>
+		/**
 		 * 文​件​创​建​成​功​，​{​p​a​t​h​}
 		 * @param {string} path
 		 */
@@ -103,6 +124,79 @@ type RootTranslation = {
 			 * 没​有​代​码​片​段
 			 */
 			no_snippets: string
+			/**
+			 * 新​建​代​码​片​段
+			 */
+			create_new_snippet: string
+			/**
+			 * 排​序
+			 */
+			sort_by: string
+			/**
+			 * 文​件​名​(​A​-​Z​)
+			 */
+			sort_by_name_asc: string
+			/**
+			 * 文​件​名​(​Z​-​A​)
+			 */
+			sort_by_name_desc: string
+			/**
+			 * 修​改​时​间​(​旧​-​>​新​)
+			 */
+			sort_by_mtime_asc: string
+			/**
+			 * 修​改​时​间​(​新​-​>​旧​)
+			 */
+			sort_by_mtime_desc: string
+			/**
+			 * 创​建​时​间​(​旧​-​>​新​)
+			 */
+			sort_by_ctime_asc: string
+			/**
+			 * 创​建​时​间​(​新​-​>​旧​)
+			 */
+			sort_by_ctime_desc: string
+			/**
+			 * 批​量​操​作
+			 */
+			batch_operation: string
+			/**
+			 * 启​用​所​有​代​码​片​段
+			 */
+			enable_all_snippets: string
+			/**
+			 * 禁​用​所​有​代​码​片​段
+			 */
+			disable_all_snippets: string
+			/**
+			 * 重​新​加​载​代​码​片​段
+			 */
+			reload_snippets: string
+			/**
+			 * 启​用​代​码​片​段
+			 */
+			enable_snippet: string
+			/**
+			 * 禁​用​代​码​片​段
+			 */
+			disable_snippet: string
+			/**
+			 * 重​命​名​代​码​片​段
+			 */
+			rename_snippet: string
+			/**
+			 * 删​除​代​码​片​段
+			 */
+			delete_snippet: string
+			/**
+			 * 确​定​要​删​除​代​码​片​段​ ​{​f​i​l​e​N​a​m​e​}​ ​吗​？
+			 * @param {string} fileName
+			 */
+			delete_snippet_message: RequiredParams<'fileName'>
+			/**
+			 * 无​需​输​入​后​缀​ ​.​c​s​s
+			 */
+			file_modal_message: string
 		}
 	}
 	modal: {
@@ -412,6 +506,22 @@ export type TranslationFunctions = {
 		 * 保存
 		 */
 		save: () => LocalizedString
+		/**
+		 * 启用
+		 */
+		enable: () => LocalizedString
+		/**
+		 * 禁用
+		 */
+		disable: () => LocalizedString
+		/**
+		 * 重命名
+		 */
+		rename: () => LocalizedString
+		/**
+		 * 删除
+		 */
+		'delete': () => LocalizedString
 	}
 	command: {
 		/**
@@ -457,6 +567,10 @@ export type TranslationFunctions = {
 		 */
 		file_already_exists: () => LocalizedString
 		/**
+		 * 文件重命名成功，{path}
+		 */
+		rename_file_success: (arg: { path: string }) => LocalizedString
+		/**
 		 * 文件创建成功，{path}
 		 */
 		create_file_success: (arg: { path: string }) => LocalizedString
@@ -479,6 +593,78 @@ export type TranslationFunctions = {
 			 * 没有代码片段
 			 */
 			no_snippets: () => LocalizedString
+			/**
+			 * 新建代码片段
+			 */
+			create_new_snippet: () => LocalizedString
+			/**
+			 * 排序
+			 */
+			sort_by: () => LocalizedString
+			/**
+			 * 文件名(A-Z)
+			 */
+			sort_by_name_asc: () => LocalizedString
+			/**
+			 * 文件名(Z-A)
+			 */
+			sort_by_name_desc: () => LocalizedString
+			/**
+			 * 修改时间(旧->新)
+			 */
+			sort_by_mtime_asc: () => LocalizedString
+			/**
+			 * 修改时间(新->旧)
+			 */
+			sort_by_mtime_desc: () => LocalizedString
+			/**
+			 * 创建时间(旧->新)
+			 */
+			sort_by_ctime_asc: () => LocalizedString
+			/**
+			 * 创建时间(新->旧)
+			 */
+			sort_by_ctime_desc: () => LocalizedString
+			/**
+			 * 批量操作
+			 */
+			batch_operation: () => LocalizedString
+			/**
+			 * 启用所有代码片段
+			 */
+			enable_all_snippets: () => LocalizedString
+			/**
+			 * 禁用所有代码片段
+			 */
+			disable_all_snippets: () => LocalizedString
+			/**
+			 * 重新加载代码片段
+			 */
+			reload_snippets: () => LocalizedString
+			/**
+			 * 启用代码片段
+			 */
+			enable_snippet: () => LocalizedString
+			/**
+			 * 禁用代码片段
+			 */
+			disable_snippet: () => LocalizedString
+			/**
+			 * 重命名代码片段
+			 */
+			rename_snippet: () => LocalizedString
+			/**
+			 * 删除代码片段
+			 */
+			delete_snippet: () => LocalizedString
+			/**
+			 * 确定要删除代码片段 {fileName} 吗？
+			 */
+			delete_snippet_message: (arg: { fileName: string }) => LocalizedString
+			/**
+			 * 无需输入后缀 .css
+			 */
+			file_modal_message: () => LocalizedString
 		}
 	}
 	modal: {

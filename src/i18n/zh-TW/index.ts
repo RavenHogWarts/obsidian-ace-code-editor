@@ -1,4 +1,4 @@
-import type { BaseTranslation } from "../i18n-types";
+import type { BaseTranslation } from '../i18n-types'
 
 const zh_TW = {
 	common: {
@@ -6,6 +6,8 @@ const zh_TW = {
 		cancel: "取消",
 		create: "創建",
 		save: "保存",
+		enable: "TODO: 启用",
+		disable: "TODO: 禁用",
 	},
 	command: {
 		reload: "重載外掛",
@@ -28,6 +30,22 @@ const zh_TW = {
 			created: "建檔時間: {date:string}",
 			modified: "最後修改時間: {date:string}",
 			no_snippets: "沒有 CSS 片段",
+			create_new_snippet: "TODO: 新建代码片段",
+			sort_by: "TODO: 排序",
+			sort_by_name_asc: "TODO: 文件名(A-Z)",
+			sort_by_name_desc: "TODO: 文件名(Z-A)",
+			sort_by_mtime_asc: "TODO: 修改时间(旧->新)",
+			sort_by_mtime_desc: "TODO: 修改时间(新->旧)",
+			sort_by_ctime_asc: "TODO: 创建时间(旧->新)",
+			sort_by_ctime_desc: "TODO: 创建时间(新->旧)",
+			batch_operation: "TODO: 批量操作",
+			enable_all_snippets: "TODO: 启用所有代码片段",
+			disable_all_snippets: "TODO: 禁用所有代码片段",
+			reload_snippets: "TODO: 重新加载代码片段",
+			enable_snippet: "TODO: 启用代码片段",
+			disable_snippet: "TODO: 禁用代码片段",
+			rename_snippet: "TODO: 重命名代码片段",
+			delete_snippet: "TODO: 删除代码片段",
 		},
 	},
 	modal: {
@@ -136,6 +154,6 @@ const zh_TW = {
 			},
 		},
 	},
-} satisfies BaseTranslation;
+} satisfies BaseTranslation
 
-export default zh_TW;
+export default zh_TW
