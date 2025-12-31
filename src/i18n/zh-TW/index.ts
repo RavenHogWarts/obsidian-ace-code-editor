@@ -1,4 +1,4 @@
-import type { BaseTranslation } from '../i18n-types'
+import type { BaseTranslation } from "../i18n-types";
 
 const zh_TW = {
 	common: {
@@ -22,6 +22,13 @@ const zh_TW = {
 		file_already_exists: "檔案已存在",
 		create_file_success: "檔案創建成功，{{path}}",
 		file_deleted: "檔案 {{fileName}} 已刪除",
+	},
+	view: {
+		snippets: {
+			created: "建檔時間: {date:string}",
+			modified: "最後修改時間: {date:string}",
+			no_snippets: "沒有 CSS 片段",
+		},
 	},
 	modal: {
 		createCodeFile: {
@@ -129,6 +136,6 @@ const zh_TW = {
 			},
 		},
 	},
-} satisfies BaseTranslation
+} satisfies BaseTranslation;
 
-export default zh_TW
+export default zh_TW;

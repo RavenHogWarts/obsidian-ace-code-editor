@@ -87,6 +87,24 @@ type RootTranslation = {
 		 */
 		file_deleted: RequiredParams<'fileName'>
 	}
+	view: {
+		snippets: {
+			/**
+			 * 创​建​于​ ​{​d​a​t​e​}
+			 * @param {string} date
+			 */
+			created: RequiredParams<'date'>
+			/**
+			 * 最​后​修​改​于​ ​{​d​a​t​e​}
+			 * @param {string} date
+			 */
+			modified: RequiredParams<'date'>
+			/**
+			 * 没​有​代​码​片​段
+			 */
+			no_snippets: string
+		}
+	}
 	modal: {
 		createCodeFile: {
 			/**
@@ -446,6 +464,22 @@ export type TranslationFunctions = {
 		 * 文件 {fileName} 已删除
 		 */
 		file_deleted: (arg: { fileName: string }) => LocalizedString
+	}
+	view: {
+		snippets: {
+			/**
+			 * 创建于 {date}
+			 */
+			created: (arg: { date: string }) => LocalizedString
+			/**
+			 * 最后修改于 {date}
+			 */
+			modified: (arg: { date: string }) => LocalizedString
+			/**
+			 * 没有代码片段
+			 */
+			no_snippets: () => LocalizedString
+		}
 	}
 	modal: {
 		createCodeFile: {

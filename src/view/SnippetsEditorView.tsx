@@ -116,6 +116,7 @@ export class SnippetsEditorView extends AceEditorView {
 			if (this.leftPanel) {
 				const isCollapsed = this.leftPanel.hasClass("is-collapsed");
 				this.leftPanel.toggleClass("is-collapsed", !isCollapsed);
+
 				if (this.aceService.editor) {
 					setTimeout(() => {
 						this.aceService.editor?.resize();
@@ -164,9 +165,12 @@ export class SnippetsEditorView extends AceEditorView {
 		this.NavigationRoot.render(
 			<StrictMode>
 				<SnippetsNavigation
-					app={this.app}
+					plugin={this.plugin}
 					selectedFile={this.currentFile}
 					onFileSelect={(file) => this.handleFileSelect(file)}
+					onResize={() => {
+						this.aceService.editor?.resize();
+					}}
 				/>
 			</StrictMode>
 		);

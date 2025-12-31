@@ -1,20 +1,15 @@
 .ace-snippets-editor {
-	height: 100%;
 	display: flex;
-	flex-direction: column;
-	overflow: hidden;
+	padding: 0 !important;
 }
 
 .ace-snippets-split-container {
 	display: flex;
 	flex: 1;
 	height: 100%;
-	overflow: hidden;
 }
 
 .ace-snippets-left-panel {
-	width: 20dvw;
-	border-right: 1px solid var(--background-modifier-border);
 	display: flex;
 	flex-direction: column;
 	background-color: var(--background-secondary);
@@ -22,6 +17,25 @@
 	&.is-collapsed {
 		display: none;
 	}
+}
+
+.ace-snippets-resize-handle {
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 4px;
+	z-index: 10;
+	background-color: transparent;
+	cursor: col-resize;
+	transition: background-color 0.1s ease;
+	/* Visual separator */
+	border-left: 1px solid var(--background-modifier-border);
+}
+
+.ace-snippets-resize-handle:hover,
+.ace-snippets-resize-handle.is-resizing {
+	background-color: var(--interactive-accent);
 }
 
 .ace-snippets-right-panel {
@@ -33,12 +47,10 @@
 }
 
 .ace-snippets-navigation {
-	.nav-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: "10px 10px 5px 10px";
-	}
+	position: relative;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 
 	.animate-spin {
 		animation: spin 1s linear infinite;

@@ -1,4 +1,4 @@
-import type { BaseTranslation } from '../i18n-types'
+import type { BaseTranslation } from "../i18n-types";
 
 const en = {
 	common: {
@@ -18,10 +18,18 @@ const en = {
 	},
 	notice: {
 		file_name_validate: "File name cannot be empty",
-		file_name_with_extension_validate: "Custom file name must include extension",
+		file_name_with_extension_validate:
+			"Custom file name must include extension",
 		file_already_exists: "File already exists",
 		create_file_success: "File created successfully, {{path}}",
 		file_deleted: "File {{fileName}} has been deleted",
+	},
+	view: {
+		snippets: {
+			created: "Created at {date:string}",
+			modified: "Last modified at {date:string}",
+			no_snippets: "No snippets",
+		},
 	},
 	modal: {
 		createCodeFile: {
@@ -31,7 +39,8 @@ const en = {
 			file_name: "File name",
 			file_name_placeholder: "Please enter file name",
 			file_name_with_extension: "File name (with extension)",
-			file_name_with_extension_placeholder: "Enter file name (with extension)",
+			file_name_with_extension_placeholder:
+				"Enter file name (with extension)",
 			preview: "Preview",
 			open_file_after_create: "Open file after creation",
 		},
@@ -41,7 +50,8 @@ const en = {
 		snippetsFile: {
 			header: "Snippet files",
 			deleteFile: "Delete file",
-			deleteFileMessage: "Are you sure you want to delete file {{fileName}}?",
+			deleteFileMessage:
+				"Are you sure you want to delete file {{fileName}}?",
 			new_snippet_name: "New snippet name",
 			search_snippets: "Search snippets",
 			refresh: "Reload snippets",
@@ -129,6 +139,6 @@ const en = {
 			},
 		},
 	},
-} satisfies BaseTranslation
+} satisfies BaseTranslation;
 
-export default en
+export default en;

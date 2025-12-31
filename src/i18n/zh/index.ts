@@ -23,6 +23,13 @@ const zh = {
 		create_file_success: "文件创建成功，{path:string}",
 		file_deleted: "文件 {fileName:string} 已删除",
 	},
+	view: {
+		snippets: {
+			created: "创建于 {date:string}",
+			modified: "最后修改于 {date:string}",
+			no_snippets: "没有代码片段",
+		},
+	},
 	modal: {
 		createCodeFile: {
 			header: "创建代码文件",
