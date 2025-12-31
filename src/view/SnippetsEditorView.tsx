@@ -22,6 +22,10 @@ export class SnippetsEditorView extends AceEditorView {
 	}
 
 	getEditorContainer(): HTMLElement {
+		// Ensure rightPanel exists before returning it
+		if (!this.rightPanel) {
+			throw new Error("Right panel not initialized");
+		}
 		return this.rightPanel;
 	}
 
@@ -54,8 +58,15 @@ export class SnippetsEditorView extends AceEditorView {
 		this.renderFileNavigation();
 
 		this.rightPanel = splitContainer.createDiv("ace-snippets-right-panel");
-		this.init();
-		this.aceService.editor?.setOption("readOnly", true);
+
+		// Only init editor if we have a file selected, otherwise show empty state
+		if (this.currentFile) {
+			this.init();
+			this.aceService.editor?.setOption("readOnly", true);
+		} else {
+			this.renderEmptyState();
+		}
+
 		this.addActions();
 
 		this.registerEvent(
@@ -147,6 +158,16 @@ export class SnippetsEditorView extends AceEditorView {
 		this.updateToggleAction();
 	}
 
+	private renderEmptyState() {
+		this.rightPanel.empty();
+		const emptyState = this.rightPanel.createDiv(
+			"ace-snippets-empty-state"
+		);
+		emptyState.createEl("div", {
+			text: LL.view.snippets.no_snippets(),
+		});
+	}
+
 	private updateToggleAction() {
 		if (!this.toggleSnippetAction || !this.currentFile) return;
 
@@ -192,6 +213,13 @@ export class SnippetsEditorView extends AceEditorView {
 			const content = await this.app.vault.adapter.read(
 				`${this.snippetsFolder}/${this.currentFile}`
 			);
+
+			// Re-initialize editor if it was in empty state
+			if (!this.aceService.isEditorInitialized()) {
+				this.rightPanel.empty(); // Clear empty state
+				this.init();
+			}
+
 			this.aceService.editor?.setOption("readOnly", false);
 			this.setViewData(content, true);
 		} catch (error) {

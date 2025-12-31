@@ -188,10 +188,10 @@ export default class AceCodeEditorPlugin extends Plugin {
 		});
 
 		this.addCommand({
-			id: "openCssSnippet",
+			id: "openCssSnippetView",
 			name: LL.command.open_css_snippet_manager(),
 			callback: async () => {
-				await this.openCssSnippetSelector();
+				await this.openPluginView(SNIPPETS_EDITOR_VIEW_TYPE);
 			},
 		});
 

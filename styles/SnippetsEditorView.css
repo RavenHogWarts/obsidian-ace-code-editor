@@ -64,3 +64,15 @@
 		}
 	}
 }
+
+.ace-snippets-empty-state {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-muted);
+	font-size: 1.1em;
+	gap: 16px;
+	height: 100%;
+}
