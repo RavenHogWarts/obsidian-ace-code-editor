@@ -2,7 +2,7 @@ import { SnippetsNavigation } from "@src/component/snippets/SnippetsNavigation";
 import AceCodeEditorPlugin from "@src/main";
 import { SNIPPETS_EDITOR_VIEW_TYPE } from "@src/type/types";
 import { SnippetUtils } from "@src/utils/SnippetUtils";
-import { setTooltip, WorkspaceLeaf } from "obsidian";
+import { WorkspaceLeaf } from "obsidian";
 import { StrictMode } from "react";
 import { createRoot, Root } from "react-dom/client";
 import { AceEditorView } from "./AceEditorView";
@@ -13,7 +13,7 @@ export class SnippetsEditorView extends AceEditorView {
 	private NavigationRoot: Root | null = null;
 	private currentFile: string | null = null;
 	private snippetsFolder: string;
-	private toggleAction: HTMLElement | null = null;
+	private toggleSnippetAction: HTMLElement | null = null;
 
 	constructor(leaf: WorkspaceLeaf, plugin: AceCodeEditorPlugin) {
 		super(leaf, plugin);
@@ -112,38 +112,48 @@ export class SnippetsEditorView extends AceEditorView {
 	}
 
 	private addActions() {
-		this.toggleAction = this.addAction("power", "Enable snippet", () => {
-			if (!this.currentFile) return;
-			const isEnabled = SnippetUtils.isSnippetEnabled(
-				this.app,
-				this.currentFile
-			);
-			SnippetUtils.toggleSnippetState(
-				this.app,
-				this.currentFile,
-				!isEnabled
-			);
-			this.updateToggleAction();
+		this.addAction("sidebar-open", "Toggle sidebar", () => {
+			if (this.leftPanel) {
+				const isCollapsed = this.leftPanel.hasClass("is-collapsed");
+				this.leftPanel.toggleClass("is-collapsed", !isCollapsed);
+				if (this.aceService.editor) {
+					setTimeout(() => {
+						this.aceService.editor?.resize();
+					}, 310);
+				}
+			}
 		});
+
+		this.toggleSnippetAction = this.addAction(
+			"power",
+			"Toggle snippet",
+			() => {
+				if (this.currentFile) {
+					const isEnabled = SnippetUtils.isSnippetEnabled(
+						this.app,
+						this.currentFile
+					);
+					SnippetUtils.toggleSnippetState(
+						this.app,
+						this.currentFile,
+						!isEnabled
+					);
+					this.updateToggleAction();
+				}
+			}
+		);
 		this.updateToggleAction();
 	}
 
 	private updateToggleAction() {
-		if (!this.toggleAction) return;
+		if (!this.toggleSnippetAction || !this.currentFile) return;
 
-		this.toggleAction.style.display = "";
 		const isEnabled = SnippetUtils.isSnippetEnabled(
 			this.app,
-			this.currentFile!
+			this.currentFile
 		);
 
-		if (isEnabled) {
-			setTooltip(this.toggleAction, "Disable snippet");
-			this.toggleAction.addClass("mod-success");
-		} else {
-			setTooltip(this.toggleAction, "Enable snippet");
-			this.toggleAction.removeClass("mod-success");
-		}
+		this.toggleSnippetAction?.toggleClass("mod-success", isEnabled);
 	}
 
 	private renderFileNavigation() {
