@@ -1,32 +1,38 @@
 import { LL } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
-import { Modal } from "obsidian";
-import { StrictMode, useEffect, useRef } from "react";
-import { Root, createRoot } from "react-dom/client";
+import { useEffect, useRef } from "react";
+import { BaseModal } from "../modal/BaseModal";
 import "./ConfirmDialog.css";
 
-interface ConfirmDialogViewProps {
+interface ConfirmDialogProps {
 	title: string;
 	message: string;
 	onConfirm: () => void;
-	onClose?: () => void;
 }
 
-const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
+interface ConfirmDialogViewProps extends ConfirmDialogProps {
+	children?: React.ReactNode;
+	onClose: () => void;
+}
+
+export const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
 	title,
 	message,
 	onConfirm,
+	children,
 	onClose,
 }) => {
 	const confirmBtnRef = useRef<HTMLButtonElement>(null);
 
+	// Ensure focus on mount for simple dialogs without inputs
 	useEffect(() => {
-		confirmBtnRef.current?.focus();
-	}, []);
+		if (!children) {
+			confirmBtnRef.current?.focus();
+		}
+	}, [children]);
 
 	const handleSubmit = () => {
 		onConfirm();
-		onClose?.();
 	};
 
 	return (
@@ -34,10 +40,23 @@ const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
 			className="ace-confirm-dialog-overlay"
 			onKeyDown={(e) => {
 				if (e.key === "Enter") {
-					e.preventDefault();
-					handleSubmit();
+					// Check if default prevented (e.g. by an input element handling enter itself)
+					// to avoid double submission if necessary, though simpler is to just let inputs handle their own enter
+					// or rely on bubbling.
+					// However, if we have an input, pressing enter there bubbles up.
+					// We want to prevent default browser behavior but ensure trigger.
+
+					// Ideally, we only trigger if it's not handled by a child.
+					// But for now, let's keep it simple.
+					if (!e.defaultPrevented) {
+						e.preventDefault();
+						handleSubmit();
+					}
 				}
-				if (e.key === "Escape") onClose?.();
+				if (e.key === "Escape") {
+					e.preventDefault();
+					onClose();
+				}
 			}}
 		>
 			<div className="ace-confirm-dialog">
@@ -45,6 +64,7 @@ const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
 					<h3>{title}</h3>
 				</div>
 				<div className="ace-confirm-dialog-content">
+					{children}
 					<p>{message}</p>
 				</div>
 				<div className="ace-confirm-dialog-actions">
@@ -62,39 +82,15 @@ const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
 	);
 };
 
-export class ConfirmDialog extends Modal {
-	private root: Root | null = null;
-	private plugin: AceCodeEditorPlugin;
-	private props: ConfirmDialogViewProps;
-
-	constructor(plugin: AceCodeEditorPlugin, props: ConfirmDialogViewProps) {
-		super(plugin.app);
-		this.plugin = plugin;
-		this.props = props;
-	}
-
-	onOpen() {
-		const { contentEl } = this;
-		contentEl.empty();
-
-		this.root = createRoot(contentEl);
-
-		this.root.render(
-			<StrictMode>
-				<ConfirmDialogView
-					title={this.props.title}
-					message={this.props.message}
-					onConfirm={this.props.onConfirm}
-					onClose={() => this.close()}
-				/>
-			</StrictMode>
-		);
-	}
-
-	onClose() {
-		if (this.root) {
-			this.root.unmount();
-			this.root = null;
-		}
+export class ConfirmDialog extends BaseModal<ConfirmDialogViewProps> {
+	constructor(plugin: AceCodeEditorPlugin, props: ConfirmDialogProps) {
+		const viewProps = {
+			...props,
+			onConfirm: () => {
+				props.onConfirm();
+				this.close();
+			},
+		};
+		super(plugin, ConfirmDialogView, viewProps, "");
 	}
 }

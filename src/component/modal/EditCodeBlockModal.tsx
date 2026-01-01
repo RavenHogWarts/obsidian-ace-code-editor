@@ -1,21 +1,26 @@
 import { LL } from "@src/i18n/i18n";
+import AceCodeEditorPlugin from "@src/main";
 import { AceService } from "@src/service/AceService";
 import { ICodeBlock, ICodeEditorConfig } from "@src/type/types";
 import { Ace } from "ace-builds";
 import { useEffect, useRef } from "react";
+import { BaseModal } from "./BaseModal";
 
-interface EditCodeBlockModalProps {
-	onClose: () => void;
+interface EditCodeBlockProps {
 	codeBlock: ICodeBlock;
 	onSave: (code: string) => Promise<void>;
-	config: ICodeEditorConfig;
 }
 
-const EditCodeBlockModal: React.FC<EditCodeBlockModalProps> = ({
-	onClose,
+interface EditCodeBlockViewProps extends EditCodeBlockProps {
+	config: ICodeEditorConfig;
+	onClose: () => void;
+}
+
+const EditCodeBlockView: React.FC<EditCodeBlockViewProps> = ({
 	codeBlock,
 	onSave,
 	config,
+	onClose,
 }) => {
 	const editorRef = useRef<HTMLDivElement>(null);
 	const aceEditorRef = useRef<Ace.Editor | null>(null);
@@ -69,4 +74,12 @@ const EditCodeBlockModal: React.FC<EditCodeBlockModalProps> = ({
 	);
 };
 
-export default EditCodeBlockModal;
+export class EditCodeBlock extends BaseModal<EditCodeBlockViewProps> {
+	constructor(plugin: AceCodeEditorPlugin, props: EditCodeBlockProps) {
+		const viewProps = {
+			...props,
+			config: plugin.settings,
+		};
+		super(plugin, EditCodeBlockView, viewProps, "modal-size-large");
+	}
+}

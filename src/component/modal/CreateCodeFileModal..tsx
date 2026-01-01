@@ -1,15 +1,20 @@
 import { Input } from "@src/component/input/Input";
 import { Select } from "@src/component/select/Select";
 import { LL } from "@src/i18n/i18n";
-import { App, Notice, TFolder, normalizePath } from "obsidian";
+import AceCodeEditorPlugin from "@src/main";
+import { Notice, TFolder, normalizePath } from "obsidian";
 import { useMemo, useState } from "react";
+import { BaseModal } from "./BaseModal";
 
-interface CreateCodeFileModalProps {
-	onClose: () => void;
-	app: App;
+interface CreateCodeFileProps {
 	folderPath?: string;
 	openInCodeEditor: (path: string, newTab: boolean) => Promise<void>;
 	allowFolderSelection?: boolean;
+}
+
+interface CreateCodeFileViewProps extends CreateCodeFileProps {
+	plugin: AceCodeEditorPlugin;
+	onClose: () => void;
 }
 
 const FILE_EXTENSIONS = [
@@ -29,12 +34,12 @@ const FILE_EXTENSIONS = [
 	{ value: "json", label: "JSON (.json)" },
 ];
 
-const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
-	onClose,
-	app,
+const CreateCodeFileView: React.FC<CreateCodeFileViewProps> = ({
+	plugin,
 	folderPath = "",
 	openInCodeEditor,
 	allowFolderSelection = false,
+	onClose,
 }) => {
 	const [fileName, setFileName] = useState("");
 	const [currentFolderPath, setCurrentFolderPath] = useState(
@@ -46,12 +51,12 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 
 	const folderSuggestions = useMemo(() => {
 		if (!allowFolderSelection) return [];
-		const folders = app.vault
+		const folders = plugin.app.vault
 			.getAllLoadedFiles()
 			.filter((file): file is TFolder => file instanceof TFolder)
 			.map((folder) => folder.path);
 		return folders;
-	}, [app.vault, allowFolderSelection]);
+	}, [plugin.app.vault, allowFolderSelection]);
 
 	const handleFileExtensionChange = (value: string) => {
 		setFileExtension(value);
@@ -85,12 +90,12 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 		const fullPath = getFullPath();
 
 		try {
-			const existingFile = app.vault.getFileByPath(fullPath);
+			const existingFile = plugin.app.vault.getFileByPath(fullPath);
 			if (existingFile) {
 				new Notice(LL.notice.file_already_exists());
 			}
 
-			await app.vault.create(fullPath, "");
+			await plugin.app.vault.create(fullPath, "");
 			new Notice(LL.notice.create_file_success({ path: fullPath }));
 
 			if (openAfterCreate) {
@@ -174,13 +179,22 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 			</div>
 
 			<div className="code-editor-modal-footer">
-				<button onClick={onClose}>{LL.common.cancel()}</button>
 				<button className="mod-cta" onClick={handleCreate}>
 					{LL.common.create()}
 				</button>
+				<button onClick={onClose}>{LL.common.cancel()}</button>
 			</div>
 		</div>
 	);
 };
 
-export default CreateCodeFileModal;
+export class CreateCodeFile extends BaseModal<CreateCodeFileViewProps> {
+	constructor(plugin: AceCodeEditorPlugin, props: CreateCodeFileProps) {
+		const viewProps = {
+			...props,
+			plugin,
+		};
+
+		super(plugin, CreateCodeFileView, viewProps, "");
+	}
+}
