@@ -1,3 +1,26 @@
+# [1.5.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.4.0...1.5.0) (2026-01-01)
+
+
+### ✨ Features
+
+* 新增片段编辑器与开关功能 (#79) ([bfd7393](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/bfd7393336e0717bb35517f2902f700a6d62f994)), closes [#79](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/79)
+* 允许在创建文件时选择文件夹 (#80) ([72d40de](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/72d40de1801368e76a0cec7e04fd7259e3c7c6aa)), closes [#80](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/80)
+* **i18n:** 添加 typesafe-i18n 同步与类型支持 (#76) ([f798c7d](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/f798c7de4d35919a2e665202043b017429ae6992)), closes [#76](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/76)
+* **minimap:** 增加缩略图显示模式并改进设置交互 (#81) ([3d1f610](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/3d1f6108a45108eacc3c9bb009d5b1b7bea14f4a)), closes [#81](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/81)
+
+
+### 🐛 Bug Fixes
+
+* 避免 BaseModal 关闭时的递归调用 (#75) ([bb25895](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/bb25895986083cd49ee98458eb8f205c6e2f0501)), closes [#75](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/75)
+
+
+### 📝 Documentation
+
+* 更新 README 文件 ([85c0c4f](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/85c0c4f300cbb6e10486bbc0a98399cba8096dee))
+* fix README/README-zh formatting and add links (#82) ([d154d1a](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/d154d1a82b1f220f68d6a7798926538cb9340bd2)), closes [#82](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/82)
+
+
+
 # [1.4.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.3.2...1.4.0) (2025-12-20)
 
 
