@@ -5,6 +5,8 @@ import {
 } from "@src/service/AceThemes";
 
 export const CODE_EDITOR_VIEW_TYPE = "ace-code-editor";
+export const SNIPPETS_EDITOR_VIEW_TYPE = "ace-snippets-editor";
+export const SETTINGS_VIEW_TYPE = "ace-code-editor-settings";
 
 export interface ICodeEditorConfig {
 	supportExtensions: string[];

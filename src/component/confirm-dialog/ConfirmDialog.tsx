@@ -1,7 +1,7 @@
 import { LL } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
 import { Modal } from "obsidian";
-import { StrictMode } from "react";
+import { StrictMode, useEffect, useRef } from "react";
 import { Root, createRoot } from "react-dom/client";
 import "./ConfirmDialog.css";
 
@@ -18,13 +18,28 @@ const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
 	onConfirm,
 	onClose,
 }) => {
-	const handleConfirm = () => {
+	const confirmBtnRef = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		confirmBtnRef.current?.focus();
+	}, []);
+
+	const handleSubmit = () => {
 		onConfirm();
 		onClose?.();
 	};
 
 	return (
-		<div className="ace-confirm-dialog-overlay">
+		<div
+			className="ace-confirm-dialog-overlay"
+			onKeyDown={(e) => {
+				if (e.key === "Enter") {
+					e.preventDefault();
+					handleSubmit();
+				}
+				if (e.key === "Escape") onClose?.();
+			}}
+		>
 			<div className="ace-confirm-dialog">
 				<div className="ace-confirm-dialog-header">
 					<h3>{title}</h3>
@@ -33,10 +48,14 @@ const ConfirmDialogView: React.FC<ConfirmDialogViewProps> = ({
 					<p>{message}</p>
 				</div>
 				<div className="ace-confirm-dialog-actions">
-					<button onClick={onClose}>{LL.common.cancel()}</button>
-					<button onClick={handleConfirm} className="mod-cta">
+					<button
+						ref={confirmBtnRef}
+						onClick={handleSubmit}
+						className="mod-cta"
+					>
 						{LL.common.confirm()}
 					</button>
+					<button onClick={onClose}>{LL.common.cancel()}</button>
 				</div>
 			</div>
 		</div>

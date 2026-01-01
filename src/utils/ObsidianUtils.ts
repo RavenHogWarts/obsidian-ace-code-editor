@@ -13,7 +13,12 @@ export class ObsidianUtils {
 		}
 	}
 
-	static async runCommandById(app: App, commandId: string) {
+	static runCommandById(app: App, commandId: string) {
 		app.commands.executeCommandById(commandId);
+	}
+
+	static toggleSnippetState(app: App, file: string, checked: boolean) {
+		app.customCss.setCssEnabledStatus(file, checked);
+		app.customCss.requestLoadSnippets();
 	}
 }

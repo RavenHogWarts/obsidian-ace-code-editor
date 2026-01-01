@@ -18,7 +18,7 @@ import { getLanguageMode } from "./AceLanguages";
 import { getAceTheme } from "./AceThemes";
 
 export class AceService {
-	private editor: ace.Ace.Editor | null = null;
+	editor: ace.Ace.Editor | null = null;
 
 	constructor() {
 		// esm-resolver 会自动处理模块路径，无需设置 basePath

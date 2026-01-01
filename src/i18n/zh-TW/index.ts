@@ -1,14 +1,18 @@
-import type { BaseTranslation } from '../i18n-types'
+import type { BaseTranslation } from "../i18n-types";
 
 const zh_TW = {
 	common: {
 		confirm: "確定",
 		cancel: "取消",
 		create: "創建",
-		save: "保存",
+		save: "儲存",
+		enable: "啟用",
+		disable: "禁用",
+		rename: "重新命名",
+		delete: "刪除",
 	},
 	command: {
-		reload: "重載外掛",
+		reload: "重新載入外掛程式",
 		create_code_file: "創建程式碼檔案",
 		open_in_code_editor: "在程式碼編輯器中開啟",
 		edit_code_block: "編輯程式碼區塊",
@@ -20,8 +24,38 @@ const zh_TW = {
 		file_name_validate: "檔案名稱不能為空",
 		file_name_with_extension_validate: "自定義檔案名必須包含副檔名",
 		file_already_exists: "檔案已存在",
-		create_file_success: "檔案創建成功，{{path}}",
-		file_deleted: "檔案 {{fileName}} 已刪除",
+		rename_file_success: "檔案重新命名成功，{path:string}",
+		create_file_success: "檔案創建成功，{path:string}",
+		file_deleted: "檔案 {fileName:string} 已刪除",
+	},
+	view: {
+		snippets: {
+			created: "建檔時間: {date:string}",
+			modified: "最後修改時間: {date:string}",
+			no_snippets: "沒有發現 CSS 片段",
+			create_new_snippet: "新增 CSS 片段",
+			sort_by: "排序",
+			sort_by_name_asc: "按檔案名升冪排列 (A-Z)",
+			sort_by_name_desc: "按檔案名降冪排列 (Z-A)",
+			sort_by_mtime_asc: "按編輯時間排序 (從舊到新)",
+			sort_by_mtime_desc: "按編輯時間排序 (從新到舊)",
+			sort_by_ctime_asc: "按建檔時間排序 (從舊到新)",
+			sort_by_ctime_desc: "按建檔時間排序 (從新到舊)",
+			batch_operation: "批次操作",
+			enable_all_snippets: "啟用所有 CSS 片段",
+			disable_all_snippets: "停用所有 CSS 片段",
+			reload_snippets: "重新載入 CSS 片段",
+			enable_snippet: "啟用 CSS 片段",
+			disable_snippet: "停用 CSS 片段",
+			rename_snippet: "重新命名 CSS 片段",
+			delete_snippet: "刪除 CSS 片段",
+			delete_snippet_message:
+				"確定要刪除 CSS 片段 {fileName:string} 嗎？",
+			file_modal_message: "無需輸入副檔名 .css",
+			search_placeholder: "輸入並開始搜尋...",
+			case_sensitive: "區分大小寫",
+			clear_search: "清除搜尋",
+		},
 	},
 	modal: {
 		createCodeFile: {
@@ -37,18 +71,6 @@ const zh_TW = {
 		},
 		editCodeBlock: {
 			header: "編輯程式碼區塊",
-		},
-		snippetsFile: {
-			header: "CSS 片段檔案",
-			deleteFile: "刪除檔案",
-			deleteFileMessage: "確定要刪除檔案 {{fileName}} 嗎？",
-			new_snippet_name: "新 CSS 片段名稱",
-			search_snippets: "搜尋 CSS 片段",
-			refresh: "重新載入 CSS 片段",
-			new_snippet: "新 CSS 片段",
-			open_snippets_folder: "開啟 CSS 片段資料夾",
-			no_matching_snippets: "沒有匹配的 CSS 片段",
-			no_snippets: "沒有 CSS 片段",
 		},
 	},
 	setting: {
@@ -129,6 +151,6 @@ const zh_TW = {
 			},
 		},
 	},
-} satisfies BaseTranslation
+} satisfies BaseTranslation;
 
-export default zh_TW
+export default zh_TW;

@@ -26,10 +26,14 @@
 	margin-bottom: 16px;
 
 	p {
-		margin: 0;
+		margin: 8px 0 0 0;
 		color: var(--text-muted);
 		font-size: 14px;
 		line-height: 1.5;
+	}
+
+	input {
+		width: 100%;
 	}
 }
 
