@@ -152,6 +152,11 @@ const en = {
 				name: "Enable minimap",
 				desc: "Show minimap on the right side of the editor for quick navigation",
 			},
+			mode: {
+				always: "Always show",
+				on_hover: "Show on hover",
+				hidden: "Hidden",
+			},
 		},
 	},
 } satisfies BaseTranslation;

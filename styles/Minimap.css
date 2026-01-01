@@ -12,6 +12,15 @@
 	box-sizing: border-box;
 }
 
+/* Hover Mode: Default hidden, show on hover */
+.ace-minimap-container.ace-minimap-hover-mode {
+	opacity: 0;
+}
+
+.ace-minimap-container.ace-minimap-hover-mode:hover {
+	opacity: 1;
+}
+
 .ace-minimap-canvas {
 	display: block;
 	width: 100%;

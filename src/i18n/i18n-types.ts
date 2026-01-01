@@ -457,6 +457,20 @@ type RootTranslation = {
 				 */
 				desc: string
 			}
+			mode: {
+				/**
+				 * 始​终​显​示
+				 */
+				always: string
+				/**
+				 * 悬​停​时​显​示
+				 */
+				on_hover: string
+				/**
+				 * 隐​藏
+				 */
+				hidden: string
+			}
 		}
 	}
 }
@@ -897,6 +911,20 @@ export type TranslationFunctions = {
 				 * 在编辑器右侧显示缩略图，方便快速导航代码
 				 */
 				desc: () => LocalizedString
+			}
+			mode: {
+				/**
+				 * 始终显示
+				 */
+				always: () => LocalizedString
+				/**
+				 * 悬停时显示
+				 */
+				on_hover: () => LocalizedString
+				/**
+				 * 隐藏
+				 */
+				hidden: () => LocalizedString
 			}
 		}
 	}

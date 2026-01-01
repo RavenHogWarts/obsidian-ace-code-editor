@@ -132,6 +132,7 @@ export abstract class AceEditorView extends TextFileView {
 				<Minimap
 					editor={editor}
 					enabled={this.config.minimap.enabled}
+					mode={this.config.minimap.mode}
 				/>
 			</StrictMode>
 		);
