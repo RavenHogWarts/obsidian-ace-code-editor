@@ -3,3 +3,8 @@
 		overflow: hidden;
 	}
 }
+
+.ace_search.right {
+	right: auto !important;
+	left: 20px !important;
+}
