@@ -1,3 +1,12 @@
+## [1.5.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.5.0...1.5.1) (2026-01-01)
+
+
+### 🐛 Bug Fixes
+
+* 修复搜索面板在右侧对齐问题 (#85) ([73bc403](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/73bc4038fc5b3248d2b6e5bf9427ed2183cfbd7f)), closes [#85](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/85)
+
+
+
 # [1.5.0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.4.0...1.5.0) (2026-01-01)
 
 
