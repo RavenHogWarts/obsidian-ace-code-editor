@@ -416,13 +416,39 @@ export const AceSettings: React.FC<AceSettingsProps> = ({}) => {
 					name={LL.setting.minimap.enabled.name()}
 					desc={LL.setting.minimap.enabled.desc()}
 				>
-					<Toggle
-						checked={settings.minimap.enabled}
-						onChange={(value) =>
-							settingsStore.updateSettingByPath("minimap", {
-								enabled: value,
-							})
+					<Select
+						options={[
+							{
+								label: LL.setting.minimap.mode.always(),
+								value: "always",
+							},
+							{
+								label: LL.setting.minimap.mode.on_hover(),
+								value: "hover",
+							},
+							{
+								label: LL.setting.minimap.mode.hidden(),
+								value: "hidden",
+							},
+						]}
+						value={
+							!settings.minimap.enabled
+								? "hidden"
+								: settings.minimap.mode || "always"
 						}
+						onChange={(value) => {
+							if (value === "hidden") {
+								settingsStore.updateSettingByPath("minimap", {
+									enabled: false,
+									mode: "always",
+								});
+							} else {
+								settingsStore.updateSettingByPath("minimap", {
+									enabled: true,
+									mode: value as "always" | "hover",
+								});
+							}
+						}}
 					/>
 				</SettingsItem>
 			</>

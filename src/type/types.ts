@@ -29,6 +29,7 @@ export interface ICodeEditorConfig {
 	wrap: boolean;
 	minimap: {
 		enabled: boolean;
+		mode: "always" | "hover";
 	};
 }
 
@@ -53,6 +54,7 @@ export const DEFAULT_CONFIG: ICodeEditorConfig = {
 	wrap: true,
 	minimap: {
 		enabled: true,
+		mode: "always",
 	},
 };
 

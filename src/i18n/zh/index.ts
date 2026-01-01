@@ -149,6 +149,11 @@ const zh = {
 				name: "启用缩略图",
 				desc: "在编辑器右侧显示缩略图，方便快速导航代码",
 			},
+			mode: {
+				always: "始终显示",
+				on_hover: "悬停时显示",
+				hidden: "隐藏",
+			},
 		},
 	},
 } satisfies BaseTranslation;

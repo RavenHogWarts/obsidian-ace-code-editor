@@ -150,6 +150,11 @@ const zh_TW = {
 				name: "啟用縮略圖",
 				desc: "在編輯器右側顯示縮略圖，方便快速導航程式碼",
 			},
+			mode: {
+				always: "始終顯示",
+				on_hover: "懸停時顯示",
+				hidden: "隱藏",
+			},
 		},
 	},
 } satisfies BaseTranslation;

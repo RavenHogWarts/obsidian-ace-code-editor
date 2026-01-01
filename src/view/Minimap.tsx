@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 export interface MinimapProps {
 	editor: ace.Ace.Editor | null;
 	enabled: boolean;
+	mode?: "always" | "hover";
 }
 
 // 语法高亮颜色映射 (可根据你的编辑器主题调整)
@@ -15,7 +16,11 @@ const TOKEN_COLORS: Record<string, string> = {
 	default: "rgba(128, 128, 128, 0.5)", // 默认灰
 };
 
-export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
+export const Minimap: React.FC<MinimapProps> = ({
+	editor,
+	enabled,
+	mode = "always",
+}) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -364,7 +369,9 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 	return (
 		<div
 			ref={containerRef}
-			className="ace-minimap-container"
+			className={`ace-minimap-container ${
+				mode === "hover" ? "ace-minimap-hover-mode" : ""
+			}`}
 			onMouseEnter={() => setIsHovering(true)}
 			onMouseLeave={() => {
 				if (!isDragging) setIsHovering(false);
@@ -378,7 +385,9 @@ export const Minimap: React.FC<MinimapProps> = ({ editor, enabled }) => {
 			<div
 				ref={sliderRef}
 				className={`ace-minimap-slider ${
-					isHovering || isDragging ? "visible" : ""
+					mode === "always" || isHovering || isDragging
+						? "visible"
+						: ""
 				} ${isDragging ? "dragging" : ""}`}
 				onMouseDown={handleSliderMouseDown}
 			/>
