@@ -249,6 +249,10 @@ type RootTranslation = {
 			 * 创​建​后​打​开​文​件
 			 */
 			open_file_after_create: string
+			/**
+			 * 文​件​夹​路​径
+			 */
+			folder_path: string
 		}
 		editCodeBlock: {
 			/**
@@ -686,6 +690,10 @@ export type TranslationFunctions = {
 			 * 创建后打开文件
 			 */
 			open_file_after_create: () => LocalizedString
+			/**
+			 * 文件夹路径
+			 */
+			folder_path: () => LocalizedString
 		}
 		editCodeBlock: {
 			/**

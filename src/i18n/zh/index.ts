@@ -67,6 +67,7 @@ const zh = {
 			file_name_with_extension_placeholder: "输入文件名（包含扩展名）",
 			preview: "预览",
 			open_file_after_create: "创建后打开文件",
+			folder_path: "文件夹路径",
 		},
 		editCodeBlock: {
 			header: "编辑代码块",

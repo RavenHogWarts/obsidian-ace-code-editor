@@ -1,7 +1,8 @@
 import "@styles/styles";
 import { Editor, Menu, Plugin, setIcon, TFile, TFolder } from "obsidian";
-import { BaseModal } from "./component/modal/BaseModal";
-import { QuickConfigModal } from "./component/modal/QuickConfigModal";
+import { CreateCodeFile } from "./component/modal/CreateCodeFileModal.";
+import { EditCodeBlock } from "./component/modal/EditCodeBlockModal";
+import { QuickConfigModal } from "./component/suggest/QuickConfigModal";
 import { SettingsBus } from "./hooks/useSettings";
 import { LL } from "./i18n/i18n";
 import SettingsStore from "./settings/SettingsStore";
@@ -183,7 +184,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 			callback: async () => {
 				const activeFile = this.app.workspace.getActiveFile();
 				const folderPath = activeFile?.parent?.path || "";
-				await this.createCodeFile(folderPath);
+				await this.createCodeFile(folderPath, true);
 			},
 		});
 
@@ -306,20 +307,16 @@ export default class AceCodeEditorPlugin extends Plugin {
 		});
 	}
 
-	async createCodeFile(folderPath: string): Promise<void> {
-		new BaseModal(
-			this.app,
-			this,
-			() => import("./component/modal/CreateCodeFileModal"),
-			{
-				app: this.app,
-				folderPath,
-				openInCodeEditor: (path: string, newTab: boolean) =>
-					this.openInCodeEditor(path, newTab),
-				onClose: () => {},
-			},
-			"modal-size-small"
-		).open();
+	async createCodeFile(
+		folderPath?: string,
+		allowFolderSelection: boolean = false
+	): Promise<void> {
+		new CreateCodeFile(this, {
+			folderPath,
+			openInCodeEditor: (path: string, newTab: boolean) =>
+				this.openInCodeEditor(path, newTab),
+			allowFolderSelection,
+		}).open();
 	}
 
 	async openSnippetFile(
@@ -341,24 +338,16 @@ export default class AceCodeEditorPlugin extends Plugin {
 	}
 
 	async openCodeBlockEditor(codeBlock: ICodeBlock): Promise<void> {
-		new BaseModal(
-			this.app,
-			this,
-			() => import("./component/modal/EditCodeBlockModal"),
-			{
-				codeBlock,
-				config: this.settings,
-				onSave: (newCode: string) =>
-					updateCodeBlock(
-						this.app,
-						codeBlock.range,
-						newCode,
-						codeBlock.indent
-					),
-				onClose: () => {},
-			},
-			"modal-size-large"
-		).open();
+		new EditCodeBlock(this, {
+			codeBlock,
+			onSave: (newCode: string) =>
+				updateCodeBlock(
+					this.app,
+					codeBlock.range,
+					newCode,
+					codeBlock.indent
+				),
+		}).open();
 	}
 
 	async openInCodeEditor(
@@ -369,36 +358,6 @@ export default class AceCodeEditorPlugin extends Plugin {
 		await leaf.setViewState({
 			type: CODE_EDITOR_VIEW_TYPE,
 			state: { file: filePath },
-		});
-		this.app.workspace.setActiveLeaf(leaf);
-	}
-
-	private async openExternalFile(
-		filePath: string,
-		newTab: boolean = false
-	): Promise<void> {
-		const adapter = this.app.vault.adapter;
-		const exists = await adapter.exists(filePath);
-		if (!exists) {
-			return;
-		}
-
-		// @ts-ignore
-		const file = new TFile(this.app.vault, filePath);
-		const content = await adapter.read(filePath);
-
-		const leaf = this.app.workspace.getLeaf(newTab);
-		const view = new CodeEditorView(leaf, this);
-		view.file = file;
-
-		await view.onOpen();
-		await view.onLoadFile(file);
-
-		view.setViewData(content, true);
-
-		await leaf.open(view);
-		leaf.setViewState({
-			type: CODE_EDITOR_VIEW_TYPE,
 		});
 		this.app.workspace.setActiveLeaf(leaf);
 	}

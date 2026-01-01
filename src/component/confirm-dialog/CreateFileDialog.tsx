@@ -1,8 +1,9 @@
 import { LL } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
-import { Modal, Notice } from "obsidian";
-import { StrictMode, useEffect, useRef, useState } from "react";
-import { Root, createRoot } from "react-dom/client";
+import { Notice } from "obsidian";
+import { useEffect, useRef, useState } from "react";
+import { BaseModal } from "../modal/BaseModal";
+import { ConfirmDialogView } from "./ConfirmDialog";
 
 interface CreateFileDialogProps {
 	title: string;
@@ -11,7 +12,11 @@ interface CreateFileDialogProps {
 	onClose?: () => void;
 }
 
-const CreateFileDialogView: React.FC<CreateFileDialogProps> = ({
+interface CreateFileDialogViewProps extends CreateFileDialogProps {
+	onClose: () => void;
+}
+
+const CreateFileDialogView: React.FC<CreateFileDialogViewProps> = ({
 	title,
 	message,
 	onCreate,
@@ -31,69 +36,44 @@ const CreateFileDialogView: React.FC<CreateFileDialogProps> = ({
 		}
 		const finalName = fileName.trim() + ".css";
 		onCreate(finalName);
-		onClose?.();
+		onClose();
 	};
 
 	return (
-		<div className="ace-confirm-dialog-overlay">
-			<div className="ace-confirm-dialog">
-				<div className="ace-confirm-dialog-header">
-					<h3>{title}</h3>
-				</div>
-				<div className="ace-confirm-dialog-content">
-					<input
-						type="text"
-						ref={inputRef}
-						value={fileName}
-						onChange={(e) => setFileName(e.target.value)}
-						onKeyDown={(e) => {
-							if (e.key === "Enter") handleSubmit();
-							if (e.key === "Escape") onClose?.();
-						}}
-					/>
-					<p>{message}</p>
-				</div>
-				<div className="ace-confirm-dialog-actions">
-					<button onClick={handleSubmit} className="mod-cta">
-						{LL.common.confirm()}
-					</button>
-					<button onClick={onClose}>{LL.common.cancel()}</button>
-				</div>
-			</div>
-		</div>
+		<ConfirmDialogView
+			title={title}
+			message={message}
+			onConfirm={handleSubmit}
+			onClose={onClose}
+		>
+			<input
+				type="text"
+				ref={inputRef}
+				value={fileName}
+				onChange={(e) => setFileName(e.target.value)}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") {
+						e.preventDefault(); // Prevent bubbling to parent overlay if possible, or just handle here.
+						handleSubmit();
+					}
+					if (e.key === "Escape") {
+						e.preventDefault();
+						onClose();
+					}
+				}}
+			/>
+		</ConfirmDialogView>
 	);
 };
 
-export class CreateFileDialog extends Modal {
-	private root: Root | null = null;
-	private plugin: AceCodeEditorPlugin;
-	private props: CreateFileDialogProps;
-
+export class CreateFileDialog extends BaseModal<CreateFileDialogViewProps> {
 	constructor(plugin: AceCodeEditorPlugin, props: CreateFileDialogProps) {
-		super(plugin.app);
-		this.plugin = plugin;
-		this.props = props;
-	}
-
-	onOpen() {
-		const { contentEl } = this;
-		contentEl.empty();
-		this.root = createRoot(contentEl);
-		this.root.render(
-			<StrictMode>
-				<CreateFileDialogView
-					title={this.props.title}
-					message={this.props.message}
-					onCreate={this.props.onCreate}
-					onClose={() => this.close()}
-				/>
-			</StrictMode>
-		);
-	}
-
-	onClose() {
-		this.root?.unmount();
-		this.root = null;
-		this.contentEl.empty();
+		const viewProps = {
+			...props,
+			onClose: () => {
+				if (props.onClose) props.onClose();
+			},
+		};
+		super(plugin, CreateFileDialogView, viewProps, "");
 	}
 }

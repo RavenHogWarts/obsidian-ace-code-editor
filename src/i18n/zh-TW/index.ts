@@ -68,6 +68,7 @@ const zh_TW = {
 			file_name_with_extension_placeholder: "輸入檔案名稱（包含副檔名）",
 			preview: "預覽",
 			open_file_after_create: "創建後開啟檔案",
+			folder_path: "資料夾路徑",
 		},
 		editCodeBlock: {
 			header: "編輯程式碼區塊",

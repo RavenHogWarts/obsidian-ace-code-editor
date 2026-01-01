@@ -38,3 +38,33 @@
 	border-color: var(--interactive-accent);
 	box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb), 0.1);
 }
+
+.ace-input-suggestions {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	right: 0;
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	max-height: 200px;
+	overflow-y: auto;
+	z-index: 100;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ace-input-suggestion-item {
+	padding: 0.5rem 0.75rem;
+	cursor: pointer;
+	font-size: 0.9rem;
+	color: var(--text-normal);
+	transition: background-color 0.2s ease;
+}
+
+.ace-input-suggestion-item:hover {
+	background: var(--background-modifier-hover);
+}
+
+.ace-input-suggestion-item.selected {
+	background-color: var(--background-modifier-hover);
+}

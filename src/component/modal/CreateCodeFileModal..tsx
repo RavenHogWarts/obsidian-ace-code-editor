@@ -1,14 +1,20 @@
 import { Input } from "@src/component/input/Input";
 import { Select } from "@src/component/select/Select";
 import { LL } from "@src/i18n/i18n";
-import { App, Notice, normalizePath } from "obsidian";
-import { useState } from "react";
+import AceCodeEditorPlugin from "@src/main";
+import { Notice, TFolder, normalizePath } from "obsidian";
+import { useMemo, useState } from "react";
+import { BaseModal } from "./BaseModal";
 
-interface CreateCodeFileModalProps {
-	onClose: () => void;
-	app: App;
-	folderPath: string;
+interface CreateCodeFileProps {
+	folderPath?: string;
 	openInCodeEditor: (path: string, newTab: boolean) => Promise<void>;
+	allowFolderSelection?: boolean;
+}
+
+interface CreateCodeFileViewProps extends CreateCodeFileProps {
+	plugin: AceCodeEditorPlugin;
+	onClose: () => void;
 }
 
 const FILE_EXTENSIONS = [
@@ -28,16 +34,29 @@ const FILE_EXTENSIONS = [
 	{ value: "json", label: "JSON (.json)" },
 ];
 
-const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
-	onClose,
-	app,
-	folderPath,
+const CreateCodeFileView: React.FC<CreateCodeFileViewProps> = ({
+	plugin,
+	folderPath = "",
 	openInCodeEditor,
+	allowFolderSelection = false,
+	onClose,
 }) => {
 	const [fileName, setFileName] = useState("");
+	const [currentFolderPath, setCurrentFolderPath] = useState(
+		folderPath || "/"
+	);
 	const [fileExtension, setFileExtension] = useState("custom");
 	const [openAfterCreate, setOpenAfterCreate] = useState(true);
 	const [isCustomFilename, setIsCustomFilename] = useState(true);
+
+	const folderSuggestions = useMemo(() => {
+		if (!allowFolderSelection) return [];
+		const folders = plugin.app.vault
+			.getAllLoadedFiles()
+			.filter((file): file is TFolder => file instanceof TFolder)
+			.map((folder) => folder.path);
+		return folders;
+	}, [plugin.app.vault, allowFolderSelection]);
 
 	const handleFileExtensionChange = (value: string) => {
 		setFileExtension(value);
@@ -45,12 +64,10 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 	};
 
 	const getFullPath = () => {
-		const normalizedFolderPath = normalizePath(folderPath);
-
-		if (isCustomFilename) {
-			return `${normalizedFolderPath}/${fileName}`;
-		}
-		return `${normalizedFolderPath}/${fileName}.${fileExtension}`;
+		const name = isCustomFilename
+			? fileName
+			: `${fileName}.${fileExtension}`;
+		return normalizePath(`${currentFolderPath}/${name}`);
 	};
 
 	const validateFileName = () => {
@@ -73,12 +90,12 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 		const fullPath = getFullPath();
 
 		try {
-			const existingFile = app.vault.getFileByPath(fullPath);
+			const existingFile = plugin.app.vault.getFileByPath(fullPath);
 			if (existingFile) {
 				new Notice(LL.notice.file_already_exists());
 			}
 
-			await app.vault.create(fullPath, "");
+			await plugin.app.vault.create(fullPath, "");
 			new Notice(LL.notice.create_file_success({ path: fullPath }));
 
 			if (openAfterCreate) {
@@ -98,6 +115,19 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 			</div>
 
 			<div className="code-editor-modal-content">
+				{allowFolderSelection && (
+					<div className="code-editor-input-group">
+						<label htmlFor="folderPath">
+							{LL.modal.createCodeFile.folder_path()}
+						</label>
+						<Input
+							value={currentFolderPath}
+							onChange={(value) => setCurrentFolderPath(value)}
+							suggestions={folderSuggestions}
+						/>
+					</div>
+				)}
+
 				<div className="code-editor-input-group">
 					<label htmlFor="fileType">
 						{LL.modal.createCodeFile.file_type()}
@@ -149,13 +179,22 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 			</div>
 
 			<div className="code-editor-modal-footer">
-				<button onClick={onClose}>{LL.common.cancel()}</button>
 				<button className="mod-cta" onClick={handleCreate}>
 					{LL.common.create()}
 				</button>
+				<button onClick={onClose}>{LL.common.cancel()}</button>
 			</div>
 		</div>
 	);
 };
 
-export default CreateCodeFileModal;
+export class CreateCodeFile extends BaseModal<CreateCodeFileViewProps> {
+	constructor(plugin: AceCodeEditorPlugin, props: CreateCodeFileProps) {
+		const viewProps = {
+			...props,
+			plugin,
+		};
+
+		super(plugin, CreateCodeFileView, viewProps, "");
+	}
+}
