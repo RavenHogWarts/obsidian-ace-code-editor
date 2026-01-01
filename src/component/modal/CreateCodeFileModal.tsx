@@ -1,14 +1,15 @@
 import { Input } from "@src/component/input/Input";
 import { Select } from "@src/component/select/Select";
 import { LL } from "@src/i18n/i18n";
-import { App, Notice, normalizePath } from "obsidian";
-import { useState } from "react";
+import { App, Notice, TFolder, normalizePath } from "obsidian";
+import { useMemo, useState } from "react";
 
 interface CreateCodeFileModalProps {
 	onClose: () => void;
 	app: App;
-	folderPath: string;
+	folderPath?: string;
 	openInCodeEditor: (path: string, newTab: boolean) => Promise<void>;
+	allowFolderSelection?: boolean;
 }
 
 const FILE_EXTENSIONS = [
@@ -31,13 +32,26 @@ const FILE_EXTENSIONS = [
 const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 	onClose,
 	app,
-	folderPath,
+	folderPath = "",
 	openInCodeEditor,
+	allowFolderSelection = false,
 }) => {
 	const [fileName, setFileName] = useState("");
+	const [currentFolderPath, setCurrentFolderPath] = useState(
+		folderPath || "/"
+	);
 	const [fileExtension, setFileExtension] = useState("custom");
 	const [openAfterCreate, setOpenAfterCreate] = useState(true);
 	const [isCustomFilename, setIsCustomFilename] = useState(true);
+
+	const folderSuggestions = useMemo(() => {
+		if (!allowFolderSelection) return [];
+		const folders = app.vault
+			.getAllLoadedFiles()
+			.filter((file): file is TFolder => file instanceof TFolder)
+			.map((folder) => folder.path);
+		return folders;
+	}, [app.vault, allowFolderSelection]);
 
 	const handleFileExtensionChange = (value: string) => {
 		setFileExtension(value);
@@ -45,12 +59,10 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 	};
 
 	const getFullPath = () => {
-		const normalizedFolderPath = normalizePath(folderPath);
-
-		if (isCustomFilename) {
-			return `${normalizedFolderPath}/${fileName}`;
-		}
-		return `${normalizedFolderPath}/${fileName}.${fileExtension}`;
+		const name = isCustomFilename
+			? fileName
+			: `${fileName}.${fileExtension}`;
+		return normalizePath(`${currentFolderPath}/${name}`);
 	};
 
 	const validateFileName = () => {
@@ -98,6 +110,19 @@ const CreateCodeFileModal: React.FC<CreateCodeFileModalProps> = ({
 			</div>
 
 			<div className="code-editor-modal-content">
+				{allowFolderSelection && (
+					<div className="code-editor-input-group">
+						<label htmlFor="folderPath">
+							{LL.modal.createCodeFile.folder_path()}
+						</label>
+						<Input
+							value={currentFolderPath}
+							onChange={(value) => setCurrentFolderPath(value)}
+							suggestions={folderSuggestions}
+						/>
+					</div>
+				)}
+
 				<div className="code-editor-input-group">
 					<label htmlFor="fileType">
 						{LL.modal.createCodeFile.file_type()}

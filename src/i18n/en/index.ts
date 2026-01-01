@@ -70,6 +70,7 @@ const en = {
 				"Enter file name (with extension)",
 			preview: "Preview",
 			open_file_after_create: "Open file after creation",
+			folder_path: "Folder path",
 		},
 		editCodeBlock: {
 			header: "Edit code block",

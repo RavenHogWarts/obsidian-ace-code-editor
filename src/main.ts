@@ -183,7 +183,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 			callback: async () => {
 				const activeFile = this.app.workspace.getActiveFile();
 				const folderPath = activeFile?.parent?.path || "";
-				await this.createCodeFile(folderPath);
+				await this.createCodeFile(folderPath, true);
 			},
 		});
 
@@ -306,7 +306,10 @@ export default class AceCodeEditorPlugin extends Plugin {
 		});
 	}
 
-	async createCodeFile(folderPath: string): Promise<void> {
+	async createCodeFile(
+		folderPath?: string,
+		allowFolderSelection: boolean = false
+	): Promise<void> {
 		new BaseModal(
 			this.app,
 			this,
@@ -314,6 +317,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 			{
 				app: this.app,
 				folderPath,
+				allowFolderSelection,
 				openInCodeEditor: (path: string, newTab: boolean) =>
 					this.openInCodeEditor(path, newTab),
 				onClose: () => {},
