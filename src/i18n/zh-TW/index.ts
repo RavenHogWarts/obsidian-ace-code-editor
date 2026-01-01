@@ -25,8 +25,8 @@ const zh_TW = {
 		file_name_with_extension_validate: "自定義檔案名必須包含副檔名",
 		file_already_exists: "檔案已存在",
 		rename_file_success: "檔案重新命名成功，{path:string}",
-		create_file_success: "檔案創建成功，{{path}}",
-		file_deleted: "檔案 {{fileName}} 已刪除",
+		create_file_success: "檔案創建成功，{path:string}",
+		file_deleted: "檔案 {fileName:string} 已刪除",
 	},
 	view: {
 		snippets: {
@@ -72,7 +72,7 @@ const zh_TW = {
 		snippetsFile: {
 			header: "CSS 片段檔案",
 			deleteFile: "刪除檔案",
-			deleteFileMessage: "確定要刪除檔案 {{fileName}} 嗎？",
+			deleteFileMessage: "確定要刪除檔案 {fileName:string} 嗎？",
 			new_snippet_name: "新 CSS 片段名稱",
 			search_snippets: "搜尋 CSS 片段",
 			refresh: "重新載入 CSS 片段",

@@ -26,8 +26,8 @@ const en = {
 			"Custom file name must include extension",
 		file_already_exists: "File already exists",
 		rename_file_success: "File renamed successfully, {path:string}",
-		create_file_success: "File created successfully, {{path}}",
-		file_deleted: "File {{fileName}} has been deleted",
+		create_file_success: "File created successfully, {path:string}",
+		file_deleted: "File {fileName:string} has been deleted",
 	},
 	view: {
 		snippets: {
@@ -75,7 +75,7 @@ const en = {
 			header: "Snippet files",
 			deleteFile: "Delete file",
 			deleteFileMessage:
-				"Are you sure you want to delete file {{fileName}}?",
+				"Are you sure you want to delete file {fileName:string}?",
 			new_snippet_name: "New snippet name",
 			search_snippets: "Search snippets",
 			refresh: "Reload snippets",

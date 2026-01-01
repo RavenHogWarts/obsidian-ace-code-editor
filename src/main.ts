@@ -217,7 +217,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 			this.settings.snippetsManager.icon,
 			LL.command.open_css_snippet_manager(),
 			async () => {
-				await this.openCssSnippetSelector();
+				await this.openPluginView(SNIPPETS_EDITOR_VIEW_TYPE);
 			}
 		);
 
@@ -234,7 +234,7 @@ export default class AceCodeEditorPlugin extends Plugin {
 					);
 					setIcon(this.statusBar, this.settings.snippetsManager.icon);
 					this.statusBar.addEventListener("click", async () => {
-						await this.openCssSnippetSelector();
+						await this.openPluginView(SNIPPETS_EDITOR_VIEW_TYPE);
 					});
 				}, 500);
 			});
@@ -319,23 +319,6 @@ export default class AceCodeEditorPlugin extends Plugin {
 				onClose: () => {},
 			},
 			"modal-size-small"
-		).open();
-	}
-
-	async openCssSnippetSelector(): Promise<void> {
-		new BaseModal(
-			this.app,
-			this,
-			() => import("./component/modal/SnippetsFileModal"),
-			{
-				app: this.app,
-				plugin: this,
-				snippetsFolder: this.snippetsFolder,
-				openSnippetFile: (filePath: string, newTab: boolean) =>
-					this.openSnippetFile(filePath, newTab),
-				onClose: () => {},
-			},
-			"modal-size-medium"
 		).open();
 	}
 

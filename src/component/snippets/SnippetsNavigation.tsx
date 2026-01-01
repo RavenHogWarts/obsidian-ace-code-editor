@@ -225,6 +225,68 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		}).open();
 	};
 
+	const handleDelete = (file: SnippetFile) => {
+		new ConfirmDialog(plugin, {
+			title: LL.view.snippets.delete_snippet(),
+			message: LL.view.snippets.delete_snippet_message({
+				fileName: file.name,
+			}),
+			onConfirm: async () => {
+				try {
+					const path =
+						SnippetUtils.getSnippetsFolder(plugin.app) +
+						"/" +
+						file.name;
+					await plugin.app.vault.adapter.remove(path);
+					new Notice(
+						LL.notice.file_deleted({
+							fileName: file.name,
+						})
+					);
+					loadFiles();
+				} catch (e) {
+					throw new Error(e);
+				}
+			},
+		}).open();
+	};
+
+	const handleRename = (file: SnippetFile) => {
+		new RenameFileDialog(plugin, {
+			title: LL.view.snippets.rename_snippet(),
+			message: LL.view.snippets.file_modal_message(),
+			oldName: file.name,
+			onRename: async (newName) => {
+				try {
+					const oldPath =
+						SnippetUtils.getSnippetsFolder(plugin.app) +
+						"/" +
+						file.name;
+					const newPath =
+						SnippetUtils.getSnippetsFolder(plugin.app) +
+						"/" +
+						newName;
+					if (await plugin.app.vault.adapter.exists(newPath)) {
+						new Notice(LL.notice.file_already_exists());
+						return;
+					}
+					await plugin.app.vault.adapter.rename(oldPath, newPath);
+					new Notice(
+						LL.notice.rename_file_success({
+							path: newName,
+						})
+					);
+					loadFiles();
+					if (file.name === selectedFile) {
+						onFileSelect(newName);
+					}
+				} catch (e) {
+					throw new Error(e);
+				}
+			},
+		}).open();
+	};
+
 	const handleContextMenu = (event: React.MouseEvent, file: SnippetFile) => {
 		const menu = new Menu();
 
@@ -250,79 +312,14 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 			item
 				.setTitle(LL.common.rename())
 				.setIcon("pencil")
-				.onClick(() => {
-					new RenameFileDialog(plugin, {
-						title: LL.view.snippets.rename_snippet(),
-						message: LL.view.snippets.file_modal_message(),
-						oldName: file.name,
-						onRename: async (newName) => {
-							try {
-								const oldPath =
-									SnippetUtils.getSnippetsFolder(plugin.app) +
-									"/" +
-									file.name;
-								const newPath =
-									SnippetUtils.getSnippetsFolder(plugin.app) +
-									"/" +
-									newName;
-								if (
-									await plugin.app.vault.adapter.exists(
-										newPath
-									)
-								) {
-									new Notice(LL.notice.file_already_exists());
-									return;
-								}
-								await plugin.app.vault.adapter.rename(
-									oldPath,
-									newPath
-								);
-								new Notice(
-									LL.notice.rename_file_success({
-										path: newName,
-									})
-								);
-								loadFiles();
-								if (file.name === selectedFile) {
-									onFileSelect(newName);
-								}
-							} catch (e) {
-								throw new Error(e);
-							}
-						},
-					}).open();
-				})
+				.onClick(() => handleRename(file))
 		);
 
 		menu.addItem((item) =>
 			item
 				.setTitle(LL.common.delete())
 				.setIcon("trash")
-				.onClick(() => {
-					new ConfirmDialog(plugin, {
-						title: LL.view.snippets.delete_snippet(),
-						message: LL.view.snippets.delete_snippet_message({
-							fileName: file.name,
-						}),
-						onConfirm: async () => {
-							try {
-								const path =
-									SnippetUtils.getSnippetsFolder(plugin.app) +
-									"/" +
-									file.name;
-								await plugin.app.vault.adapter.remove(path);
-								new Notice(
-									LL.notice.file_deleted({
-										fileName: file.name,
-									})
-								);
-								loadFiles();
-							} catch (e) {
-								throw new Error(e);
-							}
-						},
-					}).open();
-				})
+				.onClick(() => handleDelete(file))
 		);
 
 		menu.showAtPosition({ x: event.clientX, y: event.clientY });
