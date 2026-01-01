@@ -13,19 +13,20 @@ An enhanced code editor using Ace editor, providing syntax highlighting, code fo
 
 ## Features
 
-- Edit code directly in Obsidian
-![](./assets/code_view_leaf.png)
+-   Edit code directly in Obsidian
+    ![](./assets/code_view_leaf.png)
 
-- Manage CSS snippets
-![](./assets/snippet_manager.png)
+-   Manage CSS snippets
+    ![](./assets/snippet_manager.png)
 
-- Edit code blocks
-![](./assets/code_block_edit.png)
+-   Edit code blocks
+    ![](./assets/code_block_edit.png)
 
-- Code file preview
-![](./assets/code_file_preview.png)
+-   Code file preview
+    ![](./assets/code_file_preview.png)
 
 ## Installation
+
 ### Manual Installation
 
 1. Download the latest release
@@ -34,6 +35,7 @@ An enhanced code editor using Ace editor, providing syntax highlighting, code fo
 4. Enable the plugin in Settings → Community Plugins
 
 ### BRAT (Recommended for Beta Users)
+
 1. Install [BRAT](https://github.com/TfTHacker/obsidian42-brat) plugin
 2. Click "Add Beta plugin" in BRAT settings
 3. Enter `RavenHogWarts/obsidian-ace-code-editor`
@@ -41,24 +43,27 @@ An enhanced code editor using Ace editor, providing syntax highlighting, code fo
 
 ## Development
 
-- Clone this repo
-- Make sure your NodeJS is at least v16 (`node --version`)
-- `npm i` or `yarn` to install dependencies
-- `npm run dev` to start compilation in watch mode
-- `npm run build` to build the plugin
-- `npm run build:local` to build the plugin and copy it to your vault's plugins folder(need create a .env file in the project root and add the line: VAULT_PATH=/path/to/your/vault)
-- `npm run version` to bump the version number and update the manifest.json, version.json, package.json
-- `npm run release` to build the plugin and bump the version number
+-   Clone this repo
+-   Make sure your NodeJS is at least v16 (`node --version`)
+-   `npm i` or `yarn` to install dependencies
+-   `npm run dev` to start compilation in watch mode
+-   `npm run build` to build the plugin
+-   `npm run build:local` to build the plugin and copy it to your vault's plugins folder(need create a .env file in the project root and add the line: VAULT_PATH=/path/to/your/vault)
+-   `npm run version` to bump the version number and update the manifest.json, version.json, package.json
+-   `npm run release` to build the plugin and bump the version number
 
 ## Support
 
 If you encounter any issues or have suggestions:
-- [Open an issue](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues) on GitHub
-- [Join the discussion](https://github.com/RavenHogWarts/obsidian-ace-code-editor/discussions) for questions and ideas
-- [Check the contributing guidelines](./CONTRIBUTING.md) if you'd like to contribute to the project
+
+-   [Open an issue](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues) on GitHub
+-   [Join the discussion](https://github.com/RavenHogWarts/obsidian-ace-code-editor/discussions) for questions and ideas
+-   [Check the contributing guidelines](./CONTRIBUTING.md) if you'd like to contribute to the project
 
 If you find this plugin helpful, you can support the development through:
-- [afdian](https://afdian.com/a/ravenhogwarts)
+
+-   [ko-fi](https://ko-fi.com/ravenhogwarts)
+-   [afdian](https://afdian.com/a/ravenhogwarts)
 
 ## License
 
