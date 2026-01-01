@@ -121,7 +121,7 @@ type RootTranslation = {
 			 */
 			modified: RequiredParams<'date'>
 			/**
-			 * 没​有​代​码​片​段
+			 * 没​有​发​现​代​码​片​段
 			 */
 			no_snippets: string
 			/**
@@ -197,6 +197,18 @@ type RootTranslation = {
 			 * 无​需​输​入​后​缀​ ​.​c​s​s
 			 */
 			file_modal_message: string
+			/**
+			 * 请​输​入​并​开​始​搜​索​.​.​.
+			 */
+			search_placeholder: string
+			/**
+			 * 区​分​大​小​写
+			 */
+			case_sensitive: string
+			/**
+			 * 清​除​搜​索
+			 */
+			clear_search: string
 		}
 	}
 	modal: {
@@ -243,49 +255,6 @@ type RootTranslation = {
 			 * 编​辑​代​码​块
 			 */
 			header: string
-		}
-		snippetsFile: {
-			/**
-			 * C​S​S​ ​代​码​片​段
-			 */
-			header: string
-			/**
-			 * 删​除​文​件
-			 */
-			deleteFile: string
-			/**
-			 * 确​定​要​删​除​文​件​ ​{​f​i​l​e​N​a​m​e​}​ ​吗​？
-			 * @param {string} fileName
-			 */
-			deleteFileMessage: RequiredParams<'fileName'>
-			/**
-			 * 新​代​码​片​段​名​称
-			 */
-			new_snippet_name: string
-			/**
-			 * 搜​索​代​码​片​段
-			 */
-			search_snippets: string
-			/**
-			 * 重​新​加​载​代​码​片​段
-			 */
-			refresh: string
-			/**
-			 * 新​代​码​片​段
-			 */
-			new_snippet: string
-			/**
-			 * 打​开​代​码​片​段​文​件​夹
-			 */
-			open_snippets_folder: string
-			/**
-			 * 没​有​匹​配​的​代​码​片​段
-			 */
-			no_matching_snippets: string
-			/**
-			 * 没​有​代​码​片​段
-			 */
-			no_snippets: string
 		}
 	}
 	setting: {
@@ -590,7 +559,7 @@ export type TranslationFunctions = {
 			 */
 			modified: (arg: { date: string }) => LocalizedString
 			/**
-			 * 没有代码片段
+			 * 没有发现代码片段
 			 */
 			no_snippets: () => LocalizedString
 			/**
@@ -665,6 +634,18 @@ export type TranslationFunctions = {
 			 * 无需输入后缀 .css
 			 */
 			file_modal_message: () => LocalizedString
+			/**
+			 * 请输入并开始搜索...
+			 */
+			search_placeholder: () => LocalizedString
+			/**
+			 * 区分大小写
+			 */
+			case_sensitive: () => LocalizedString
+			/**
+			 * 清除搜索
+			 */
+			clear_search: () => LocalizedString
 		}
 	}
 	modal: {
@@ -711,48 +692,6 @@ export type TranslationFunctions = {
 			 * 编辑代码块
 			 */
 			header: () => LocalizedString
-		}
-		snippetsFile: {
-			/**
-			 * CSS 代码片段
-			 */
-			header: () => LocalizedString
-			/**
-			 * 删除文件
-			 */
-			deleteFile: () => LocalizedString
-			/**
-			 * 确定要删除文件 {fileName} 吗？
-			 */
-			deleteFileMessage: (arg: { fileName: string }) => LocalizedString
-			/**
-			 * 新代码片段名称
-			 */
-			new_snippet_name: () => LocalizedString
-			/**
-			 * 搜索代码片段
-			 */
-			search_snippets: () => LocalizedString
-			/**
-			 * 重新加载代码片段
-			 */
-			refresh: () => LocalizedString
-			/**
-			 * 新代码片段
-			 */
-			new_snippet: () => LocalizedString
-			/**
-			 * 打开代码片段文件夹
-			 */
-			open_snippets_folder: () => LocalizedString
-			/**
-			 * 没有匹配的代码片段
-			 */
-			no_matching_snippets: () => LocalizedString
-			/**
-			 * 没有代码片段
-			 */
-			no_snippets: () => LocalizedString
 		}
 	}
 	setting: {

@@ -4,7 +4,14 @@ import { LL } from "@src/i18n/i18n";
 import AceCodeEditorPlugin from "@src/main";
 import { SnippetUtils } from "@src/utils/SnippetUtils";
 import formatDate from "@src/utils/formatDate";
-import { CircleEllipsis, Edit, RefreshCw, SortAsc } from "lucide-react";
+import {
+	CaseSensitive,
+	CircleEllipsis,
+	Edit,
+	RefreshCw,
+	Search,
+	SortAsc,
+} from "lucide-react";
 import { Menu, Notice } from "obsidian";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CreateFileDialog } from "../confirm-dialog/CreateFileDialog";
@@ -42,6 +49,10 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 	const [files, setFiles] = useState<SnippetFile[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [sortType, setSortType] = useState<sortType>("name_asc");
+	const [showSearch, setShowSearch] = useState(false);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [isCaseSensitive, setIsCaseSensitive] = useState(false);
+	const searchInputRef = useRef<HTMLInputElement>(null);
 	const navRef = useRef<HTMLDivElement>(null);
 
 	const { handleMouseDown, isResizing } = useResize({
@@ -107,6 +118,30 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 			}
 		});
 	}, [files, sortType]);
+
+	const filteredFiles = useMemo(() => {
+		const query = isCaseSensitive
+			? searchQuery.trim()
+			: searchQuery.trim().toLowerCase();
+		if (!query) return sortedFiles;
+		return sortedFiles.filter((file) => {
+			const fileName = isCaseSensitive
+				? file.nameWithoutExtension
+				: file.nameWithoutExtension.toLowerCase();
+			return fileName.includes(query);
+		});
+	}, [sortedFiles, searchQuery, isCaseSensitive]);
+
+	const toggleSearch = () => {
+		setShowSearch((prev) => {
+			if (prev) {
+				setSearchQuery("");
+			} else {
+				setTimeout(() => searchInputRef.current?.focus(), 0);
+			}
+			return !prev;
+		});
+	};
 
 	const showSortMenu = (event: React.MouseEvent) => {
 		const menu = new Menu();
@@ -174,7 +209,12 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 				.setTitle(LL.view.snippets.enable_all_snippets())
 				.setIcon("circle-check")
 				.onClick(async () => {
-					await SnippetUtils.toggleAllSnippetsState(plugin.app, true);
+					const fileNames = filteredFiles.map((f) => f.name);
+					SnippetUtils.toggleBatchSnippetsState(
+						plugin.app,
+						fileNames,
+						true
+					);
 					loadFiles();
 				})
 		);
@@ -184,8 +224,10 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 				.setTitle(LL.view.snippets.disable_all_snippets())
 				.setIcon("circle-minus")
 				.onClick(async () => {
-					await SnippetUtils.toggleAllSnippetsState(
+					const fileNames = filteredFiles.map((f) => f.name);
+					SnippetUtils.toggleBatchSnippetsState(
 						plugin.app,
+						fileNames,
 						false
 					);
 					loadFiles();
@@ -348,6 +390,15 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 						<SortAsc size={24} className={"svg-icon"} />
 					</div>
 					<div
+						className={`clickable-icon nav-action-button ${
+							showSearch ? "is-active" : ""
+						}`}
+						aria-label={"Search"}
+						onClick={toggleSearch}
+					>
+						<Search size={24} className={"svg-icon"} />
+					</div>
+					<div
 						className="clickable-icon nav-action-button"
 						aria-label={LL.view.snippets.batch_operation()}
 						onClick={showBatchMenu}
@@ -367,10 +418,48 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 						/>
 					</div>
 				</div>
+
+				{showSearch && (
+					<div className="search-input-container">
+						<input
+							ref={searchInputRef}
+							type="search"
+							spellCheck={false}
+							placeholder={LL.view.snippets.search_placeholder()}
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === "Escape") {
+									if (searchQuery) {
+										setSearchQuery("");
+									} else {
+										toggleSearch();
+									}
+								}
+							}}
+						/>
+						{searchQuery && (
+							<div
+								className="search-input-clear-button"
+								aria-label={LL.view.snippets.clear_search()}
+								onClick={() => setSearchQuery("")}
+							/>
+						)}
+						<div
+							className={`input-right-decorator clickable-icon ${
+								isCaseSensitive ? "is-active" : ""
+							}`}
+							aria-label={LL.view.snippets.case_sensitive()}
+							onClick={() => setIsCaseSensitive((prev) => !prev)}
+						>
+							<CaseSensitive size={18} />
+						</div>
+					</div>
+				)}
 			</div>
 
 			<div className="nav-files-container">
-				{sortedFiles.map((file) => (
+				{filteredFiles.map((file) => (
 					<div
 						key={file.name}
 						className={`nav-file-title tappable is-clickable ${
@@ -397,7 +486,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 						</div>
 					</div>
 				))}
-				{sortedFiles.length === 0 && !loading && (
+				{filteredFiles.length === 0 && !loading && (
 					<div className="nav-file-title tappable is-clickable">
 						{LL.view.snippets.no_snippets()}
 					</div>

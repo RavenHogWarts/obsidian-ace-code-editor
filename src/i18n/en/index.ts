@@ -33,7 +33,7 @@ const en = {
 		snippets: {
 			created: "Created at {date:string}",
 			modified: "Last modified at {date:string}",
-			no_snippets: "No snippets",
+			no_snippets: "No snippets found",
 			create_new_snippet: "Create new snippet",
 			sort_by: "Sort by",
 			sort_by_name_asc: "File name (A-Z)",
@@ -53,6 +53,9 @@ const en = {
 			delete_snippet_message:
 				"Are you sure you want to delete snippet {fileName:string}?",
 			file_modal_message: "No need to enter extension .css",
+			search_placeholder: "Search...",
+			case_sensitive: "Case sensitive",
+			clear_search: "Clear search",
 		},
 	},
 	modal: {
@@ -70,19 +73,6 @@ const en = {
 		},
 		editCodeBlock: {
 			header: "Edit code block",
-		},
-		snippetsFile: {
-			header: "Snippet files",
-			deleteFile: "Delete file",
-			deleteFileMessage:
-				"Are you sure you want to delete file {fileName:string}?",
-			new_snippet_name: "New snippet name",
-			search_snippets: "Search snippets",
-			refresh: "Reload snippets",
-			new_snippet: "New snippet",
-			open_snippets_folder: "Open snippets folder",
-			no_matching_snippets: "No matching snippets",
-			no_snippets: "No snippets",
 		},
 	},
 	setting: {

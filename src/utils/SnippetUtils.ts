@@ -24,6 +24,20 @@ export class SnippetUtils {
 	static async toggleAllSnippetsState(app: App, checked: boolean) {
 		const snippetsFiles = await SnippetUtils.getSnippetsFiles(app);
 		snippetsFiles.forEach((file) => {
+			// Extract filename from path if it's a full path
+			const fileName = file.split("/").pop() || file;
+			const snippetId = fileName.slice(0, -4);
+			app.customCss.setCssEnabledStatus(snippetId, checked);
+		});
+		SnippetUtils.requestLoadSnippets(app);
+	}
+
+	static toggleBatchSnippetsState(
+		app: App,
+		files: string[],
+		checked: boolean
+	) {
+		files.forEach((file) => {
 			const snippetId = file.slice(0, -4);
 			app.customCss.setCssEnabledStatus(snippetId, checked);
 		});

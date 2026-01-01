@@ -32,7 +32,7 @@ const zh = {
 		snippets: {
 			created: "创建于 {date:string}",
 			modified: "最后修改于 {date:string}",
-			no_snippets: "没有代码片段",
+			no_snippets: "没有发现代码片段",
 			create_new_snippet: "新建代码片段",
 			sort_by: "排序",
 			sort_by_name_asc: "文件名(A-Z)",
@@ -51,6 +51,9 @@ const zh = {
 			delete_snippet: "删除代码片段",
 			delete_snippet_message: "确定要删除代码片段 {fileName:string} 吗？",
 			file_modal_message: "无需输入后缀 .css",
+			search_placeholder: "请输入并开始搜索...",
+			case_sensitive: "区分大小写",
+			clear_search: "清除搜索",
 		},
 	},
 	modal: {
@@ -67,18 +70,6 @@ const zh = {
 		},
 		editCodeBlock: {
 			header: "编辑代码块",
-		},
-		snippetsFile: {
-			header: "CSS 代码片段",
-			deleteFile: "删除文件",
-			deleteFileMessage: "确定要删除文件 {fileName:string} 吗？",
-			new_snippet_name: "新代码片段名称",
-			search_snippets: "搜索代码片段",
-			refresh: "重新加载代码片段",
-			new_snippet: "新代码片段",
-			open_snippets_folder: "打开代码片段文件夹",
-			no_matching_snippets: "没有匹配的代码片段",
-			no_snippets: "没有代码片段",
 		},
 	},
 	setting: {
