@@ -14,7 +14,7 @@ export class SnippetsEditorView extends AceEditorView {
 	private NavigationRoot: Root | null = null;
 	private currentFile: string | null = null;
 	private snippetsFolder: string;
-	private toggleSnippetAction: HTMLElement | null = null;
+	private refreshToggleSnippetAction: (() => void) | null = null;
 
 	constructor(leaf: WorkspaceLeaf, plugin: AceCodeEditorPlugin) {
 		super(leaf, plugin);
@@ -67,11 +67,11 @@ export class SnippetsEditorView extends AceEditorView {
 			this.renderEmptyState();
 		}
 
-		this.addActions();
+		// this.addActions();
 
 		this.registerEvent(
 			this.app.workspace.on("css-change", () => {
-				this.updateToggleAction();
+				this.refreshToggleSnippetAction?.();
 			})
 		);
 	}
@@ -123,7 +123,9 @@ export class SnippetsEditorView extends AceEditorView {
 		await super.onClose();
 	}
 
-	private addActions() {
+	addActions() {
+		super.addActions();
+
 		this.addAction("sidebar-open", "Toggle sidebar", () => {
 			if (this.leftPanel) {
 				const isCollapsed = this.leftPanel.hasClass("is-collapsed");
@@ -137,25 +139,24 @@ export class SnippetsEditorView extends AceEditorView {
 			}
 		});
 
-		this.toggleSnippetAction = this.addAction(
+		const { refresh } = this.addToggleAction(
 			"power",
 			"Toggle snippet",
-			() => {
+			() =>
+				this.currentFile
+					? SnippetUtils.isSnippetEnabled(this.app, this.currentFile)
+					: false,
+			(enabled) => {
 				if (this.currentFile) {
-					const isEnabled = SnippetUtils.isSnippetEnabled(
-						this.app,
-						this.currentFile
-					);
 					SnippetUtils.toggleSnippetState(
 						this.app,
 						this.currentFile,
-						!isEnabled
+						enabled
 					);
-					this.updateToggleAction();
 				}
 			}
 		);
-		this.updateToggleAction();
+		this.refreshToggleSnippetAction = refresh;
 	}
 
 	private renderEmptyState() {
@@ -166,23 +167,6 @@ export class SnippetsEditorView extends AceEditorView {
 		emptyState.createEl("div", {
 			text: LL.view.snippets.no_snippets(),
 		});
-	}
-
-	private updateToggleAction() {
-		if (!this.toggleSnippetAction || !this.currentFile) return;
-
-		const isEnabled = SnippetUtils.isSnippetEnabled(
-			this.app,
-			this.currentFile
-		);
-
-		this.toggleSnippetAction?.setAttr(
-			"aria-label",
-			isEnabled
-				? LL.view.snippets.disable_snippet()
-				: LL.view.snippets.enable_snippet()
-		);
-		this.toggleSnippetAction?.toggleClass("mod-success", isEnabled);
 	}
 
 	private renderFileNavigation() {
@@ -207,7 +191,7 @@ export class SnippetsEditorView extends AceEditorView {
 	private async handleFileSelect(fileName: string) {
 		this.currentFile = fileName;
 		this.renderFileNavigation();
-		this.updateToggleAction();
+		this.refreshToggleSnippetAction?.();
 
 		try {
 			const content = await this.app.vault.adapter.read(

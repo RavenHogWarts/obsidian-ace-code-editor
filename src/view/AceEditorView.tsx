@@ -106,6 +106,20 @@ export abstract class AceEditorView extends TextFileView {
 
 			this.registerDomEvents(container);
 		}
+
+		this.addActions();
+	}
+
+	protected addActions() {
+		this.addToggleAction(
+			"map",
+			"Toggle minimap",
+			() => this.config.minimap.enabled,
+			(enabled) => {
+				this.config.minimap.enabled = enabled;
+				this.updateEditorConfig(this.config);
+			}
+		);
 	}
 
 	protected renderMinimap() {
@@ -213,5 +227,35 @@ export abstract class AceEditorView extends TextFileView {
 		}
 		this.config.fontSize = newFontSize;
 		this.plugin.updateSettings({ fontSize: newFontSize });
+	}
+
+	/**
+	 * 添加一个带状态切换的 Action 按钮
+	 * @param icon 图标名称
+	 * @param title 鼠标悬停提示
+	 * @param getState 获取当前状态的函数
+	 * @param onToggle 状态切换时的回调，参数为新状态
+	 * @returns 包含 element 和 refresh 方法的对象
+	 */
+	protected addToggleAction(
+		icon: string,
+		title: string,
+		getState: () => boolean,
+		onToggle: (newState: boolean) => void
+	): { element: HTMLElement; refresh: () => void } {
+		const actionEl = this.addAction(icon, title, () => {
+			const newState = !getState();
+			onToggle(newState);
+			actionEl.toggleClass("mod-success", newState);
+		});
+
+		const refresh = () => {
+			actionEl.toggleClass("mod-success", getState());
+		};
+
+		// 初始化时同步状态
+		refresh();
+
+		return { element: actionEl, refresh };
 	}
 }

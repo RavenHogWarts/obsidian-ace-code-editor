@@ -488,10 +488,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 									className="svg-icon mod-success"
 								/>
 							) : (
-								<EyeClosed
-									size={24}
-									className="svg-icon mod-warning"
-								/>
+								<EyeClosed size={24} className="svg-icon" />
 							)}
 						</div>
 						<div
