@@ -1,3 +1,14 @@
+## [1.5.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.5.1...1.5.2) (2026-01-02)
+
+
+### ✨ Features
+
+* 监听 css-change 事件并刷新片段文件列表 (#89) ([9ae0cbe](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/9ae0cbe4b128f0ee956a7e5426858f6f615d16ad)), closes [#89](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/89)
+* 添加可切换状态的 Action 支持 (#90) ([f5afe45](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/f5afe45a46b9d575bef43f76796964a39d824c52)), closes [#90](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/90)
+* 在片段导航中添加可见性图标与修复图标名 (#88) ([5cb51b0](https://github.com/RavenHogWarts/obsidian-ace-code-editor/commit/5cb51b06575f66020f8b2cdf2f61adbd62c3580b)), closes [#88](https://github.com/RavenHogWarts/obsidian-ace-code-editor/issues/88)
+
+
+
 ## [1.5.1](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.5.0...1.5.1) (2026-01-01)
 
 
