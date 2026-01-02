@@ -8,6 +8,8 @@ import {
 	CaseSensitive,
 	CircleEllipsis,
 	Edit,
+	Eye,
+	EyeClosed,
 	RefreshCw,
 	Search,
 	SortAsc,
@@ -149,7 +151,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		menu.addItem((item) =>
 			item
 				.setTitle(LL.view.snippets.sort_by_name_asc())
-				.setIcon("arrow-up-a-z")
+				.setIcon("arrow-up-az")
 				.setChecked(sortType === "name_asc")
 				.onClick(() => setSortType("name_asc"))
 		);
@@ -157,7 +159,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		menu.addItem((item) =>
 			item
 				.setTitle(LL.view.snippets.sort_by_name_desc())
-				.setIcon("arrow-up-z-a")
+				.setIcon("arrow-up-za")
 				.setChecked(sortType === "name_desc")
 				.onClick(() => setSortType("name_desc"))
 		);
@@ -167,7 +169,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		menu.addItem((item) =>
 			item
 				.setTitle(LL.view.snippets.sort_by_mtime_desc())
-				.setIcon("arrow-up-1-0")
+				.setIcon("arrow-up-10")
 				.setChecked(sortType === "mtime_new")
 				.onClick(() => setSortType("mtime_new"))
 		);
@@ -175,7 +177,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		menu.addItem((item) =>
 			item
 				.setTitle(LL.view.snippets.sort_by_mtime_asc())
-				.setIcon("arrow-up-0-1")
+				.setIcon("arrow-up-01")
 				.setChecked(sortType === "mtime_old")
 				.onClick(() => setSortType("mtime_old"))
 		);
@@ -185,7 +187,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		menu.addItem((item) =>
 			item
 				.setTitle(LL.view.snippets.sort_by_ctime_desc())
-				.setIcon("arrow-up-1-0")
+				.setIcon("arrow-up-10")
 				.setChecked(sortType === "ctime_new")
 				.onClick(() => setSortType("ctime_new"))
 		);
@@ -193,7 +195,7 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		menu.addItem((item) =>
 			item
 				.setTitle(LL.view.snippets.sort_by_ctime_asc())
-				.setIcon("arrow-up-0-1")
+				.setIcon("arrow-up-01")
 				.setChecked(sortType === "ctime_old")
 				.onClick(() => setSortType("ctime_old"))
 		);
@@ -468,6 +470,19 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 						onClick={() => onFileSelect(file.name)}
 						onContextMenu={(e) => handleContextMenu(e, file)}
 					>
+						<div className="nav-file-title-icon">
+							{file.enabled ? (
+								<Eye
+									size={24}
+									className="svg-icon mod-success"
+								/>
+							) : (
+								<EyeClosed
+									size={24}
+									className="svg-icon mod-warning"
+								/>
+							)}
+						</div>
 						<div
 							className="nav-file-title-content"
 							aria-label={

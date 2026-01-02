@@ -63,6 +63,10 @@
 			transform: rotate(360deg);
 		}
 	}
+
+	.nav-file-title {
+		gap: 4px;
+	}
 }
 
 .ace-snippets-empty-state {
