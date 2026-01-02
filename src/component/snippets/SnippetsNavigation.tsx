@@ -100,6 +100,17 @@ export const SnippetsNavigation: React.FC<SnippetsNavigationProps> = ({
 		loadFiles();
 	}, [loadFiles]);
 
+	// 监听 css-change 事件
+	useEffect(() => {
+		const handleCssChange = () => {
+			loadFiles();
+		};
+		plugin.app.workspace.on("css-change", handleCssChange);
+		return () => {
+			plugin.app.workspace.off("css-change", handleCssChange);
+		};
+	}, [plugin.app, loadFiles]);
+
 	const sortedFiles = useMemo(() => {
 		return [...files].sort((a, b) => {
 			switch (sortType) {
