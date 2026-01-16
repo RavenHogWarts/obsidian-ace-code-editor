@@ -25,6 +25,9 @@
 	"engines": {
 		"node": ">=18.x"
 	},
+	"overrides": {
+		"@conventional-changelog/git-client": "^2.0.0"
+	},
 	"devDependencies": {
 		"@types/node": "^25.0.2",
 		"@types/react": "^19.2.7",
