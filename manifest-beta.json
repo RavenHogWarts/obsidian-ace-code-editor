@@ -5,7 +5,7 @@
 	"minAppVersion": "1.8.0",
 	"description": "An enhanced code editor using Ace editor, providing syntax highlighting, code folding, and other advanced editing features.",
 	"author": "RavenHogWarts",
-	"authorUrl": "https://github.com/RavenHogWarts",
+	"authorUrl": "https://github.com/Raven-Pensieve",
 	"fundingUrl": {
 		"ko-fi": "https://ko-fi.com/ravenhogwarts",
 		"afdian": "https://afdian.com/a/ravenhogwarts"

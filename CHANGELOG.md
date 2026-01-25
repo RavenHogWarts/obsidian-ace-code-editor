@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/Raven-Pensieve/obsidian-ace-code-editor/compare/1.5.2...2.0.0) (2026-01-25)
+
+
+### 🐛 Bug Fixes
+
+* 修复安全问题 ([84b70fb](https://github.com/Raven-Pensieve/obsidian-ace-code-editor/commit/84b70fb4971de7dad9ba401f9cdd3935850dce02))
+
+
+### 🔨 Chore
+
+* 转移仓库所有权给 Raven-Pensieve ([116140e](https://github.com/Raven-Pensieve/obsidian-ace-code-editor/commit/116140e6da1f97cb40430323ad79616f24b2bc17))
+
+
+
 ## [1.5.2](https://github.com/RavenHogWarts/obsidian-ace-code-editor/compare/1.5.1...1.5.2) (2026-01-02)
 
 
