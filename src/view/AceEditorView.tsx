@@ -14,8 +14,12 @@ export abstract class AceEditorView extends TextFileView {
 
 	private minimapRoot: Root | null = null;
 	private minimapContainer: HTMLElement | null = null;
+	private actionsAdded: boolean = false;
 
-	constructor(leaf: WorkspaceLeaf, protected plugin: AceCodeEditorPlugin) {
+	constructor(
+		leaf: WorkspaceLeaf,
+		protected plugin: AceCodeEditorPlugin,
+	) {
 		super(leaf);
 		this.aceService = new AceService();
 		this.editorScope = new Scope();
@@ -38,9 +42,9 @@ export abstract class AceEditorView extends TextFileView {
 			this.app.workspace.on("css-change", () => {
 				this.aceService.updateTheme(
 					this.config.lightTheme,
-					this.config.darkTheme
+					this.config.darkTheme,
 				);
-			})
+			}),
 		);
 
 		this.registerAceKeybindings();
@@ -77,7 +81,7 @@ export abstract class AceEditorView extends TextFileView {
 		this.config = newConfig;
 		this.aceService.configureEditor(
 			this.config,
-			this.getFileExtension(this.file)
+			this.getFileExtension(this.file),
 		);
 		this.renderMinimap();
 	}
@@ -88,7 +92,7 @@ export abstract class AceEditorView extends TextFileView {
 		this.aceService.createEditor(container);
 		this.aceService.configureEditor(
 			this.config,
-			this.getFileExtension(this.file)
+			this.getFileExtension(this.file),
 		);
 
 		if (this.aceService.isEditorInitialized()) {
@@ -111,6 +115,11 @@ export abstract class AceEditorView extends TextFileView {
 	}
 
 	protected addActions() {
+		if (this.actionsAdded) {
+			return;
+		}
+		this.actionsAdded = true;
+
 		this.addToggleAction(
 			"map",
 			"Toggle minimap",
@@ -118,7 +127,7 @@ export abstract class AceEditorView extends TextFileView {
 			(enabled) => {
 				this.config.minimap.enabled = enabled;
 				this.updateEditorConfig(this.config);
-			}
+			},
 		);
 	}
 
@@ -148,7 +157,7 @@ export abstract class AceEditorView extends TextFileView {
 					enabled={this.config.minimap.enabled}
 					mode={this.config.minimap.mode}
 				/>
-			</StrictMode>
+			</StrictMode>,
 		);
 
 		container.classList.add("ace-minimap-enabled");
@@ -174,7 +183,7 @@ export abstract class AceEditorView extends TextFileView {
 	protected registerAceKeybindings() {
 		if (this.config.keyboard) {
 			this.aceService.setKeyboardHandler(
-				`ace/keyboard/${this.config.keyboard}`
+				`ace/keyboard/${this.config.keyboard}`,
 			);
 		}
 
@@ -193,7 +202,7 @@ export abstract class AceEditorView extends TextFileView {
 			() => {
 				this.app.keymap.pushScope(this.editorScope);
 			},
-			true
+			true,
 		);
 
 		this.registerDomEvent(
@@ -202,7 +211,7 @@ export abstract class AceEditorView extends TextFileView {
 			() => {
 				this.app.keymap.popScope(this.editorScope);
 			},
-			true
+			true,
 		);
 
 		this.registerDomEvent(
@@ -214,7 +223,7 @@ export abstract class AceEditorView extends TextFileView {
 					this.handleFontSizeChange(event.deltaY);
 				}
 			},
-			{ passive: false }
+			{ passive: false },
 		);
 	}
 
@@ -241,7 +250,7 @@ export abstract class AceEditorView extends TextFileView {
 		icon: string,
 		title: string,
 		getState: () => boolean,
-		onToggle: (newState: boolean) => void
+		onToggle: (newState: boolean) => void,
 	): { element: HTMLElement; refresh: () => void } {
 		const actionEl = this.addAction(icon, title, () => {
 			const newState = !getState();
