@@ -100,9 +100,15 @@ export default class SettingsStore {
 		const pathParts = path.split(".");
 		let current: unknown = newSettings;
 
+		const isDangerousKey = (key: string): boolean =>
+			key === "__proto__" || key === "constructor" || key === "prototype";
+
 		// 遍历路径，找到父对象
 		for (let i = 0; i < pathParts.length - 1; i++) {
 			const part = pathParts[i];
+			if (isDangerousKey(part)) {
+				throw new Error(`Invalid setting path: ${path}`);
+			}
 			if (
 				typeof current === "object" &&
 				current !== null &&
@@ -112,6 +118,9 @@ export default class SettingsStore {
 			} else {
 				throw new Error(`Invalid setting path: ${path}`);
 			}
+		}
+		if (isDangerousKey(finalPart)) {
+			throw new Error(`Invalid setting path: ${path}`);
 		}
 
 		// 设置最终值
